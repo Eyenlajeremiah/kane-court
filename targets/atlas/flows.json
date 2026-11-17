@@ -2,15 +2,15 @@
   "flows": [
     {
       "id": "newcomer",
-      "objective": "On the page, find the primary call-to-action button labelled 'View portfolio'. Click it. Assert that a visible portfolio section or panel appears and contains at least one company name. If clicking it changes nothing, the test FAILS."
+      "objective": "On the page, find the primary call-to-action button labelled 'View portfolio' and click it. After the click, assert three things: (1) a portfolio section or panel is visible on the page; (2) the visible portfolio section contains at least one company name; (3) clicking the button produced a visible change on the page. The test PASSES when all three are true, and FAILS if any one of them is false."
     },
     {
       "id": "skeptic",
-      "objective": "Read the whole page. Assert that no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and that every table cell has a real value. If any such placeholder text is present, the test FAILS and quote the exact offending text."
+      "objective": "Read the whole page and assert that no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and that every table cell has a real value. The test PASSES when the page contains none of those placeholder strings and every table cell holds a real value. The test FAILS if any such placeholder text is present, and the failure message must quote the exact offending text."
     },
     {
       "id": "mobile",
-      "objective": "View the page at a narrow mobile viewport of 375px wide. Assert that the page does not scroll sideways and that the headline and the primary button are fully visible and not overlapping. If content overflows horizontally or is cut off, the test FAILS."
+      "objective": "View the page at a narrow mobile viewport of 375px wide. Assert that the page does not scroll sideways, and that the headline and the primary call-to-action button are fully visible and not overlapping. The test PASSES when there is no horizontal overflow and both the headline and the button are fully visible without overlap. The test FAILS if content overflows horizontally or is cut off."
     }
   ]
 }
