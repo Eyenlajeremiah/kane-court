@@ -2,15 +2,15 @@
   "flows": [
     {
       "id": "newcomer",
-      "objective": "Navigate to the page and click the primary call-to-action button labelled 'View portfolio'. PASS requires ALL of the following: (1) the click causes a visible change on the page, (2) a visible portfolio section or panel is present, and (3) that panel contains at least one company name. Report PASS if all three conditions hold. Otherwise report FAIL and state which condition was not met."
+      "objective": "On the page, find the primary call-to-action button labelled 'View portfolio' and click it. After the click, assert three things: (1) a portfolio section or panel is visible on the page; (2) the visible portfolio section contains at least one company name; (3) clicking the button produced a visible change on the page. The test PASSES when all three are true, and FAILS if any one of them is false."
     },
     {
       "id": "skeptic",
-      "objective": "Read the whole page. PASS requires ALL of the following: no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', every table cell contains a real value, and there are no broken image placeholders. Report PASS if all conditions hold. Otherwise report FAIL and quote the exact offending text."
+      "objective": "Read the whole page and assert that no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and that every table cell has a real value. The test PASSES when the page contains none of those placeholder strings and every table cell holds a real value. The test FAILS if any such placeholder text is present, and the failure message must quote the exact offending text."
     },
     {
       "id": "mobile",
-      "objective": "View the page at a narrow mobile viewport of 375px wide. PASS requires ALL of the following: the page does not scroll sideways, and the headline and the primary call-to-action are fully visible, not overlapping and not cut off. Report PASS if both conditions hold. Otherwise report FAIL and state which condition was not met."
+      "objective": "View the page at a narrow mobile viewport of 375px wide. Assert that the page does not scroll sideways, and that the headline and the primary call-to-action button are fully visible and not overlapping. The test PASSES when there is no horizontal overflow and both the headline and the button are fully visible without overlap. The test FAILS if content overflows horizontally or is cut off."
     }
   ]
 }
