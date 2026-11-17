@@ -12,30 +12,30 @@
         "id": "mobile",
         "pass": true,
         "exitCode": 0,
-        "steps": 17,
+        "steps": 13,
         "failures": []
       },
       {
         "id": "newcomer",
         "pass": true,
         "exitCode": 0,
-        "steps": 14,
+        "steps": 13,
         "failures": []
       },
       {
         "id": "skeptic",
         "pass": true,
         "exitCode": 0,
-        "steps": 21,
+        "steps": 11,
         "failures": []
       }
     ],
-    "publishedAt": "2026-11-17T19:45:16.933Z",
+    "publishedAt": "2026-11-17T21:48:57.502Z",
     "kane": "Kane CLI (TestMu AI)",
     "agent": "gemini",
     "integrity": {
       "ok": true,
-      "note": "integrity OK: 27 locked file(s) unchanged"
+      "note": "integrity OK: 30 locked file(s) unchanged"
     }
   }
 ]
