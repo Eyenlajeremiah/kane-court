@@ -1,0 +1,16 @@
+{
+  "flows": [
+    {
+      "id": "newcomer",
+      "objective": "On the page, find the primary call-to-action button labelled 'View portfolio'. Click it. Assert that a visible portfolio section or panel appears and contains at least one company name. If clicking it changes nothing, the test FAILS."
+    },
+    {
+      "id": "skeptic",
+      "objective": "Read the whole page. Assert that no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and that every table cell has a real value. If any such placeholder text is present, the test FAILS and quote the exact offending text."
+    },
+    {
+      "id": "mobile",
+      "objective": "View the page at a narrow mobile viewport of 375px wide. Assert that the page does not scroll sideways and that the headline and the primary button are fully visible and not overlapping. If content overflows horizontally or is cut off, the test FAILS."
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "id": "ledger",
+  "name": "Ledgerline",
+  "blurb": "A bookkeeping SaaS signup page. Planted bug: submitting the form silently reloads the page with no confirmation message."
+}

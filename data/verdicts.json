@@ -1,0 +1,37 @@
+[
+  {
+    "targetId": "atlas",
+    "name": "Atlas Capital",
+    "blurb": "A venture capital landing page. Ships with four planted bugs: a dead CTA, placeholder copy, a silent form and horizontal overflow. This is the demo target the agent repairs live on camera.",
+    "targetUrl": "http://localhost:3000/t/atlas",
+    "pass": true,
+    "blocked": false,
+    "rounds": 2,
+    "flows": [
+      {
+        "id": "mobile",
+        "pass": true,
+        "exitCode": 0,
+        "steps": 17,
+        "failures": []
+      },
+      {
+        "id": "newcomer",
+        "pass": true,
+        "exitCode": 0,
+        "steps": 14,
+        "failures": []
+      },
+      {
+        "id": "skeptic",
+        "pass": true,
+        "exitCode": 0,
+        "steps": 21,
+        "failures": []
+      }
+    ],
+    "publishedAt": "2026-11-17T04:56:45.875Z",
+    "kane": "Kane CLI (TestMu AI)",
+    "agent": "gemini"
+  }
+]

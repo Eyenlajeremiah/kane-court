@@ -1,0 +1,11 @@
+{
+  "name": "kane-court",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "kane": "bash scripts/run-case.sh",
+    "loop": "bash scripts/loop.sh"
+  }
+}

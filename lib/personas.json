@@ -1,0 +1,27 @@
+[
+  {
+    "id": "newcomer",
+    "name": "The Impatient Newcomer",
+    "objective": "Find the primary call-to-action button. Click it. Assert that something visible changes as a result (a new panel, a message, a navigation). If nothing visibly happens, the test FAILS."
+  },
+  {
+    "id": "skeptic",
+    "name": "The Skeptical Reader",
+    "objective": "Assert that every link and button has a clear text label, that no element says 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and that there are no broken image placeholders. If any such text or broken element is present, the test FAILS and you must quote the exact offending text."
+  },
+  {
+    "id": "mobile",
+    "name": "The Mobile User",
+    "objective": "Use the page at a narrow mobile viewport (375px wide). Assert that the primary content is readable and that the primary call-to-action is visible and tappable without horizontal scrolling. If any text is cut off, overlapping, or the page scrolls sideways, the test FAILS."
+  },
+  {
+    "id": "saver",
+    "name": "The Form Filler",
+    "objective": "Fill in every input field with a plausible value and submit the form. Assert that a clear success or error confirmation appears. If submitting does nothing, the page reloads with no message, or a field is silently dropped, the test FAILS."
+  },
+  {
+    "id": "promised",
+    "name": "The Promise Checker",
+    "objective": "Read the headline and the primary button text. Assert that what the headline promises is actually delivered by clicking the button, and that the button label matches what the page advertises. If the button leads nowhere or the label contradicts the headline, the test FAILS and you must quote both texts."
+  }
+]
