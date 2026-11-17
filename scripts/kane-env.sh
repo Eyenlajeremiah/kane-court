@@ -14,3 +14,6 @@ export no_proxy="$(_clean_proxy "${no_proxy:-}")"
 if [[ "${CHROME_BIN:-}" == *"headless-shell"* ]]; then
   unset CHROME_BIN
 fi
+
+# Antigravity CLI (agy) - not on the default PATH on this machine
+export AGY_BIN="${AGY_BIN:-/c/Users/dell/.gemini/bin/agy.exe}"

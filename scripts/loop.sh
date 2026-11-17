@@ -21,7 +21,7 @@ for ((ROUND=1; ROUND<=MAX_ROUNDS; ROUND++)); do
   echo "RED at round $ROUND - re-prompting the agent with Kane's findings"
   node scripts/build-prompt.js "$TARGET_ID" "$ROUND"
   if command -v "${AGY_BIN:-agy}" >/dev/null 2>&1; then
-    "${AGY_BIN:-agy}" -p "$(cat .loop/pending-prompt.md)" --output-format json --mode auto >> .loop/agent-responses.ndjson 2>> .loop/agent-errors.log
+    "${AGY_BIN:-agy}" -p "$(cat .loop/pending-prompt.md)" --output-format json --mode auto --dangerously-skip-permissions >> .loop/agent-responses.ndjson 2>> .loop/agent-errors.log
     echo "agent re-prompted via ${AGY_BIN:-agy}"
   else
     echo "NOTE: agy CLI not found. Open .loop/pending-prompt.md, paste it into Antigravity, then re-run this script."
