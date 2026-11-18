@@ -1,11 +1,45 @@
 {
   "name": "kane-court",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.2.0",
+  "private": false,
   "type": "module",
   "scripts": {
     "start": "node server.js",
     "kane": "bash scripts/run-case.sh",
-    "loop": "bash scripts/loop.sh"
+    "loop": "bash scripts/loop.sh",
+    "verify": "node bin/kane-court.js verify",
+    "mcp": "node mcp/server.js",
+    "lock": "node scripts/lock-files.js --init"
+  },
+  "description": "An adversarial QA court: Kane CLI (a real browser agent) judges your app on five adversarial personas, and a verdict is published only when the green is earned.",
+  "license": "MIT",
+  "keywords": [
+    "qa",
+    "testing",
+    "e2e",
+    "kane-cli",
+    "testmu",
+    "agent",
+    "mcp",
+    "llm",
+    "adversarial"
+  ],
+  "bin": {
+    "kane-court": "bin/kane-court.js"
+  },
+  "files": [
+    "bin/",
+    "lib/kane-court-core.js",
+    "mcp/",
+    "scripts/",
+    "server.js",
+    "targets/",
+    "lib/personas.json",
+    "data/",
+    "AGENTS.md",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
   }
 }

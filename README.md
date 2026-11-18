@@ -1,7 +1,7 @@
 # Kane Court
 
 An adversarial QA court. The AI coding agent is the **prosecutor**.
-**Kane CLI** is the **judge** — a vision-based E2E agent that drives a real Google
+**Kane CLI** is the **judge** â a vision-based E2E agent that drives a real Google
 Chrome browser and rules against the app on five adversarial personas.
 
 A verdict is published **only** when the agent has earned a green re-run.
@@ -61,18 +61,18 @@ bash scripts/kane-gate.sh   # emits the hook's decision JSON
 
 ## Personas
 
-Defined in `lib/personas.json`. Each objective is the spec — the agent may not
+Defined in `lib/personas.json`. Each objective is the spec â the agent may not
 weaken them to force a pass.
 
-- **The Impatient Newcomer** — does the primary CTA do anything?
-- **The Skeptical Reader** — any `undefined`, `null`, `Lorem ipsum`, `coming soon`?
-- **The Mobile User** — 375px wide: readable, tappable, no sideways scroll?
-- **The Form Filler** — does submitting produce a real confirmation?
-- **The Promise Checker** — does the headline deliver what it promises?
+- **The Impatient Newcomer** â does the primary CTA do anything?
+- **The Skeptical Reader** â any `undefined`, `null`, `Lorem ipsum`, `coming soon`?
+- **The Mobile User** â 375px wide: readable, tappable, no sideways scroll?
+- **The Form Filler** â does submitting produce a real confirmation?
+- **The Promise Checker** â does the headline deliver what it promises?
 
 ## Targets
 
-`targets/` holds the demo corpus. `atlas` is the one used in the demo video — it ships
+`targets/` holds the demo corpus. `atlas` is the one used in the demo video â it ships
 with four deliberate bugs (dead CTA, placeholder copy, no mobile fit, silent form).
 
 | Target | Planted bugs |
@@ -104,3 +104,42 @@ scripts/publish.js    publish only on green
 targets/              demo corpus
 AGENTS.md             the agent's operating contract
 ```
+
+## Install it as a tool
+
+```bash
+npm install -g kane-court
+kane-court serve --port 4173          # the court
+kane-court verify --target atlas      # put a target on trial
+kane-court targets                    # what's on the docket
+```
+
+Or run it without installing anything:
+
+```bash
+npx kane-court verify --target atlas
+```
+
+## Use it from your agent (MCP)
+
+The court exposes a `verify_with_kane` tool to any MCP-capable agent -
+Claude Code, Cursor, Codex, Windsurf, Kiro. The agent can put an app on trial
+and read a structured verdict instead of guessing whether its own work works.
+
+```bash
+kane-court install --agent claude     # also: cursor, codex, windsurf, kiro
+```
+
+Then, in your agent:
+
+> Use kane-court to verify the atlas target.
+
+Tools exposed: `verify_with_kane`, `kane_gate`, `list_targets`, `get_verdict`.
+
+## Why the green is worth something
+
+Every harness file - the persona objectives, the parser, the publisher, this
+README - is pinned by SHA-256 in `scripts/lock-manifest.json`. The agent may
+only change `targets/*/index.html`. If it weakens a spec to force a pass,
+`publish.js` refuses to publish the verdict. The lock is the reason a green
+badge means something.
