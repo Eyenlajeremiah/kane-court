@@ -20,12 +20,31 @@ function targets() {
 function esc(s) {
   return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;');
 }
+
+// The docket changes while the court is working - a submitted URL goes
+// queued -> running -> green/red. The page is server-rendered and static, so
+// it needs a nudge to show the new state. This polls a tiny version endpoint
+// and reloads only when the underlying data actually changed.
+function autoRefreshScript() {
+  return '<script>' +
+    '(function(){' +
+    'var v=null;' +
+    'setInterval(function(){' +
+    'fetch("/data-version",{cache:"no-store"}).then(function(r){return r.text()}).then(function(t){' +
+    'if(v===null){v=t;return;}' +
+    'if(t&&t!==v){v=t;window.location.reload();}' +
+    '}).catch(function(){});' +
+    '},3000);' +
+    '})();' +
+    '</script>';
+}
+
 function layout(title, body) {
   return '<!doctype html><html lang="en"><head><meta charset="utf-8">'
     + '<meta name="viewport" content="width=device-width,initial-scale=1">'
     + '<title>' + esc(title) + ' &mdash; Kane Court</title>'
     + '<link rel="stylesheet" href="/style.css"></head><body><div class="wrap">'
-    + body + '</div></body></html>';
+    + body + autoRefreshScript() + '</div></body></html>';
 }
 function verdictPage(v) {
   const badge = v.blocked ? '<span class="pill pend">blocked</span>'
@@ -129,6 +148,14 @@ const server = http.createServer(async (req, res) => {
     // Kick the worker so a submitted URL does not sit in the queue. The worker
     // is spawned detached: the browser gets its redirect immediately.
     kickWorker();
+    return;
+  }
+  if (p === '/data-version') {
+    const vv = readJson(VERDICTS, []);
+    const qq = readJson(QUEUE, []);
+    const stamp = vv.map((x) => x.targetId + (x.pass ? '1' : '0')).join('|') + '#' + qq.map((q) => q.targetId + q.status).join('|');
+    res.writeHead(200, { 'Content-Type': 'text/plain', 'Cache-Control': 'no-store' });
+    res.end(String(stamp));
     return;
   }
   if (p === '/' ) { res.writeHead(200, { 'Content-Type': 'text/html' }); res.end(homePage()); return; }
