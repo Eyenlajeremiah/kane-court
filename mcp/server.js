@@ -28,7 +28,8 @@ const TOOLS = [
       properties: {
         target: { type: "string", description: "Target id under targets/, e.g. 'atlas'. Default: the only target." },
         url: { type: "string", description: "URL to judge, e.g. http://localhost:3000/t/atlas" },
-        timeout: { type: "number", description: "Per-flow timeout in seconds. Default 240." }
+        timeout: { type: "number", description: "Per-flow timeout in seconds. Default 240." },
+        replay: { type: "boolean", description: "Replay the committed flows from their cached recordings instead of authoring new ones. Free - no LLM credits needed." }
       }
     }
   },
@@ -67,7 +68,7 @@ function callTool(name, args = {}) {
     case "verify_with_kane": {
       if (!target) return textResult("No targets found.", true);
       const url = args.url || `http://localhost:3000/t/${target}`;
-      const verdict = verifyWithKane({ target, url, timeout: args.timeout || 240 });
+      const verdict = verifyWithKane({ target, url, timeout: args.timeout || 240, replay: args.replay === true });
       return textResult(verdict);
     }
     case "kane_gate":

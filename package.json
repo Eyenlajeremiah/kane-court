@@ -9,7 +9,9 @@
     "loop": "bash scripts/loop.sh",
     "verify": "node bin/kane-court.js verify",
     "mcp": "node mcp/server.js",
-    "lock": "node scripts/lock-files.js --init"
+    "lock": "node scripts/lock-files.js --init",
+    "replay": "bash scripts/replay.sh",
+    "record": "bash scripts/record-flows.sh"
   },
   "description": "An adversarial QA court: Kane CLI (a real browser agent) judges your app on five adversarial personas, and a verdict is published only when the green is earned.",
   "license": "MIT",
@@ -28,16 +30,17 @@
     "kane-court": "bin/kane-court.js"
   },
   "files": [
+    ".testmuai/",
+    "AGENTS.md",
+    "README.md",
     "bin/",
+    "data/",
     "lib/kane-court-core.js",
+    "lib/personas.json",
     "mcp/",
     "scripts/",
     "server.js",
-    "targets/",
-    "lib/personas.json",
-    "data/",
-    "AGENTS.md",
-    "README.md"
+    "targets/"
   ],
   "engines": {
     "node": ">=18"

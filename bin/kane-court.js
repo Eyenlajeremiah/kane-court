@@ -28,7 +28,7 @@ function usage() {
 
 Usage:
   kane-court serve [--port 4173]
-  kane-court verify [--target atlas] [--url http://localhost:3000/t/atlas] [--timeout 240]
+  kane-court verify [--target atlas] [--url http://localhost:3000/t/atlas] [--timeout 240] [--replay]
   kane-court gate
   kane-court targets
   kane-court verdict [--target atlas]
@@ -56,7 +56,8 @@ function cmdVerify() {
   if (!target) return console.error("no targets on the docket"), process.exit(2);
   const url = flag("url", `http://localhost:3000/t/${target}`);
   console.log(`Kane Court: putting "${target}" on trial at ${url}\n`);
-  const v = verifyWithKane({ target, url, timeout: Number(flag("timeout", 240)) });
+  const replay = argv.includes("--replay");
+  const v = verifyWithKane({ target, url, timeout: Number(flag("timeout", 240)), replay });
   for (const f of v.flows) {
     console.log(`[${target}][${f.id}] pass=${f.pass} exit=${f.exitCode} steps=${f.steps}`);
     for (const fail of f.failures || []) console.log(`    * ${fail.message || fail.status || JSON.stringify(fail)}`);

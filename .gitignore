@@ -3,3 +3,6 @@ node_modules/
 data/runs/
 *.log
 .env
+
+# Kane CLI replayable tests + recordings - these MUST be committed
+# so a judge with no credits can still run the flows.

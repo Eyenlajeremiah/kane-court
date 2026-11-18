@@ -143,3 +143,40 @@ README - is pinned by SHA-256 in `scripts/lock-manifest.json`. The agent may
 only change `targets/*/index.html`. If it weakens a spec to force a pass,
 `publish.js` refuses to publish the verdict. The lock is the reason a green
 badge means something.
+
+## Replayable flows (no credits required)
+
+Authoring a Kane flow costs credits. **Replaying a saved flow is free** - the
+step replays from its cached recording in seconds. So the flows are committed
+to the repo, and a judge with an empty balance can still run the court.
+
+```bash
+bash scripts/replay.sh atlas              # replay the committed flows - free
+node bin/kane-court.js verify --target atlas --replay
+kane-cli testmd run .testmuai/tests/newcomer_test.md --url http://localhost:3000/t/atlas --agent --headless
+```
+
+To re-record the flows (costs credits, ~1 min each):
+
+```bash
+bash scripts/record-flows.sh atlas
+git add .testmuai && git commit -m "chore: re-record Kane flows"
+```
+
+Commit the `*_test.md` file **together with** its `output-<flow>/` recordings
+folder. A step only replays when its recording is there.
+
+## For judges
+
+```bash
+npm install          # zero runtime dependencies
+npm start            # court on http://localhost:3000
+node server.js       # in a second terminal
+bash scripts/replay.sh atlas     # replays the committed flows - no credits needed
+```
+
+Open http://localhost:3000/v/atlas for the verdict page.
+
+Needs real Google Chrome (not `chrome-headless-shell`). If you are behind a
+proxy, remove bracketed IPv6 entries such as `[::1]` from `NO_PROXY` - they
+break Kane's HTTP client. `scripts/kane-env.sh` does this for you.
