@@ -1,7 +1,7 @@
 # Kane Court
 
 An adversarial QA court. The AI coding agent is the **prosecutor**.
-**Kane CLI** is the **judge** â a vision-based E2E agent that drives a real Google
+**Kane CLI** is the **judge** Ã¢ÂÂ a vision-based E2E agent that drives a real Google
 Chrome browser and rules against the app on five adversarial personas.
 
 A verdict is published **only** when the agent has earned a green re-run.
@@ -61,18 +61,18 @@ bash scripts/kane-gate.sh   # emits the hook's decision JSON
 
 ## Personas
 
-Defined in `lib/personas.json`. Each objective is the spec â the agent may not
+Defined in `lib/personas.json`. Each objective is the spec Ã¢ÂÂ the agent may not
 weaken them to force a pass.
 
-- **The Impatient Newcomer** â does the primary CTA do anything?
-- **The Skeptical Reader** â any `undefined`, `null`, `Lorem ipsum`, `coming soon`?
-- **The Mobile User** â 375px wide: readable, tappable, no sideways scroll?
-- **The Form Filler** â does submitting produce a real confirmation?
-- **The Promise Checker** â does the headline deliver what it promises?
+- **The Impatient Newcomer** Ã¢ÂÂ does the primary CTA do anything?
+- **The Skeptical Reader** Ã¢ÂÂ any `undefined`, `null`, `Lorem ipsum`, `coming soon`?
+- **The Mobile User** Ã¢ÂÂ 375px wide: readable, tappable, no sideways scroll?
+- **The Form Filler** Ã¢ÂÂ does submitting produce a real confirmation?
+- **The Promise Checker** Ã¢ÂÂ does the headline deliver what it promises?
 
 ## Targets
 
-`targets/` holds the demo corpus. `atlas` is the one used in the demo video â it ships
+`targets/` holds the demo corpus. `atlas` is the one used in the demo video Ã¢ÂÂ it ships
 with four deliberate bugs (dead CTA, placeholder copy, no mobile fit, silent form).
 
 | Target | Planted bugs |
@@ -143,6 +143,16 @@ README - is pinned by SHA-256 in `scripts/lock-manifest.json`. The agent may
 only change `targets/*/index.html`. If it weakens a spec to force a pass,
 `publish.js` refuses to publish the verdict. The lock is the reason a green
 badge means something.
+
+## Submission checklist
+
+For the Kane CLI hackathon (deadline 26 Nov 2026, 19:29 WAT):
+
+- [ ] Author + commit the replayable flows - `bash scripts/record-flows.sh atlas`
+- [ ] Publish to npm - `npm login && npm publish`
+- [ ] Record the demo video - `docs/RECORDING_GUIDE.md`
+- [ ] Post twice - `docs/LAUNCH_POSTS.md`
+- [ ] Submit - `docs/SUBMISSION.md`
 
 ## Replayable flows (no credits required)
 
