@@ -79,3 +79,15 @@ If the agent had weakened a spec to force a pass, this would report drift and
 | httpx / connection errors behind a proxy | Remove bracketed IPv6 (`[::1]`) from `NO_PROXY`. Also handled by `kane-env.sh`. |
 | The server was not running when Kane started | Kane judges the app, not the harness. Start `node server.js` first. |
 | The Stop gate prints nothing | Run `bash scripts/kane-gate.sh` directly to see the error. |
+
+## Try it on your own site
+
+```bash
+node bin/kane-court.js trial --url https://yoursite.com
+```
+
+Or paste the URL into the form on the home page. The worker judges it and the
+verdict shows up on the docket.
+
+Requires Kane CLI credits (authoring a flow costs credits). The bundled demo
+target can be replayed for free with `bash scripts/replay.sh atlas`.

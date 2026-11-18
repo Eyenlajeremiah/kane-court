@@ -51,6 +51,13 @@ function homePage() {
   const q = readJson(QUEUE, []);
   const ts = targets();
   let cards = '';
+  const ext = vs.filter((v) => v.external);
+  for (const v of ext) {
+    const badge = v.pass ? '<span class="pill pass">green</span>' : '<span class="pill fail">red</span>';
+    cards += '<div class="card"><h2 style="margin:0 0 6px;font-size:17px">' + esc(v.name) + '</h2>'
+      + '<div>' + badge + '</div><p class="sub mono" style="margin:8px 0;word-break:break-all">' + esc(v.targetUrl) + '</p>'
+      + '<a href="/v/' + esc(v.targetId) + '">Read the verdict</a></div>';
+  }
   for (const t of ts) {
     const v = vs.find((x) => x.targetId === t.id);
     const badge = v ? (v.blocked ? '<span class="pill pend">blocked</span>' : (v.pass ? '<span class="pill pass">green</span>' : '<span class="pill fail">red</span>')) : '<span class="pill pend">not yet judged</span>';
@@ -60,7 +67,9 @@ function homePage() {
   }
   let qrows = '';
   for (const item of q) {
-    qrows += '<tr><td>' + esc(item.targetId) + '</td><td><span class="pill ' + (item.status === 'green' ? 'pass' : (item.status === 'red' ? 'fail' : 'pend')) + '">' + esc(item.status) + '</span></td><td class="mono">' + esc(item.note || '') + '</td></tr>';
+    const pill = item.status === 'green' ? 'pass' : (item.status === 'red' ? 'fail' : 'pend');
+    const vlink = item.verdictId ? ' <a href="/v/' + esc(item.verdictId) + '">verdict</a>' : '';
+    qrows += '<tr><td>' + esc(item.targetId) + vlink + '</td><td><span class="pill ' + pill + '">' + esc(item.status) + '</span></td><td class="mono">' + esc(item.note || '') + '</td></tr>';
   }
   let body = '<h1>Kane Court</h1>';
   body += '<p class="sub">An adversarial QA court. The agent is the prosecutor, Kane CLI is the judge, and a verdict is published only when the agent has earned a green re-run.</p>';
@@ -107,10 +116,19 @@ const server = http.createServer(async (req, res) => {
     const targetUrl = (params.get('url') || '').trim();
     const note = (params.get('note') || '').trim();
     const q = readJson(QUEUE, []);
-    q.push({ targetId: targetUrl, note, status: 'queued', at: new Date().toISOString() });
+    const existing = q.findIndex((x) => x.targetId === targetUrl && (x.status === 'queued' || x.status === 'running'));
+    if (existing >= 0) {
+      q[existing].note = note || q[existing].note;
+      q[existing].at = new Date().toISOString();
+    } else {
+      q.push({ targetId: targetUrl, note, status: 'queued', at: new Date().toISOString() });
+    }
     writeJson(QUEUE, q);
     res.writeHead(302, { Location: '/' });
     res.end();
+    // Kick the worker so a submitted URL does not sit in the queue. The worker
+    // is spawned detached: the browser gets its redirect immediately.
+    kickWorker();
     return;
   }
   if (p === '/' ) { res.writeHead(200, { 'Content-Type': 'text/html' }); res.end(homePage()); return; }
@@ -132,7 +150,27 @@ const server = http.createServer(async (req, res) => {
   res.writeHead(404, { 'Content-Type': 'text/html' });
   res.end(layout('Not found', '<h1>Not found</h1><p><a href="/">Back</a></p>'));
 });
+// The queue worker. It is started automatically so that a URL submitted through
+// the form is actually put on trial instead of sitting in the queue forever.
+// Set QUEUE_WORKER=0 to keep the server read-only (useful while recording the
+// demo, so the worker cannot spend credits mid-take).
+function kickWorker() {
+  if (process.env.QUEUE_WORKER === '0') return;
+  if (globalThis.__kaneWorkerStarted) return;
+  globalThis.__kaneWorkerStarted = true;
+  const w = spawn(process.execPath, [path.join(ROOT, 'scripts', 'queue-worker.js')], {
+    cwd: ROOT, detached: true, stdio: 'ignore'
+  });
+  w.unref();
+}
 ensureData();
+if (process.env.QUEUE_WORKER !== '0') {
+  // Start the worker slightly after the server so the port is free.
+  setTimeout(kickWorker, 500);
+}
 server.listen(PORT, () => {
   console.log('Kane Court listening on http://localhost:' + PORT);
+  console.log(process.env.QUEUE_WORKER === '0'
+    ? 'queue worker: OFF (read-only court)'
+    : 'queue worker: ON (submitted URLs are put on trial automatically)');
 });

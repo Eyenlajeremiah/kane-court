@@ -32,6 +32,7 @@ Usage:
   kane-court gate
   kane-court targets
   kane-court verdict [--target atlas]
+  kane-court trial --url <url>          put any URL on trial
   kane-court install --agent <claude|cursor|codex|windsurf|kiro>
 `);
 }
@@ -136,7 +137,21 @@ switch (cmd) {
   case "gate": cmdGate(); break;
   case "targets": cmdTargets(); break;
   case "verdict": cmdVerdict(); break;
-  case "install": cmdInstall(); break;
+  case "trial": {
+  const url = flag("url");
+  if (!url) { console.error("usage: kane-court trial --url <url>"); process.exit(2); }
+  const { judgeUrl } = await import("../scripts/queue-worker.js");
+  const v = judgeUrl(url, flag("note", "") || "");
+  for (const f of v.flows) {
+    console.log(`[${f.id}] pass=${f.pass} exit=${f.exitCode}`);
+    for (const fail of f.failures || []) console.log(`    * ${fail.message}`);
+  }
+  console.log(`\n${v.pass ? "GREEN" : "RED"} - ${v.name} (${v.targetUrl})`);
+  console.log(`verdict: /v/${v.targetId}`);
+  process.exit(v.pass ? 0 : 1);
+}
+  break;
+case "install": cmdInstall(); break;
   case "help": case "--help": case "-h": case undefined: usage(); break;
   default:
     console.error(`unknown command: ${cmd}`);

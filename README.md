@@ -190,3 +190,29 @@ Open http://localhost:3000/v/atlas for the verdict page.
 Needs real Google Chrome (not `chrome-headless-shell`). If you are behind a
 proxy, remove bracketed IPv6 entries such as `[::1]` from `NO_PROXY` - they
 break Kane's HTTP client. `scripts/kane-env.sh` does this for you.
+
+## Put any URL on trial
+
+The court is not limited to the bundled demo targets. Submit any URL through the
+form on the home page, or from the command line:
+
+```bash
+node bin/kane-court.js trial --url https://example.com
+```
+
+A queue worker (started automatically by `npm start`) picks the URL up, runs the
+five adversarial personas against it with Kane CLI, writes a verdict, and marks
+the queue item green or red. The verdict appears on the docket with a link.
+
+```bash
+node scripts/queue-worker.js --once   # drain the queue once and exit
+node scripts/queue-worker.js --url <u> # judge one URL directly
+```
+
+Set `QUEUE_WORKER=0` to run the court read-only - useful while recording, so
+the worker cannot spend credits mid-take.
+
+**What this measures:** whether a page actually works for real users. Does the
+primary button do something. Is the copy real, or is it "Coming soon". Does it
+hold up at 375px. Does the form confirm. Does the page deliver what its
+headline promises. It is a correctness check, not a load or uptime test.

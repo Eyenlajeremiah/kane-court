@@ -11,7 +11,8 @@
     "mcp": "node mcp/server.js",
     "lock": "node scripts/lock-files.js --init",
     "replay": "bash scripts/replay.sh",
-    "record": "bash scripts/record-flows.sh"
+    "record": "bash scripts/record-flows.sh",
+    "trial": "node bin/kane-court.js trial"
   },
   "description": "An adversarial QA court: Kane CLI (a real browser agent) judges your app on five adversarial personas, and a verdict is published only when the green is earned.",
   "license": "MIT",
