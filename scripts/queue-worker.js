@@ -39,23 +39,23 @@ function writeJson(p, v) {
   fs.writeFileSync(p, JSON.stringify(v, null, 2));
 }
 
-export function personas() {
+export function personas(targetId = null) {
   const base = JSON.parse(fs.readFileSync(path.join(ROOT, "lib", "personas.json"), "utf8"));
-  let ids = base.map((x) => x.id);
-  let flows = base;
-  const tj = path.join(ROOT, "targets", "atlas", "flows.json");
+  if (!targetId) return base;
+  const tj = path.join(ROOT, "targets", targetId, "flows.json");
   if (fs.existsSync(tj)) {
     try {
       const j = JSON.parse(fs.readFileSync(tj, "utf8"));
       const arr = j.flows || j;
-      if (Array.isArray(arr) && arr.length) { ids = arr.map((x) => x.id); flows = arr; }
+      if (Array.isArray(arr) && arr.length) {
+        return arr.map((item) => {
+          const baseP = base.find((x) => x.id === item.id);
+          return { id: item.id, name: (baseP && baseP.name) || item.id, objective: item.objective || (baseP && baseP.objective) || "" };
+        });
+      }
     } catch {}
   }
-  return ids.map((id) => {
-    const baseP = base.find((x) => x.id === id);
-    const c = flows.find((x) => x.id === id);
-    return { id, name: (baseP && baseP.name) || id, objective: (c && c.objective) || (baseP && baseP.objective) || "" };
-  });
+  return base;
 }
 
 // Stable, short id for an external URL so the verdict page can be linked.
@@ -66,10 +66,13 @@ export function externalId(url) {
 function runKane(objective, url) {
   const raw = path.join(DATA, "queue-raw", `${externalId(url)}.ndjson`);
   fs.mkdirSync(path.dirname(raw), { recursive: true });
+  const bin = process.env.KANE_BIN || (process.platform === "win32" ? "kane-cli.cmd" : "kane-cli");
+  const extraPath = process.platform === "win32" ? "C:\\Program Files\\Git\\bin;C:\\Program Files\\Git\\usr\\bin;C:\\Users\\dell\\AppData\\Roaming\\npm;" : "";
+  const spawnEnv = { ...process.env, PATH: extraPath + (process.env.PATH || "") };
   const r = spawnSync(
-    "kane-cli",
+    bin,
     ["run", objective, "--url", url, "--agent", "--headless", "--timeout", String(TIMEOUT)],
-    { cwd: ROOT, encoding: "utf8", maxBuffer: 64 * 1024 * 1024, shell: false }
+    { cwd: ROOT, encoding: "utf8", maxBuffer: 64 * 1024 * 1024, shell: process.platform === "win32", env: spawnEnv }
   );
   try { fs.writeFileSync(raw, r.stdout || ""); } catch {}
   const pr = spawnSync("node", [path.join(ROOT, "scripts", "parse-kane.js"), raw, String(r.status ?? 2)], {
@@ -80,8 +83,8 @@ function runKane(objective, url) {
 }
 
 // Judge one URL. Returns the verdict.
-export function judgeUrl(url, note = "") {
-  const ps = personas();
+export function judgeUrl(url, note = "", targetId = null) {
+  const ps = personas(targetId);
   const flows = [];
   for (const p of ps) {
     if (!p.objective) continue;
@@ -155,7 +158,12 @@ function drain(once = false) {
   return did;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+const isMain = Boolean(process.argv[1] && (
+  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url) ||
+  import.meta.url === `file://${process.argv[1]}`
+));
+
+if (isMain) {
   const urlIdx = argv.indexOf("--url");
   if (urlIdx >= 0 && argv[urlIdx + 1]) {
     const v = judgeUrl(argv[urlIdx + 1]);

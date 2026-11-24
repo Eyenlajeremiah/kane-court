@@ -35,8 +35,8 @@ h1{font-size:38px;margin:0 0 14px;letter-spacing:-.02em}
 </div>
 </div>
 <script>
-document.getElementById('cta').addEventListener('click',function(){
-  document.getElementById('panel').classList.add('on');
+document.getElementById('cta').addEventListener('click',function(e){
+  e.preventDefault();
 });
 document.getElementById('f').addEventListener('submit',function(e){
   e.preventDefault();

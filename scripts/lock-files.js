@@ -19,6 +19,7 @@ const isLocked = (rel) => {
   const p = rel.split(path.sep).join("/");
   if (p.startsWith(".git/") || p.startsWith("node_modules/")) return false;
   if (p.startsWith(".loop/") || p.startsWith("data/")) return false;
+  if (p.startsWith(".testmuai/evidence/") || p.includes("/.internal/")) return false;
   if (p === "scripts/lock-manifest.json") return false;
   if (/^targets\/[^/]+\/index\.html$/.test(p)) return false; // the app is mutable
   return true;
@@ -28,8 +29,18 @@ function walk(dir, out = []) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, e.name);
     const rel = path.relative(ROOT, full);
+    const posixRel = rel.split(path.sep).join("/");
     if (e.isDirectory()) {
-      if (rel === ".git" || rel === "node_modules" || rel === ".loop" || rel === "data") continue;
+      if (
+        posixRel === ".git" ||
+        posixRel === "node_modules" ||
+        posixRel === ".loop" ||
+        posixRel === "data" ||
+        posixRel === ".testmuai/evidence" ||
+        posixRel.endsWith("/.internal") ||
+        posixRel === ".testmuai/tests" && false
+      ) continue;
+      if (e.name === ".internal") continue;
       walk(full, out);
     } else if (e.isFile() && isLocked(rel)) {
       out.push(rel);

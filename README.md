@@ -179,10 +179,9 @@ folder. A step only replays when its recording is there.
 ## For judges
 
 ```bash
-npm install          # zero runtime dependencies
-npm start            # court on http://localhost:3000
-node server.js       # in a second terminal
-bash scripts/replay.sh atlas     # replays the committed flows - no credits needed
+npm install                      # zero runtime dependencies
+npm start                        # court on http://localhost:3000 (terminal 1)
+bash scripts/replay.sh atlas     # replays committed flows - no credits needed (terminal 2)
 ```
 
 Open http://localhost:3000/v/atlas for the verdict page.

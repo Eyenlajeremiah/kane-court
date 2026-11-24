@@ -8,18 +8,12 @@ Everything a judge needs, in the order they need it.
 git clone https://github.com/Eyenlajeremiah/kane-court.git
 cd kane-court
 npm install          # zero runtime dependencies
-npm start            # http://localhost:3000
-```
-
-In a second terminal:
-
-```bash
-node server.js
+npm start            # starts court on http://localhost:3000
 ```
 
 ## 2. Verify it, without spending credits
 
-The persona flows are committed with their recordings, so they replay:
+In a second terminal, replay the committed persona flows:
 
 ```bash
 bash scripts/replay.sh atlas

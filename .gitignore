@@ -1,6 +1,7 @@
 node_modules/
 .loop/
 data/runs/
+data/queue-raw/
 *.log
 .env
 
