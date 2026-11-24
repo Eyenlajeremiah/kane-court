@@ -47,10 +47,22 @@ for FID in "${FLOWS[@]}"; do
   RAW="$OUT_DIR/raw/$FID.ndjson"
   TEST_FILE="$TESTS_DIR/${FID}_test.md"
 
-  if [[ $REPLAY -eq 1 && -f "$TEST_FILE" ]]; then
-    echo "--- replaying $TEST_FILE (no credits) ---"
-    kane-cli testmd run "$TEST_FILE" --url "$TARGET_URL" --agent --headless >"$RAW" 2>"$OUT_DIR/raw/$FID.log"
-    CODE=$?
+  REC_DIR="$TESTS_DIR/output-$FID"
+
+  if [[ $REPLAY -eq 1 ]]; then
+    # A replay only works if the recording is committed alongside the spec.
+    # Without it we skip the flow rather than fail the round: replay is the
+    # free path a judge uses, and a missing recording must not look like a
+    # failed test. Run without --replay to author this flow for real.
+    if [[ -f "$TEST_FILE" && -d "$REC_DIR" ]]; then
+      echo "--- replaying $TEST_FILE (no credits) ---"
+      kane-cli testmd run "$TEST_FILE" --url "$TARGET_URL" --agent --headless >"$RAW" 2>"$OUT_DIR/raw/$FID.log"
+      CODE=$?
+    else
+      echo "--- SKIP $FID: no committed recording for this flow (author it with: bash scripts/record-flows.sh $TARGET_ID) ---"
+      rm -f "$OUT_DIR/$FID.json"
+      continue
+    fi
   else
     OBJECTIVE="$(node -e "
 const fs=require('fs');
