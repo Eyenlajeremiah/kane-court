@@ -20,7 +20,7 @@ Do these five things in order. Nothing else. Do not build anything new.
       Replace `<REPO_URL>` and `<VIDEO_URL>` first.
 - [ ] 5. **Submit the form** (20 min) - use the text in section 2 below.
 
-Deadline: 26 Nov, 19:29 WAT. You have time. Submit on the 22nd or 23rd.
+Deadline: 26 Nov, 19:29 WAT. You have time. Submit as early as you can.
 
 Form: <https://www.surveymonkey.com/r/kane-cli-hackathon-submission>
 
@@ -76,4 +76,4 @@ At least two public posts, four planned:
 - [ ] Repo's first commit is on/after 12 Nov
 - [ ] Working credentials for any third-party service, plus a recorded fallback
 - [ ] Two public posts live
-- [ ] Submit before 18 Nov evening
+- [ ] Submit before 26 Nov 19:29 WAT
