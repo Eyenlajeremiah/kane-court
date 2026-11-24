@@ -1,0 +1,10 @@
+# Runtime artifacts — never ship in the npm package
+.testmuai/evidence/
+data/queue-raw/
+.loop/
+docs/
+public/style.css
+scripts/reset-demo.sh
+scripts/setup-antigravity.sh
+*.log
+*.ndjson

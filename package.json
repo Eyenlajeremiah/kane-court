@@ -31,11 +31,12 @@
     "kane-court": "bin/kane-court.js"
   },
   "files": [
-    ".testmuai/",
+    ".testmuai/tests/",
     "AGENTS.md",
     "README.md",
     "bin/",
-    "data/",
+    "data/verdicts.json",
+    "data/queue.json",
     "lib/kane-court-core.js",
     "lib/personas.json",
     "mcp/",
