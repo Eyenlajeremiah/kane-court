@@ -5,5 +5,9 @@ data/queue-raw/
 *.log
 .env
 
+# Kane CLI runtime evidence (binary screenshots, session blobs) - never commit
+.testmuai/evidence/
+*.evidence
+
 # Kane CLI replayable tests + recordings - these MUST be committed
 # so a judge with no credits can still run the flows.
