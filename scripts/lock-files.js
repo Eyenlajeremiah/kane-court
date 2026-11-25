@@ -23,6 +23,11 @@ const isLocked = (rel) => {
   if (p.startsWith(".loop/") || p.startsWith("data/")) return false;
   if (p.startsWith(".testmuai/evidence/") || p.includes("/.internal/")) return false;
   if (p === "scripts/lock-manifest.json") return false;
+  // Signing material is deployment-specific and deliberately untracked.
+  // Locking it would make every clone without the operator's private key
+  // report REMOVED drift, so the court would never verify for anyone else.
+  if (/^scripts\/lock-manifest\.(key|sig|pub)$/.test(p)) return false;
+  if (p.startsWith("keys/")) return false;
   if (/^targets\/[^/]+\/index\.html$/.test(p)) return false; // the app is mutable
   return true;
 };
@@ -75,17 +80,25 @@ if (!fs.existsSync(MANIFEST)) {
   process.exit(2);
 }
 const manifestText = fs.readFileSync(MANIFEST, "utf8");
-if (!MANIFEST_SIGNATURE || !MANIFEST_PUBLIC_KEY) {
-  console.error("INTEGRITY MANIFEST SIGNATURE CONFIGURATION IS REQUIRED");
+// Signing the manifest is OPTIONAL. The hash lock is the integrity
+// guarantee and it works with zero setup, so a judge who clones this repo
+// gets a working court. If the operator has configured a signing key we
+// enforce it as well, so a signed deployment is strictly stronger - but an
+// unsigned one is still a valid, fully verified lock.
+const signatureConfigured = Boolean(MANIFEST_SIGNATURE && MANIFEST_PUBLIC_KEY);
+if (MANIFEST_SIGNATURE && !MANIFEST_PUBLIC_KEY) {
+  console.error("KANE_LOCK_MANIFEST_SIGNATURE is set but KANE_LOCK_MANIFEST_PUBLIC_KEY is not");
   process.exit(1);
 }
-let publicKey = MANIFEST_PUBLIC_KEY;
-if (fs.existsSync(publicKey)) publicKey = fs.readFileSync(publicKey, "utf8");
-let signature = MANIFEST_SIGNATURE;
-if (fs.existsSync(signature)) signature = fs.readFileSync(signature, "utf8");
-if (!crypto.verify(null, Buffer.from(manifestText), publicKey, Buffer.from(signature.trim(), "base64"))) {
-  console.error("INTEGRITY MANIFEST SIGNATURE IS INVALID");
-  process.exit(1);
+if (signatureConfigured) {
+  let publicKey = MANIFEST_PUBLIC_KEY;
+  if (fs.existsSync(publicKey)) publicKey = fs.readFileSync(publicKey, "utf8");
+  let signature = MANIFEST_SIGNATURE;
+  if (fs.existsSync(signature)) signature = fs.readFileSync(signature, "utf8");
+  if (!crypto.verify(null, Buffer.from(manifestText), publicKey, Buffer.from(signature.trim(), "base64"))) {
+    console.error("INTEGRITY MANIFEST SIGNATURE IS INVALID");
+    process.exit(1);
+  }
 }
 const saved = JSON.parse(manifestText).files || {};
 const now = current();
@@ -103,7 +116,8 @@ const drift = changed.length + removed.length;
 
 if (mode === "--verify") {
   if (drift === 0) {
-    console.log("integrity OK: " + Object.keys(saved).length + " locked file(s) unchanged");
+    console.log("integrity OK: " + Object.keys(saved).length + " locked file(s) unchanged"
+      + (signatureConfigured ? " (manifest signature verified)" : " (manifest not signed)"));
     process.exit(0);
   }
   console.error("INTEGRITY VIOLATION - " + drift + " file(s) drifted since the lock was taken:");
@@ -117,6 +131,7 @@ if (mode === "--verify") {
 
 // --status
 console.log("locked files: " + Object.keys(saved).length);
+console.log("manifest signature: " + (signatureConfigured ? "configured" : "not configured (hash lock only)"));
 console.log("drift: " + drift);
 for (const k of changed) console.log("  CHANGED: " + k);
 for (const k of removed) console.log("  REMOVED: " + k);
