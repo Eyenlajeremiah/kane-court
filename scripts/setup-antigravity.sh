@@ -5,9 +5,9 @@ set -uo pipefail
 cd "$(dirname "$0")/.." || exit 2
 
 CANDIDATES=(
-  "/c/Users/dell/.gemini/bin/agy.exe"
+  "${HOME}/.gemini/bin/agy.exe"
   "$HOME/.gemini/bin/agy.exe"
-  "/c/Users/dell/.gemini/bin/agy"
+  "${HOME}/.gemini/bin/agy"
 )
 FOUND=""
 for c in "${CANDIDATES[@]}"; do

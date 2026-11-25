@@ -15,5 +15,16 @@ if [[ "${CHROME_BIN:-}" == *"headless-shell"* ]]; then
   unset CHROME_BIN
 fi
 
-# Antigravity CLI (agy) - not on the default PATH on this machine
-export AGY_BIN="${AGY_BIN:-/c/Users/dell/.gemini/bin/agy.exe}"
+# Antigravity CLI (agy) is not on the default PATH on every machine, so we
+# probe the usual install locations instead of hardcoding one developer's
+# home directory.
+if [[ -z "${AGY_BIN:-}" ]]; then
+  for CAND in \
+    "$HOME/.gemini/bin/agy" \
+    "$HOME/.gemini/bin/agy.exe" \
+    "/c/Users/$USERNAME/.gemini/bin/agy.exe" \
+    "/c/Users/$USERNAME/.gemini/bin/agy"; do
+    if [[ -x "$CAND" ]]; then export AGY_BIN="$CAND"; break; fi
+  done
+  export AGY_BIN="${AGY_BIN:-agy}"
+fi

@@ -37,8 +37,7 @@ function walk(dir, out = []) {
         posixRel === ".loop" ||
         posixRel === "data" ||
         posixRel === ".testmuai/evidence" ||
-        posixRel.endsWith("/.internal") ||
-        posixRel === ".testmuai/tests" && false
+        posixRel.endsWith("/.internal")
       ) continue;
       if (e.name === ".internal") continue;
       walk(full, out);
