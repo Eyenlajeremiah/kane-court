@@ -46,27 +46,40 @@ function layout(title, body) {
   return '<!doctype html><html lang="en"><head><meta charset="utf-8">'
     + '<meta name="viewport" content="width=device-width,initial-scale=1">'
     + '<title>' + esc(title) + ' &mdash; Kane Court</title>'
-    + '<link rel="stylesheet" href="/style.css"></head><body><div class="wrap">'
-    + body + autoRefreshScript() + '</div></body></html>';
+    + '<link rel="preconnect" href="https://fonts.googleapis.com">'
+    + '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+    + '<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">'
+    + '<link rel="stylesheet" href="/style.css"></head><body>'
+    + '<header class="topbar"><div class="topbar-inner"><a class="brand" href="/" aria-label="Kane Court home">'
+    + '<span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 6h14M7 6l-3 5h6L7 6Zm10 0-3 5h6l-3-5ZM7 11v5m10-5v5M4 19h16"/></svg></span>'
+    + '<span>Kane Court</span></a><nav class="topnav" aria-label="Primary"><a class="active" href="/">Courtroom</a><a href="/#docket">Docket</a><a href="/#queue">Queue</a></nav>'
+    + '<span class="live-chip"><span></span>Judging live</span></div></header>'
+    + '<main class="shell">' + body + '</main>' + autoRefreshScript() + '</body></html>';
 }
 function verdictPage(v) {
   const badge = v.blocked ? '<span class="pill pend">blocked</span>'
-    : (v.pass ? '<span class="pill pass">verified green</span>' : '<span class="pill fail">red</span>');
+    : (v.pass ? '<span class="pill pass"><span class="pill-dot"></span>Verified green</span>' : '<span class="pill fail"><span class="pill-dot"></span>Red verdict</span>');
   let rows = '';
   for (const fl of v.flows || []) {
     const cls = fl.pass ? 'pass' : 'fail';
-    const msgs = (fl.failures || []).map((x) => '<div class="mono">' + esc(x.message) + '</div>').join('');
-    rows += '<tr><td>' + esc(fl.id) + '</td><td><span class="pill ' + cls + '">' + (fl.pass ? 'pass' : 'fail') + '</span></td>'
-      + '<td class="mono">' + esc(fl.exitCode) + '</td><td class="mono">' + esc(fl.steps) + '</td><td>' + msgs + '</td></tr>';
+    const msgs = (fl.failures || []).map((x) => '<div class="output-line">' + esc(x.message) + '</div>').join('');
+    rows += '<tr><td><span class="flow-name">' + esc(fl.id) + '</span></td><td><span class="flow-status ' + cls + '">' + (fl.pass ? 'Passed' : 'Failed') + '</span></td>'
+      + '<td class="mono">' + esc(fl.exitCode) + '</td><td class="mono">' + esc(fl.steps) + '</td><td>' + (msgs || '<span class="muted">No failures</span>') + '</td></tr>';
   }
-  return '<h1>' + esc(v.name) + '</h1>'
-    + '<p class="sub">' + badge + ' &nbsp; ' + esc(v.blurb) + '</p>'
-    + '<div class="card"><table><thead><tr><th>Flow</th><th>Result</th><th>Exit</th><th>Steps</th><th>Kane output</th></tr></thead><tbody>'
-    + rows + '</tbody></table></div>'
-    + '<div class="card"><div class="mono">Rounds until green: ' + esc(v.rounds) + '</div>'
-    + '<div class="mono">Verified by: ' + esc(v.kane) + ' &middot; agent: ' + esc(v.agent) + '</div>'
-    + '<div class="mono">Published: ' + esc(v.publishedAt) + '</div></div>'
-    + '<p><a href="/">Back to the court</a></p>';
+  const passed = (v.flows || []).filter((x) => x.pass).length;
+  const total = (v.flows || []).length;
+  return '<section class="verdict-hero">'
+    + '<a class="back-link" href="/">&larr; Back to the docket</a>'
+    + '<div class="verdict-heading"><div><span class="eyebrow">Published verdict</span><h1>' + esc(v.name) + '</h1><p class="verdict-blurb">' + esc(v.blurb) + '</p></div>' + badge + '</div>'
+    + '<div class="verdict-summary">'
+    + '<div><span class="summary-label">Flows</span><strong>' + passed + '<span> / ' + total + '</span></strong></div>'
+    + '<div><span class="summary-label">Rounds</span><strong>' + esc(v.rounds) + '</strong></div>'
+    + '<div><span class="summary-label">Judge</span><strong class="summary-text">' + esc(v.kane) + '</strong></div>'
+    + '</div></section>'
+    + '<section class="section-block"><div class="section-heading"><div><span class="eyebrow">Evidence</span><h2>Flow results</h2></div><span class="record-count">' + total + ' personas tested</span></div>'
+    + '<div class="table-card"><table><thead><tr><th>Flow</th><th>Result</th><th>Exit</th><th>Steps</th><th>Kane output</th></tr></thead><tbody>' + rows + '</tbody></table></div></section>'
+    + '<section class="section-block"><div class="section-heading"><div><span class="eyebrow">Audit trail</span><h2>Publication details</h2></div></div>'
+    + '<div class="detail-grid"><div class="detail-card"><span>Verified by</span><strong>' + esc(v.kane) + '</strong></div><div class="detail-card"><span>Agent</span><strong>' + esc(v.agent) + '</strong></div><div class="detail-card"><span>Published</span><strong>' + esc(v.publishedAt) + '</strong></div></div></section>';
 }
 function homePage() {
   const vs = readJson(VERDICTS, []);
@@ -76,33 +89,35 @@ function homePage() {
   const ext = vs.filter((v) => v.external);
   for (const v of ext) {
     const badge = v.pass ? '<span class="pill pass">green</span>' : '<span class="pill fail">red</span>';
-    cards += '<div class="card"><h2 style="margin:0 0 6px;font-size:17px">' + esc(v.name) + '</h2>'
-      + '<div>' + badge + '</div><p class="sub mono" style="margin:8px 0;word-break:break-all">' + esc(v.targetUrl) + '</p>'
-      + '<a href="/v/' + esc(v.targetId) + '">Read the verdict</a></div>';
+    cards += '<article class="target-card"><div class="card-top"><span class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>' + badge + '</div>'
+      + '<h3>' + esc(v.name) + '</h3><p class="target-url">' + esc(v.targetUrl) + '</p>'
+      + '<a class="card-link" href="/v/' + esc(v.targetId) + '">Read verdict <span>&rarr;</span></a></article>';
   }
   for (const t of ts) {
     const v = vs.find((x) => x.targetId === t.id);
     const badge = v ? (v.blocked ? '<span class="pill pend">blocked</span>' : (v.pass ? '<span class="pill pass">green</span>' : '<span class="pill fail">red</span>')) : '<span class="pill pend">not yet judged</span>';
-    const link = v ? '<a href="/v/' + esc(t.id) + '">Read the verdict</a>' : '<span class="mono">awaiting Kane</span>';
-    cards += '<div class="card"><h2 style="margin:0 0 6px;font-size:17px">' + esc(t.name) + '</h2>'
-      + '<div>' + badge + '</div><p class="sub" style="margin:8px 0">' + esc(t.blurb || '') + '</p>' + link + '</div>';
+    const link = v ? '<a class="card-link" href="/v/' + esc(t.id) + '">Read verdict <span>&rarr;</span></a>' : '<span class="awaiting">Awaiting Kane</span>';
+    cards += '<article class="target-card"><div class="card-top"><span class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 20V9l8-5 8 5v11M8 20v-7h8v7M3 20h18"/></svg></span>' + badge + '</div>'
+      + '<h3>' + esc(t.name) + '</h3><p class="target-description">' + esc(t.blurb || '') + '</p>' + link + '</article>';
   }
   let qrows = '';
   for (const item of q) {
     const pill = item.status === 'green' ? 'pass' : (item.status === 'red' ? 'fail' : 'pend');
     const vlink = item.verdictId ? ' <a href="/v/' + esc(item.verdictId) + '">verdict</a>' : '';
-    qrows += '<tr><td>' + esc(item.targetId) + vlink + '</td><td><span class="pill ' + pill + '">' + esc(item.status) + '</span></td><td class="mono">' + esc(item.note || '') + '</td></tr>';
+    qrows += '<tr><td><span class="queue-target">' + esc(item.targetId) + '</span>' + vlink + '</td><td><span class="flow-status ' + pill + '">' + esc(item.status) + '</span></td><td>' + esc(item.note || '') + '</td></tr>';
   }
-  let body = '<h1>Kane Court</h1>';
-  body += '<p class="sub">An adversarial QA court. The agent is the prosecutor, Kane CLI is the judge, and a verdict is published only when the agent has earned a green re-run.</p>';
-  body += '<div class="card"><form method="post" action="/submit"><label for="url">Submit a target URL for trial</label>'
-    + '<input id="url" name="url" placeholder="https://example.com" style="width:100%" required>'
-    + '<label for="note">Note (optional)</label><input id="note" name="note" placeholder="what should the court look for?" style="width:100%">'
-    + '<p><button type="submit">Call the court</button></p></form></div>';
-  body += '<h2>The docket</h2><div class="grid">' + (cards || '<p class="sub">No targets yet.</p>') + '</div>';
-  body += '<h2>Queue</h2><div class="card">';
-  body += qrows ? '<table><thead><tr><th>Target</th><th>Status</th><th>Note</th></tr></thead><tbody>' + qrows + '</tbody></table>' : '<p class="sub">Nothing queued.</p>';
-  body += '</div>';
+  let body = '<section class="hero-grid">'
+    + '<div class="hero-copy"><span class="eyebrow">Adversarial QA court</span><h1>Put every claim<br><em>on trial.</em></h1>'
+    + '<p>The agent is the prosecutor. Kane CLI is the judge. A verdict only ships after the real browser earns a green re-run.</p></div>'
+    + '<form class="trial-card" method="post" action="/submit"><div class="form-heading"><span class="form-icon"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 6h14M7 6l-3 5h6L7 6Zm10 0-3 5h6l-3-5ZM7 11v5m10-5v5M4 19h16"/></svg></span><div><span>New trial</span><small>Submit a target for review</small></div></div>'
+    + '<label for="url">Target URL</label><div class="input-shell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg><input id="url" name="url" type="url" placeholder="https://example.com" required></div>'
+    + '<label for="note">Court notes <span>Optional</span></label><textarea id="note" name="note" rows="3" placeholder="What should the court look for?"></textarea>'
+    + '<button type="submit"><span>Start trial</span><span class="button-arrow">&rarr;</span></button></form></section>';
+  body += '<section id="docket" class="section-block"><div class="section-heading"><div><span class="eyebrow">Case directory</span><h2>The docket</h2></div><span class="record-count">' + ts.length + ' targets</span></div>'
+    + '<div class="target-grid">' + (cards || '<p class="muted">No targets yet.</p>') + '</div></section>';
+  body += '<section id="queue" class="section-block"><div class="section-heading"><div><span class="eyebrow">Live activity</span><h2>Trial queue</h2></div></div><div class="table-card">';
+  body += qrows ? '<table><thead><tr><th>Target</th><th>Status</th><th>Details</th></tr></thead><tbody>' + qrows + '</tbody></table>' : '<div class="empty-state"><span>No cases queued</span><p>Submit a target above to begin a new trial.</p></div>';
+  body += '</div></section>';
   return layout('Kane Court', body);
 }
 function targetPage(id) {
