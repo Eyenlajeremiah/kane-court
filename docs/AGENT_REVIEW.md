@@ -83,7 +83,7 @@ All 7 core defects have been repaired and verified against the real Kane CLI run
 |---|---|---|
 | **Core Library** | [lib/kane-court-core.js](lib/kane-court-core.js) | Added `getKaneBin()`, `getBashBin()`, `getSpawnEnv()`; set `shell: process.platform === "win32"`; unified `{ target, targetId }` in verdict payload. |
 | **Queue Worker** | [scripts/queue-worker.js](scripts/queue-worker.js) | Dynamic `personas(targetId)` (no more hardcoded `atlas`); Windows CLI entrypoint normalization using `fileURLToPath`; `.cmd` execution compatibility. |
-| **Stop Gate** | [scripts/kane-gate.sh](scripts/kane-gate.sh) | Checked `j.targetId \|\| j.target`; removed redundant `$TARGET` variable from message. |
+| **Stop Gate** | [scripts/kane-gate.sh](scripts/kane-gate.sh) | Checked `j.targetId || j.target`; removed redundant `$TARGET` variable from message. |
 | **Integrity Harness** | [scripts/lock-files.js](scripts/lock-files.js) | Excluded ephemeral runtime paths (`.testmuai/evidence/`, `.internal/`) from SHA-256 tracking while retaining test specs (`*_test.md`). |
 | **Integrity Manifest** | [scripts/lock-manifest.json](scripts/lock-manifest.json) | Re-initialized with clean hashes across all 47 immutable harness and spec files. |
 | **Demo Target** | [targets/vault/index.html](targets/vault/index.html) | Planted the missing dead CTA (`e.preventDefault()`) to align with documentation. |
