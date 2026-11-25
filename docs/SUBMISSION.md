@@ -26,7 +26,7 @@ Form: <https://www.surveymonkey.com/r/kane-cli-hackathon-submission>
 
 ## 1. GitHub URL
 
-`<REPO_URL>` â public, README with setup steps. Repo initialised on/after 12 Nov.
+`<REPO_URL>` — public, README with setup steps. Repo initialised on/after 12 Nov.
 
 ## 2. About your app (one paragraph)
 
@@ -40,18 +40,18 @@ Form: <https://www.surveymonkey.com/r/kane-cli-hackathon-submission>
 > repeating until the round is green. A verdict is published only when the final
 > Kane run was genuinely green, and an Antigravity Stop hook prevents the agent
 > from finishing a task while the judge is red. The demo target ships with four
-> deliberate bugs â a dead CTA, placeholder copy, a form that submits silently and
-> content that overflows on mobile â so the loop can be seen catching and repairing
+> deliberate bugs — a dead CTA, placeholder copy, a form that submits silently and
+> content that overflows on mobile — so the loop can be seen catching and repairing
 > them on camera.
 
 ## 3. Demo video
 
-`<VIDEO_URL>` â YouTube **Unlisted** (not Private), 3-5 minutes, shows the app working
+`<VIDEO_URL>` — YouTube **Unlisted** (not Private), 3-5 minutes, shows the app working
 and Kane running. Test the link in an incognito window.
 
 ## 4. Live URL
 
-`<LIVE_URL>` â or the runnable command, which must work in under 30 seconds:
+`<LIVE_URL>` — or the runnable command, which must work in under 30 seconds:
 
 ```bash
 npm install && npm start   # court on :3000
@@ -61,10 +61,10 @@ npm install && npm start   # court on :3000
 
 At least two public posts, four planned:
 
-- Hacker News â <HN_URL>
-- X â <X_URL>
-- Reddit â <REDDIT_URL>
-- LinkedIn â <LINKEDIN_URL>
+- Hacker News — <HN_URL>
+- X — <X_URL>
+- Reddit — <REDDIT_URL>
+- LinkedIn — <LINKEDIN_URL>
 
 ## Before you submit
 
