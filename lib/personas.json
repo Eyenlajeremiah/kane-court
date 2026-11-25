@@ -12,7 +12,7 @@
   {
     "id": "mobile",
     "name": "The Mobile User",
-    "objective": "Use the page at a narrow mobile viewport of 375px wide. PASS requires that the primary content is readable AND that the primary call-to-action is visible and tappable without horizontal scrolling. Report PASS if both hold. Otherwise report FAIL and state what was cut off, overlapping, or scrolling sideways."
+    "objective": "View the page at a narrow viewport of 800px wide (the narrowest Chrome supports). PASS requires that the page does not scroll sideways AND that the headline and the primary call-to-action are fully visible and not overlapping. Report PASS if both hold. Otherwise report FAIL and state what was cut off, overlapping, or scrolling sideways."
   },
   {
     "id": "saver",
