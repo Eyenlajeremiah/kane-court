@@ -25,6 +25,39 @@ while [[ "$BASE_URL" == */ ]]; do BASE_URL="${BASE_URL%/}"; done
 node -e "const u=new URL(process.argv[1]); const h=u.hostname.replace(/^\[|\]$/g,'').toLowerCase(); if(!['http:','https:'].includes(u.protocol)||u.username||u.password||!['localhost','127.0.0.1','::1'].includes(h)){throw new Error('BASE_URL must be a local loopback URL')}" "$BASE_URL" || exit 2
 TARGET_URL="$BASE_URL/t/$TARGET_ID"
 
+# The court must actually be serving the target before Kane drives a real
+# browser against it. If nothing is listening, Kane gets a connection refused
+# and reports every flow as failed with no useful message - so we start the
+# server ourselves instead of leaving the judge to guess.
+court_is_up() {
+  node -e 'const http=require("http");const req=http.get(process.argv[1]+"/data-version",r=>process.exit(r.statusCode===200?0:1));req.on("error",()=>process.exit(1));req.setTimeout(2000,()=>{req.destroy();process.exit(1)});' "$BASE_URL" >/dev/null 2>&1
+}
+
+export PORT
+SERVER_PID=""
+if ! court_is_up; then
+  case "$BASE_URL" in
+    *localhost*|*127.0.0.1*) ;;
+    *) echo "note: $BASE_URL is not local and is not responding; not starting a local server" >&2 ;;
+  esac
+  if [[ "$BASE_URL" == *localhost* || "$BASE_URL" == *127.0.0.1* ]]; then
+    echo "--- court is not running on $BASE_URL; starting it ---"
+    mkdir -p .loop
+    node server.js > .loop/server.log 2>&1 &
+    SERVER_PID=$!
+    echo "$SERVER_PID" > .loop/server.pid
+    for _ in $(seq 1 40); do
+      sleep 0.25
+      court_is_up && break
+    done
+    if ! court_is_up; then
+      echo "could not start the court server; see .loop/server.log" >&2
+      exit 2
+    fi
+    echo "court is up on $BASE_URL (pid $SERVER_PID)"
+  fi
+fi
+
 OUT_DIR=".loop/runs/$TARGET_ID"
 mkdir -p "$OUT_DIR" "$OUT_DIR/raw"
 
@@ -83,7 +116,7 @@ console.log(o);
     CODE=$?
   fi
 
-  KANE_TARGET_URL="$TARGET_URL" node scripts/parse-kane.js "$RAW" "$CODE" > "$OUT_DIR/$FID.json"
+  KANE_TARGET_URL="$TARGET_URL" node scripts/parse-kane.js "$RAW" "$CODE" "$OUT_DIR/raw/$FID.log" > "$OUT_DIR/$FID.json"
   OK="$(node -e "try{console.log(JSON.parse(require('fs').readFileSync('$OUT_DIR/$FID.json','utf8')).pass)}catch(e){console.log('false')}")"
   [[ "$OK" == "true" ]] || ALL_PASS=0
   echo "[$TARGET_ID][$FID] pass=$OK exit=$CODE"
