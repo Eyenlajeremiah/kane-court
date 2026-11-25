@@ -22,8 +22,8 @@ if [[ -z "${AGY_BIN:-}" ]]; then
   for CAND in \
     "$HOME/.gemini/bin/agy" \
     "$HOME/.gemini/bin/agy.exe" \
-    "/c/Users/$USERNAME/.gemini/bin/agy.exe" \
-    "/c/Users/$USERNAME/.gemini/bin/agy"; do
+    "/c/Users/${USERNAME:-$(id -un)}/.gemini/bin/agy.exe" \
+    "/c/Users/${USERNAME:-$(id -un)}/.gemini/bin/agy"; do
     if [[ -x "$CAND" ]]; then export AGY_BIN="$CAND"; break; fi
   done
   export AGY_BIN="${AGY_BIN:-agy}"
