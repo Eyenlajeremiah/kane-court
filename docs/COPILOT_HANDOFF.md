@@ -394,3 +394,41 @@ drift on exactly those two files, re-pull and re-pin.
 **NEEDS HUMAN:** `kane-cli login --oauth` must be run on the user's own machine
 (Kane CLI session + KaneAI credits). This is the only blocker on the green verdict
 and the re-recording.
+
+### Entry 2026-11-25 — Copilot (red-round checkpoint)
+
+**Context:** The user's Kane CLI session is authenticated and has 10,330 credits.
+
+**Red demo completed:**
+- `scripts/reset-demo.sh atlas` restored `targets/atlas/index.html` to the committed
+  buggy page and confirmed `index.html` and `buggy.html` are byte-identical.
+- `bash scripts/loop.sh atlas` ran three real rounds. All five personas failed in
+  rounds 1-3: `newcomer`, `skeptic`, `mobile`, `saver`, and `promised`.
+- Concrete failures matched the planted defects: no portfolio reveal, visible
+  placeholder/undefined values, no working newsletter confirmation, and mobile
+  viewport evidence reported the desktop window.
+- The loop reached the blocked/red checkpoint, but blocked publication stopped
+  because the local lock manifest was stale after a pull.
+
+**Local state left behind:**
+- Atlas remains in its buggy/red state because the loop stopped before restore.
+- `data/queue.json` and `package-lock.json` have local pull/install noise; inspect
+  and revert only unrelated generated noise before committing.
+- `lib/round-validation.js`, `tests/security.test.js`, and `package-lock.json`
+  were reported by the integrity verifier as drifted after the pull.
+
+**Next agent instructions:**
+1. Inspect `git status` and preserve only intentional source changes.
+2. Re-pin the lock after the remote/source state is settled:
+   `node scripts/lock-files.js --init`
+   `node scripts/lock-files.js --verify`
+3. Re-record the five persona flows against the intended current green page:
+   `bash scripts/record-flows.sh atlas`
+4. Commit every `_test.md` and `output-*/` recording folder.
+5. Restore the red page, run the red loop once, restore the green page from HEAD,
+   run the real green round, attest evidence if configured, and publish via
+   `node scripts/publish.js atlas 1`.
+6. Re-pin, test, verify package contents, and continue the submission steps.
+
+**NEEDS HUMAN:** none. User specifically asked this agent to communicate the
+red-round checkpoint and stop. The next agent should proceed autonomously.
