@@ -29,7 +29,7 @@ verdict link, not a screenshot of a screenshot.
 > The demo target has four deliberate bugs. Watch it get caught, fixed, and
 > re-verified.
 
-> Repo (built with Antigravity): <REPO_URL>
+> Repo (built with Antigravity): https://github.com/Eyenlajeremiah/kane-court
 > Demo video: <VIDEO_URL>
 
 ---
@@ -45,7 +45,7 @@ verdict link, not a screenshot of a screenshot.
 
 > Built for the Kane CLI hackathon.
 >
-> <VIDEO_URL> | <REPO_URL>
+> <VIDEO_URL> | https://github.com/Eyenlajeremiah/kane-court
 
 ---
 
@@ -63,7 +63,7 @@ verdict link, not a screenshot of a screenshot.
 > a form that submits silently, content that overflows on mobile) and you can
 > watch the loop catch and repair them.
 >
-> Repo: <REPO_URL>
+> Repo: https://github.com/Eyenlajeremiah/kane-court
 > Video: <VIDEO_URL>
 >
 > Feedback welcome — especially on the persona objectives. I'm opinionated that
@@ -85,14 +85,14 @@ verdict link, not a screenshot of a screenshot.
 > back to the agent as a re-prompt, the agent repairs the code, and a verdict is
 > published only when the browser agent confirms green.
 >
-> Repo: <REPO_URL>
+> Repo: https://github.com/Eyenlajeremiah/kane-court
 > Demo: <VIDEO_URL>
 
 ---
 
 ## Posting notes
 
-- Replace `<REPO_URL>` and `<VIDEO_URL>` everywhere before posting.
+- Replace `https://github.com/Eyenlajeremiah/kane-court` and `<VIDEO_URL>` everywhere before posting.
 - Post HN and Reddit after the video is confirmed unlisted-and-working in incognito.
 - Reply to every comment in the first hour — engagement earns brownie points.
 - Do not mention the prize amount; do not tag TestMu unless they asked you to.

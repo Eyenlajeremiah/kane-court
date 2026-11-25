@@ -17,7 +17,7 @@ Do these five things in order. Nothing else. Do not build anything new.
 - [ ] 3. **Record the demo video** (1-2 hrs) - see `docs/RECORDING_GUIDE.md`
       Upload as UNLISTED. Test the link in an incognito window.
 - [ ] 4. **Post twice** (30 min) - see `docs/LAUNCH_POSTS.md`
-      Replace `<REPO_URL>` and `<VIDEO_URL>` first.
+      Replace `https://github.com/Eyenlajeremiah/kane-court` and `<VIDEO_URL>` first.
 - [ ] 5. **Submit the form** (20 min) - use the text in section 2 below.
 
 Deadline: 26 Nov, 19:29 WAT. You have time. Submit as early as you can.
@@ -26,7 +26,7 @@ Form: <https://www.surveymonkey.com/r/kane-cli-hackathon-submission>
 
 ## 1. GitHub URL
 
-`<REPO_URL>` — public, README with setup steps. Repo initialised on/after 12 Nov.
+`https://github.com/Eyenlajeremiah/kane-court` — public, README with setup steps. Repo initialised on/after 12 Nov.
 
 ## 2. About your app (one paragraph)
 

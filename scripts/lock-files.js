@@ -46,6 +46,17 @@ const isLocked = (rel) => {
   // report REMOVED drift, so the court would never verify for anyone else.
   if (/^scripts\/lock-manifest\.(key|sig|pub)$/.test(p)) return false;
   if (p.startsWith("keys/")) return false;
+  // npm strips package-lock.json from published tarballs by design (it
+  // publishes npm-shrinkwrap.json instead). Locking it would make every
+  // judge who installs from npm fail the integrity check with REMOVED
+  // drift, and block publication forever. It is a repo-development
+  // artifact, not a spec the agent is judged against.
+  if (p === "package-lock.json") return false;
+  // npm rewrites .gitignore to .npmignore when publishing, so .gitignore is
+  // absent from the tarball and from every installed copy. Locking it would
+  // make an npm-installed court fail its own integrity check with REMOVED
+  // drift. Same reasoning as package-lock.json above.
+  if (p === ".gitignore") return false;
   // The handoff note is a living log that every agent appends to, so it is
   // deliberately excluded - locking it would make the next agent's update
   // look like drift and block publication.

@@ -2,7 +2,6 @@
 .testmuai/evidence/
 data/queue-raw/
 .loop/
-docs/
 scripts/reset-demo.sh
 scripts/setup-antigravity.sh
 *.log

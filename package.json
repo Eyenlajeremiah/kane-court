@@ -18,15 +18,14 @@
   "description": "An adversarial QA court: Kane CLI (a real browser agent) judges your app on five adversarial personas, and a verdict is published only when the green is earned.",
   "license": "MIT",
   "keywords": [
+    "kane",
+    "kane-cli",
     "qa",
     "testing",
-    "e2e",
-    "kane-cli",
-    "testmu",
-    "agent",
-    "mcp",
-    "llm",
-    "adversarial"
+    "ai",
+    "browser-agent",
+    "adversarial",
+    "hackathon"
   ],
   "bin": {
     "kane-court": "bin/kane-court.js"
@@ -50,9 +49,23 @@
     "public/",
     "scripts/",
     "server.js",
-    "targets/"
+    "targets/",
+    "docs/",
+    "tests/",
+    ".agents/",
+    ".gitattributes",
+    ".gitignore",
+    ".npmignore"
   ],
   "engines": {
     "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eyenlajeremiah/kane-court.git"
+  },
+  "homepage": "https://github.com/Eyenlajeremiah/kane-court",
+  "bugs": {
+    "url": "https://github.com/Eyenlajeremiah/kane-court/issues"
   }
 }
