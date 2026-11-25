@@ -236,6 +236,108 @@ writing new copy.
 
 ---
 
+---
+
+## 10. PASTE-READY PROMPT FOR COPILOT
+
+Copy everything in the block below into Copilot. It is self-contained and needs no
+other context from the user.
+
+```
+You are continuing work on the repo Eyenlajeremiah/kane-court (branch `main`).
+A previous agent (Mira) audited the code, fixed five defects, and left this note.
+Deadline: KaneCLI Online Hackathon submission closes 26 Nov 2026 at 19:29 WAT.
+
+START HERE:
+1. cd into your local clone of the repo, then: git pull origin main
+2. Read docs/COPILOT_HANDOFF.md fully before touching anything.
+   Section 2 = what is already fixed and verified.
+   Section 3 = the single biggest remaining risk.
+   Section 4 = prioritised gap list.
+   Section 5 = exact commands to run the loop.
+   Section 6 = how the integrity lock works (you MUST re-pin after editing specs).
+   Section 8 = ordered next actions.
+   Section 9 = status log. ADD YOUR ENTRY HERE when you finish.
+3. Work autonomously. Do not ask the user technical questions.
+   If you hit a decision only the human can make, write it in Section 9 under
+   "NEEDS HUMAN" and stop.
+4. When you finish, update Section 9 with exactly what you changed and the state
+   you left the repo in, then commit and push that note too.
+
+PROJECT IN ONE LINE:
+Kane Court is a court that judges a web app against 5 persona test flows and
+publishes a green verdict ONLY when the green is genuinely earned. The whole
+value is anti-fake: if the court can report green without the app actually being
+fixed, the project is worthless. Every decision should be judged through that lens.
+
+TARGET: targets/atlas, 5 personas - mobile, newcomer, skeptic, saver, promised.
+  targets/atlas/index.html  = the GREEN page (the one under test)
+  targets/atlas/buggy.html  = the RED page (dead CTA, placeholder copy,
+                               silent form, 960px overflow)
+  scripts/reset-demo.sh     = copies buggy.html over index.html (red->green demo)
+  scripts/loop.sh atlas     = runs the round
+  scripts/publish.js atlas 1 = publishes the verdict (refuses unless green)
+
+NON-NEGOTIABLES:
+- .testmuai/tests/*_test.md AND every .testmuai/tests/output-*/ folder MUST stay
+  committed. They are the replayable recordings that let a judge with ZERO Kane
+  credits still run the demo. If a re-record drops or truncates any of them,
+  the demo is dead for a judge. Verify with git status after every re-record.
+- NEVER hand-edit data/verdicts.json to make it green. The green must be earned
+  by a real Kane run. Hand-editing it is the exact sin this project exists to
+  prevent, and a careful judge can spot it.
+- NEVER commit scripts/lock-manifest.key (the private key). It is gitignored.
+- After editing anything that is NOT targets/*/index.html, re-pin the lock:
+    node scripts/lock-files.js --init && node scripts/lock-files.js --verify
+  publish.js refuses to publish on drift, so a stale lock blocks the demo.
+
+DO THIS IN ORDER:
+1. Verify the current state works:
+     npm install && npm test
+     node scripts/lock-files.js --verify     # must print "integrity OK"
+     npm start                              # then confirm the court serves
+       and http://localhost:3000/t/atlas renders
+2. Get a Kane CLI session and check credits:
+     kane-cli login --oauth
+     kane-cli whoami
+     kane-cli balance
+   If this fails because it needs the human, note it in Section 9 under
+   "NEEDS HUMAN" and move on to the steps that do not need credits.
+3. Re-record the 5 flows against the current green page:
+     bash scripts/record-flows.sh atlas
+   Then COMMIT every changed *_test.md and every output-*/ folder.
+4. Prove the red->green story:
+     bash scripts/reset-demo.sh atlas
+     bash scripts/loop.sh atlas              # expect a RED round
+     restore the green page, then run a real green round:
+     bash scripts/loop.sh atlas
+     node scripts/publish.js atlas 1        # expect a green verdict published
+5. Confirm data/verdicts.json now shows atlas pass:true, flows:5.
+   That is the single most valuable thing left to fix.
+6. Re-pin the lock, re-run npm test.
+7. Verify the package ships what a judge needs:
+     npm pack --dry-run
+   Confirm targets/ and .testmuai/tests/ are inside the tarball, and that
+   scripts/lock-manifest.key is NOT.
+8. npm publish
+9. Write the two required PUBLIC posts about the project and file the
+   submission form (it asks for the two post URLs).
+   Draft copy is in docs/LAUNCH_POSTS.md and docs/SUBMISSION.md - read those
+   before writing new copy. Kane Court is a TOOL, separate from the user's
+   content brand Legacy Society; do not mix the two voices.
+   Read docs/SUBMISSION.md for the submission form details.
+10. Update Section 9 of this file and push it.
+
+VERIFY BEFORE YOU CLAIM DONE:
+  npm test                                   # 0 failures
+  node scripts/lock-files.js --verify         # integrity OK
+  fresh clone into a temp dir, npm install, npm test, npm start,
+    and confirm /t/atlas renders              # the judge path
+  git status                                 # recordings all committed
+```
+
+---
+
 ## 9. Status log
 
 ### Entry 2026-11-25 — Mira (previous agent)
@@ -260,3 +362,35 @@ writing new copy.
   They are **not** needed for the court to work.
 
 **NEEDS HUMAN:** none right now — proceed with the next actions above.
+
+### Entry 2026-11-25 — Mira (second pass, post-Copilot-UI-redesign)
+
+**Context:** Copilot pushed `2a494ed` ("Redesign court UI with clean SaaS layout",
+touching `public/style.css` +679/-23 and `server.js` +46/-31) while I was working.
+I merged it, re-pinned the lock to 71 files, and re-verified.
+
+**Done in this pass:**
+- Merged `2a494ed`, re-pinned lock to 71 files, `integrity OK: 71 locked file(s) unchanged`.
+- `npm test` (node --test tests/security.test.js): 10 tests, 8 pass, 2 Windows-only
+  skips, 0 fail — re-run on the merged tree.
+- Pushed the 5 fixes + `scripts/sign-manifest.js` + `.gitignore`/`.npmignore` +
+  README + restored `targets/atlas/index.html` to remote `main` via the GitHub API.
+- Verified remote `main` file-by-file: 10/10 checks pass, and the remote manifest
+  hashes match the remote file contents exactly (so a judge's clone verifies clean).
+- Confirmed `scripts/lock-manifest.key` is NOT tracked by git and NOT in the manifest.
+
+**Correction to an earlier claim:** my first "pushed" report was wrong. The
+`git push` had failed for lack of credentials and I had only committed locally.
+Everything is now genuinely pushed and verified against the remote API.
+
+**Known non-issue:** a stale local clone reports drift on `public/style.css` and
+`server.js` because it was taken from a local tree whose re-pin was never
+committed. Remote `main` is correct and self-consistent. If your clone reports
+drift on exactly those two files, re-pull and re-pin.
+
+**Still open (unchanged):** green verdict, flow re-recording, fresh-clone end-to-end,
+`npm pack` verification, `npm publish`, the two public posts, the submission form.
+
+**NEEDS HUMAN:** `kane-cli login --oauth` must be run on the user's own machine
+(Kane CLI session + KaneAI credits). This is the only blocker on the green verdict
+and the re-recording.
