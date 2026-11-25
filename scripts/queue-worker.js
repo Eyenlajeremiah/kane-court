@@ -19,7 +19,8 @@ import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 import { getSpawnEnv, spawnKaneSync } from "../lib/kane-court-core.js";
-import { validateRedirectChain } from "../lib/network-policy.js";
+import { resolveLoopbackUrl } from "../lib/network-policy.js";
+import { withQueueLock, readQueue, writeQueueAtomic } from "../lib/queue-store.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DATA = path.join(ROOT, "data");
@@ -39,6 +40,50 @@ function readJson(p, fallback) {
 function writeJson(p, v) {
   fs.mkdirSync(path.dirname(p), { recursive: true });
   fs.writeFileSync(p, JSON.stringify(v, null, 2));
+}
+
+function claimQueueItem() {
+  let claimed = null;
+  withQueueLock(QUEUE, () => {
+    const q = readQueue(QUEUE);
+    const now = Date.now();
+    for (const item of q) {
+      if (item.status === "running" && item.startedAt) {
+        const age = now - Date.parse(item.startedAt);
+        if (Number.isFinite(age) && age > Math.max(TIMEOUT * 1000 * 10, 45 * 60 * 1000)) {
+          item.status = "queued";
+          item.note = "requeued after stale running lease";
+          delete item.startedAt;
+        }
+      }
+    }
+    const item = q.find((entry) => entry.status === "queued");
+    if (item) {
+      item.status = "running";
+      item.startedAt = new Date().toISOString();
+      claimed = { targetId: item.targetId, note: item.note || "" };
+      writeQueueAtomic(QUEUE, q);
+    } else {
+      writeQueueAtomic(QUEUE, q);
+    }
+  });
+  return claimed;
+}
+
+function updateClaimedQueueItem(targetUrl, startedAt, update) {
+  withQueueLock(QUEUE, () => {
+    const q = readQueue(QUEUE);
+    if (!Array.isArray(q)) throw new Error("queue is invalid");
+    const item = q.find((entry) =>
+      entry.targetId === targetUrl &&
+      entry.status === "running" &&
+      entry.startedAt === startedAt
+    );
+    if (item) {
+      Object.assign(item, update);
+      writeQueueAtomic(QUEUE, q);
+    }
+  });
 }
 
 export function personas(targetId = null) {
@@ -66,7 +111,7 @@ export function externalId(url) {
 }
 
 async function validateUrl(url) {
-  await validateRedirectChain(url);
+  resolveLoopbackUrl(url);
 }
 
 function runKane(objective, url) {
@@ -78,7 +123,7 @@ function runKane(objective, url) {
     { cwd: ROOT, encoding: "utf8", maxBuffer: 64 * 1024 * 1024, env: spawnEnv });
   try { fs.writeFileSync(raw, r.stdout || ""); } catch {}
   const pr = spawnSync("node", [path.join(ROOT, "scripts", "parse-kane.js"), raw, String(r.status ?? 2)], {
-    cwd: ROOT, encoding: "utf8"
+    cwd: ROOT, encoding: "utf8", env: { ...spawnEnv, KANE_TARGET_URL: url }
   });
   try { return JSON.parse(pr.stdout || "{}"); }
   catch { return { pass: false, exitCode: r.status ?? 2, steps: 0, failures: [{ message: "could not parse Kane output" }] }; }
@@ -122,47 +167,51 @@ export async function judgeUrl(url, note = "", targetId = null) {
     agent: process.env.KANE_CLI_USER_AGENT || "gemini",
     integrity: { ok: true, note: "external target - not subject to the app lock" }
   };
-  const all = readJson(VERDICTS, []);
-  const i = all.findIndex((v) => v.targetId === verdict.targetId);
-  if (i >= 0) all[i] = verdict; else all.push(verdict);
-  writeJson(VERDICTS, all);
+  withQueueLock(VERDICTS, () => {
+    let all = [];
+    try {
+      all = readQueue(VERDICTS);
+    } catch (e) {
+      throw new Error("cannot update verdicts due to corrupt verdict JSON: " + e.message);
+    }
+    const i = all.findIndex((v) => v.targetId === verdict.targetId);
+    if (i >= 0) all[i] = verdict; else all.push(verdict);
+    writeQueueAtomic(VERDICTS, all);
+  });
   return verdict;
 }
 
 async function drain(once = false) {
-  const q = readJson(QUEUE, []);
-  if (!Array.isArray(q) || !q.length) {
+  const claimed = claimQueueItem();
+  if (!claimed) {
     if (once) { console.log("nothing queued"); return 0; }
     return 0;
   }
-  let did = 0;
-  for (const item of q) {
-    if (item.status !== "queued") continue;
-    const url = item.targetId;
-    console.log(`\n=== calling the court on ${url} ===`);
-    item.status = "running";
-    item.startedAt = new Date().toISOString();
-    writeJson(QUEUE, q);
-    try {
-      const v = await judgeUrl(url, item.note || "");
-      item.status = v.pass ? "green" : "red";
-      item.verdictId = v.targetId;
-      item.finishedAt = new Date().toISOString();
-      item.note = v.pass
-        ? `green - all ${v.flows.length} personas passed`
-        : `red - ${v.flows.filter((f) => !f.pass).length} of ${v.flows.length} personas failed`;
-      console.log(`=== ${url} -> ${item.status} ===`);
-    } catch (e) {
-      item.status = "red";
-      item.finishedAt = new Date().toISOString();
-      item.note = "the trial failed to run: " + String(e && e.message ? e.message : e);
-      console.error("trial error:", item.note);
-    }
-    writeJson(QUEUE, q);
-    did++;
-    if (!once) break; // one at a time, so the queue is a queue and not a stampede
+  const url = claimed.targetId;
+  let startedAt;
+  withQueueLock(QUEUE, () => {
+    const q = readQueue(QUEUE);
+    const item = q.find((entry) => entry.targetId === url && entry.status === "running");
+    if (item) startedAt = item.startedAt;
+  });
+  if (!startedAt) return 0;
+  console.log(`\n=== calling the court on ${url} ===`);
+  try {
+    const v = await judgeUrl(url, claimed.note);
+    const status = v.pass ? "green" : "red";
+    const finishedAt = new Date().toISOString();
+    const note = v.pass
+      ? `green - all ${v.flows.length} personas passed`
+      : `red - ${v.flows.filter((f) => !f.pass).length} of ${v.flows.length} personas failed`;
+    updateClaimedQueueItem(url, startedAt, { status, verdictId: v.targetId, finishedAt, note });
+    console.log(`=== ${url} -> ${status} ===`);
+  } catch (e) {
+    const finishedAt = new Date().toISOString();
+    const note = "the trial failed to run: " + String(e && e.message ? e.message : e);
+    updateClaimedQueueItem(url, startedAt, { status: "red", finishedAt, note });
+    console.error("trial error:", note);
   }
-  return did;
+  return 1;
 }
 
 const isMain = Boolean(process.argv[1] && (
@@ -181,14 +230,21 @@ if (isMain) {
       process.exit(2);
     });
   } else if (has("--once")) {
-    drain(true).then(() => process.exit(0)).catch((e) => {
+    (async () => {
+      while (await drain(true)) {}
+      process.exit(0);
+    })().catch((e) => {
       console.error(e && e.message ? e.message : e);
       process.exit(2);
     });
   } else {
     console.log("queue worker running. poll every " + POLL_MS + "ms. ctrl-c to stop.");
+    let tickRunning = false;
     const tick = async () => {
+      if (tickRunning) return;
+      tickRunning = true;
       try { await drain(false); } catch (e) { console.error("worker tick failed:", String(e && e.message ? e.message : e)); }
+      finally { tickRunning = false; }
     };
     tick();
     setInterval(tick, POLL_MS);

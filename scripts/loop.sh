@@ -15,6 +15,7 @@ for ((ROUND=1; ROUND<=MAX_ROUNDS; ROUND++)); do
   RC=$?
   if [[ $RC -eq 0 ]]; then
     echo "GREEN at round $ROUND - verdict publishable"
+    node scripts/attest-evidence.js "$TARGET_ID" "$ROUND" || exit 2
     node scripts/publish.js "$TARGET_ID" "$ROUND"
     exit 0
   fi

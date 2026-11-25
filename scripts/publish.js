@@ -6,6 +6,9 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { flowIdsFor } from "../lib/kane-court-core.js";
 import { roundPublishError } from "../lib/round-validation.js";
+import { withQueueLock, readQueue, writeQueueAtomic } from "../lib/queue-store.js";
+import { resolveLoopbackUrl } from "../lib/network-policy.js";
+import { verifyAttestation } from "../lib/evidence-attestation.js";
 
 const [, , targetId, round, ...rest] = process.argv;
 const blocked = rest.includes("--blocked");
@@ -16,18 +19,65 @@ if (!targetId || !/^[A-Za-z0-9_-]+$/.test(targetId) || !/^[1-9]\d*$/.test(round 
 
 const roundFile = path.resolve(`.loop/round-${round}.json`);
 const r = JSON.parse(fs.readFileSync(roundFile, "utf8"));
+const baseUrl = (process.env.BASE_URL
+  ? process.env.BASE_URL.replace(/\/+$/, "")
+  : `http://localhost:${process.env.PORT || "3000"}`);
+let canonicalTargetUrl;
+try {
+  canonicalTargetUrl = resolveLoopbackUrl(`${baseUrl}/t/${targetId}`).toString();
+} catch (e) {
+  console.error("refusing to publish: " + e.message);
+  process.exit(1);
+}
 const validationError = roundPublishError(r, {
   targetId,
   round,
   expectedFlowIds: flowIdsFor(targetId),
-  expectedTargetUrl: process.env.BASE_URL
-    ? `${process.env.BASE_URL.replace(/\/$/, "")}/t/${targetId}`
-    : `http://localhost:${process.env.PORT || "3000"}/t/${targetId}`,
+  expectedTargetUrl: canonicalTargetUrl,
   blocked
 });
 if (validationError) {
   console.error("refusing to publish: " + validationError);
   process.exit(1);
+}
+
+let attested;
+try {
+  attested = verifyAttestation({
+    targetId,
+    round,
+    targetUrl: r.targetUrl,
+    publicKey: process.env.KANE_ATTESTATION_PUBLIC_KEY
+  });
+} catch (e) {
+  console.error("refusing to publish: " + e.message);
+  process.exit(1);
+}
+
+for (const flow of r.flows) {
+  const rawFile = path.resolve(".loop", "runs", targetId, "raw", `${flow.id}.ndjson`);
+  if (!fs.existsSync(rawFile)) {
+    console.error(`refusing to publish: missing Kane evidence for flow ${flow.id}`);
+    process.exit(1);
+  }
+  try {
+    const parsed = JSON.parse(execFileSync("node", [
+      "scripts/parse-kane.js",
+      rawFile,
+      String(flow.exitCode)
+    ], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+      env: { ...process.env, KANE_TARGET_URL: r.targetUrl }
+    }).trim());
+    if (parsed.pass !== flow.pass || (flow.skipped === true)) {
+      console.error(`refusing to publish: Kane evidence disagrees with flow ${flow.id}`);
+      process.exit(1);
+    }
+  } catch (e) {
+    console.error(`refusing to publish: invalid Kane evidence for flow ${flow.id}`);
+    process.exit(1);
+  }
 }
 
 // Integrity gate - the agent may only change the application under test.
@@ -53,9 +103,12 @@ const verdict = {
 };
 fs.mkdirSync("data", { recursive: true });
 const file = "data/verdicts.json";
-const all = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, "utf8")) : [];
-const idx = all.findIndex((v) => v.targetId === targetId);
-if (idx >= 0) all[idx] = verdict; else all.push(verdict);
-fs.writeFileSync(file, JSON.stringify(all, null, 2));
+withQueueLock(file, () => {
+  let all = [];
+  if (fs.existsSync(file)) all = readQueue(file);
+  const idx = all.findIndex((v) => v.targetId === targetId);
+  if (idx >= 0) all[idx] = verdict; else all.push(verdict);
+  writeQueueAtomic(file, all);
+});
 console.log(`published verdict for ${targetId} (pass=${verdict.pass}, rounds=${verdict.rounds})`);
 console.log(`integrity: ${integrity.note}`);

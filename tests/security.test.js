@@ -2,11 +2,11 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
+import { spawnSync } from "node:child_process";
 import { getKaneInvocation, spawnKaneSync } from "../lib/kane-court-core.js";
-import { isPrivateAddress, resolvePublicUrl } from "../lib/network-policy.js";
+import { isPrivateAddress, resolvePublicUrl, resolveLoopbackUrl } from "../lib/network-policy.js";
 import { roundPublishError } from "../lib/round-validation.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -16,6 +16,7 @@ test("rejects private, reserved, mapped, and transition IPv6 destinations", () =
     "127.0.0.1",
     "10.1.2.3",
     "192.0.2.1",
+    "192.0.0.1",
     "::1",
     "::ffff:127.0.0.1",
     "::ffff:7f00:1",
@@ -32,9 +33,30 @@ test("permits representative public addresses", () => {
   assert.equal(isPrivateAddress("2001:4860:4860::8888"), false);
 });
 
+test("parser rejects synthetic NDJSON without Kane stream/run evidence", () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "kane-evidence-test-"));
+  const raw = path.join(dir, "fake.ndjson");
+  fs.writeFileSync(raw, JSON.stringify({ type: "run_end", run_id: "fake", status: "passed", final_url: "http://localhost:3000/t/atlas" }) + "\n");
+  const r = spawnSync(process.execPath, ["scripts/parse-kane.js", raw, "0"], {
+    cwd: path.resolve("."),
+    encoding: "utf8",
+    env: { ...process.env, KANE_TARGET_URL: "http://localhost:3000/t/atlas" }
+  });
+  assert.equal(r.status, 0);
+  assert.equal(JSON.parse(r.stdout).pass, false);
+  fs.rmSync(dir, { recursive: true, force: true });
+});
+
 test("rejects non-public literal target URLs before connecting", async () => {
   await assert.rejects(resolvePublicUrl("http://[::ffff:127.0.0.1]/"), /private target/i);
   await assert.rejects(resolvePublicUrl("http://192.0.2.10/"), /private target/i);
+});
+
+test("allows public hostnames after DNS resolution and blocks external Kane targets", async () => {
+  const publicUrl = await resolvePublicUrl("https://example.com/");
+  assert.equal(publicUrl.hostname, "example.com");
+  assert.throws(() => resolveLoopbackUrl("https://example.com/"), /only local target/i);
+  assert.equal(resolveLoopbackUrl("http://[::1]:3000/t/atlas").hostname, "[::1]");
 });
 
 test("Windows npm command shims resolve to a direct JavaScript invocation", {
@@ -122,12 +144,15 @@ test("the parser does not turn empty or explicitly failed Kane output green", ()
     for (const [content, expected] of [
       ["", false],
       ['{"type":"step_end","status":"passed"}\n', false],
-      ['{"type":"run_end","status":"passed"}\n', true],
+      ['{"type":"stream_start","cli_version":"0.10.9"}\n{"type":"run_start","objective":"test"}\n{"type":"run_end","run_id":"run-1","status":"passed","final_url":"http://localhost:3000/t/atlas"}\n', true],
       ['{"type":"step_end","status":"failed"}\n', false],
       ['{"type":"run_end","status":"failed"}\n', false]
     ]) {
       fs.writeFileSync(file, content);
-      const result = spawnSync(process.execPath, [parser, file, "0"], { encoding: "utf8" });
+      const result = spawnSync(process.execPath, [parser, file, "0"], {
+        encoding: "utf8",
+        env: { ...process.env, KANE_TARGET_URL: "http://localhost:3000/t/atlas" }
+      });
       assert.equal(result.status, 0, result.stderr);
       assert.equal(JSON.parse(result.stdout).pass, expected);
     }

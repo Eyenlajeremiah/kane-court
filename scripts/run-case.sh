@@ -21,6 +21,8 @@ TARGET_DIR="targets/$TARGET_ID"
 
 PORT="${PORT:-3000}"
 BASE_URL="${BASE_URL:-http://localhost:$PORT}"
+while [[ "$BASE_URL" == */ ]]; do BASE_URL="${BASE_URL%/}"; done
+node -e "const u=new URL(process.argv[1]); const h=u.hostname.replace(/^\[|\]$/g,'').toLowerCase(); if(!['http:','https:'].includes(u.protocol)||u.username||u.password||!['localhost','127.0.0.1','::1'].includes(h)){throw new Error('BASE_URL must be a local loopback URL')}" "$BASE_URL" || exit 2
 TARGET_URL="$BASE_URL/t/$TARGET_ID"
 
 OUT_DIR=".loop/runs/$TARGET_ID"
@@ -81,7 +83,7 @@ console.log(o);
     CODE=$?
   fi
 
-  node scripts/parse-kane.js "$RAW" "$CODE" > "$OUT_DIR/$FID.json"
+  KANE_TARGET_URL="$TARGET_URL" node scripts/parse-kane.js "$RAW" "$CODE" > "$OUT_DIR/$FID.json"
   OK="$(node -e "try{console.log(JSON.parse(require('fs').readFileSync('$OUT_DIR/$FID.json','utf8')).pass)}catch(e){console.log('false')}")"
   [[ "$OK" == "true" ]] || ALL_PASS=0
   echo "[$TARGET_ID][$FID] pass=$OK exit=$CODE"
@@ -94,7 +96,7 @@ const ids=(process.env.FLOW_IDS||'').split(/\r?\n/).filter(Boolean);
 const flows=ids.map(id=>{
   let j={pass:false,exitCode:0,steps:0,failures:[{message:'not verified: missing flow result'}]};
   try{j=JSON.parse(fs.readFileSync(dir+'/'+id+'.json','utf8'));}catch(e){}
-  return {id,pass:j.pass,exitCode:j.exitCode,steps:j.steps,failures:j.failures};
+  return {id,pass:j.pass,exitCode:j.exitCode,steps:j.steps,failures:j.failures,skipped:j.skipped===true};
 });
 const out={targetId:'$TARGET_ID',round:$ROUND,targetUrl:'$TARGET_URL',mode:'$([[ $REPLAY -eq 1 ]] && echo replay || echo author)',
   pass:flows.length>0 && flows.every(f=>f.pass),flows,generatedAt:new Date().toISOString()};

@@ -3,7 +3,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
-import { validateRedirectChain } from "./lib/network-policy.js";
+import { resolveLoopbackUrl } from "./lib/network-policy.js";
+import { withQueueLock, readQueue, writeQueueAtomic } from "./lib/queue-store.js";
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 3000);
 const HOST = process.env.HOST || "127.0.0.1";
@@ -139,7 +140,7 @@ function readBody(req) {
 }
 async function validateTargetUrl(value) {
   try {
-    await validateRedirectChain(value);
+    resolveLoopbackUrl(value);
   } catch (e) {
     return e && e.message ? e.message : "The target URL could not be validated.";
   }
@@ -187,21 +188,35 @@ const server = http.createServer(async (req, res) => {
       res.end(urlError);
       return;
     }
-    const q = readJson(QUEUE, []);
-    const existing = q.findIndex((x) => x.targetId === targetUrl && (x.status === 'queued' || x.status === 'running'));
-    const activeItems = q.filter((x) => x.status === 'queued' || x.status === 'running').length;
-    if (existing < 0 && activeItems >= MAX_ACTIVE_QUEUE_ITEMS) {
+    let queueFull = false;
+    try {
+      withQueueLock(QUEUE, () => {
+        const q = readQueue(QUEUE);
+        if (!Array.isArray(q)) throw new Error("queue is invalid");
+        const existing = q.findIndex((x) => x.targetId === targetUrl && (x.status === 'queued' || x.status === 'running'));
+        const activeItems = q.filter((x) => x.status === 'queued' || x.status === 'running').length;
+        if (existing < 0 && activeItems >= MAX_ACTIVE_QUEUE_ITEMS) {
+          queueFull = true;
+          return;
+        }
+        if (existing >= 0) {
+          q[existing].note = note || q[existing].note;
+          q[existing].at = new Date().toISOString();
+        } else {
+          q.push({ targetId: targetUrl, note, status: 'queued', at: new Date().toISOString() });
+        }
+        writeQueueAtomic(QUEUE, q);
+      });
+    } catch (e) {
+      res.writeHead(503, { 'Content-Type': 'text/plain', 'Retry-After': '30' });
+      res.end("The queue is temporarily unavailable.");
+      return;
+    }
+    if (queueFull) {
       res.writeHead(503, { 'Content-Type': 'text/plain', 'Retry-After': '300' });
       res.end("The trial queue is full. Try again later.");
       return;
     }
-    if (existing >= 0) {
-      q[existing].note = note || q[existing].note;
-      q[existing].at = new Date().toISOString();
-    } else {
-      q.push({ targetId: targetUrl, note, status: 'queued', at: new Date().toISOString() });
-    }
-    writeJson(QUEUE, q);
     res.writeHead(302, { Location: '/' });
     res.end();
     // Kick the worker so a submitted URL does not sit in the queue. The worker
@@ -246,6 +261,13 @@ function kickWorker() {
   globalThis.__kaneWorkerStarted = true;
   const w = spawn(process.execPath, [path.join(ROOT, 'scripts', 'queue-worker.js')], {
     cwd: ROOT, detached: true, stdio: 'ignore'
+  });
+  w.once('exit', () => {
+    globalThis.__kaneWorkerStarted = false;
+    setTimeout(kickWorker, 1000);
+  });
+  w.once('error', () => {
+    globalThis.__kaneWorkerStarted = false;
   });
   w.unref();
 }
