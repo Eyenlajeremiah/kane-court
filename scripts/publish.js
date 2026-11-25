@@ -2,18 +2,31 @@
 // Publish a verdict - ONLY if the round was genuinely green AND the integrity
 // lock still holds (the agent did not weaken the specs it was judged against).
 import fs from "node:fs";
+import path from "node:path";
 import { execFileSync } from "node:child_process";
+import { flowIdsFor } from "../lib/kane-court-core.js";
+import { roundPublishError } from "../lib/round-validation.js";
 
 const [, , targetId, round, ...rest] = process.argv;
 const blocked = rest.includes("--blocked");
-if (!targetId || !round) {
+if (!targetId || !/^[A-Za-z0-9_-]+$/.test(targetId) || !/^[1-9]\d*$/.test(round || "")) {
   console.error("usage: publish.js <targetId> <round> [--blocked]");
   process.exit(1);
 }
 
-const r = JSON.parse(fs.readFileSync(`.loop/round-${round}.json`, "utf8"));
-if (!r.pass && !blocked) {
-  console.error("refusing to publish: round was not green");
+const roundFile = path.resolve(`.loop/round-${round}.json`);
+const r = JSON.parse(fs.readFileSync(roundFile, "utf8"));
+const validationError = roundPublishError(r, {
+  targetId,
+  round,
+  expectedFlowIds: flowIdsFor(targetId),
+  expectedTargetUrl: process.env.BASE_URL
+    ? `${process.env.BASE_URL.replace(/\/$/, "")}/t/${targetId}`
+    : `http://localhost:${process.env.PORT || "3000"}/t/${targetId}`,
+  blocked
+});
+if (validationError) {
+  console.error("refusing to publish: " + validationError);
   process.exit(1);
 }
 
@@ -30,7 +43,7 @@ if (fs.existsSync("scripts/lock-manifest.json")) {
   }
 }
 
-const meta = JSON.parse(fs.readFileSync(`targets/${targetId}/meta.json`, "utf8"));
+const meta = JSON.parse(fs.readFileSync(path.join("targets", targetId, "meta.json"), "utf8"));
 const verdict = {
   targetId, name: meta.name, blurb: meta.blurb || "", targetUrl: r.targetUrl,
   pass: r.pass, blocked, rounds: Number(round), flows: r.flows,

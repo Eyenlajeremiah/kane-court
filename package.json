@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
+    "test": "node --test",
     "kane": "bash scripts/run-case.sh",
     "loop": "bash scripts/loop.sh",
     "verify": "node bin/kane-court.js verify",
@@ -38,7 +39,9 @@
     "data/verdicts.json",
     "data/queue.json",
     "lib/kane-court-core.js",
+    "lib/network-policy.js",
     "lib/personas.json",
+    "lib/round-validation.js",
     "mcp/",
     "public/",
     "scripts/",

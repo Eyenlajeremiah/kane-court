@@ -21,6 +21,10 @@ npm install                 # zero runtime dependencies
 npm start                   # court on http://localhost:3000
 ```
 
+The court binds to `127.0.0.1` by default. To expose it on a network, set
+`HOST` explicitly and put authentication and network controls in front of it.
+URL submissions are rate-limited per client and the active trial queue is capped.
+
 To run the closed loop against a target you own:
 
 ```bash

@@ -16,7 +16,7 @@ try {
 }
 
 const runEnd = [...events].reverse().find((e) =>
-  /run_end|run_finished|complete|finished/i.test(String(e.type || e.event || ""))
+  /^(run_end|run_finished|run_complete)$/i.test(String(e.type || e.event || ""))
 );
 const failures = events
   .filter((e) => /fail|error|assert/i.test(String(e.status || e.result || e.state || e.type || "")))
@@ -30,7 +30,8 @@ const steps = events.length;
 const explicit = runEnd
   ? String(runEnd.status || runEnd.result || runEnd.state || "").toLowerCase()
   : null;
-const pass = code === 0 && (explicit === null || ["pass","passed","success","succeeded","ok"].includes(explicit));
+const pass = code === 0 && runEnd !== undefined && failures.length === 0 &&
+  ["pass","passed","success","succeeded","ok"].includes(explicit);
 
 console.log(JSON.stringify({
   pass, exitCode: code, steps,

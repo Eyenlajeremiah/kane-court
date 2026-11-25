@@ -3,10 +3,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
-import dns from "node:dns/promises";
-import net from "node:net";
+import { validateRedirectChain } from "./lib/network-policy.js";
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 3000);
+const HOST = process.env.HOST || "127.0.0.1";
 const DATA = path.join(ROOT, "data");
 const VERDICTS = path.join(DATA, "verdicts.json");
 const QUEUE = path.join(DATA, "queue.json");
@@ -137,46 +137,41 @@ function readBody(req) {
     req.on('end', () => resolve({ body: b, tooLarge }));
   });
 }
-function isPrivateAddress(address) {
-  if (!address) return false;
-  if (net.isIPv4(address)) {
-    const n = address.split('.').map(Number);
-    return n[0] === 10 ||
-      (n[0] === 127) ||
-      (n[0] === 169 && n[1] === 254) ||
-      (n[0] === 172 && n[1] >= 16 && n[1] <= 31) ||
-      (n[0] === 192 && n[1] === 168) ||
-      (n[0] === 100 && n[1] >= 64 && n[1] <= 127) ||
-      (n[0] === 198 && (n[1] === 18 || n[1] === 19)) ||
-      n[0] >= 224 ||
-      (n[0] === 0);
-  }
-  const lower = address.toLowerCase();
-  return lower === "::1" || lower === "::" ||
-    lower.startsWith("fc") || lower.startsWith("fd") ||
-    lower.startsWith("fe8") || lower.startsWith("fe9") ||
-    lower.startsWith("fea") || lower.startsWith("feb");
-}
 async function validateTargetUrl(value) {
-  let u;
-  try { u = new URL(value); } catch { return "Enter a valid absolute URL."; }
-  if (u.protocol !== "http:" && u.protocol !== "https:") return "Only http and https URLs are allowed.";
-  if (u.username || u.password) return "URLs with embedded credentials are not allowed.";
-  if (isPrivateAddress(u.hostname.replace(/^\[|\]$/g, ""))) return "Private and loopback addresses are not allowed.";
   try {
-    const addresses = await dns.lookup(u.hostname, { all: true, verbatim: true });
-    if (!addresses.length || addresses.some((x) => isPrivateAddress(x.address))) {
-      return "Private and loopback addresses are not allowed.";
-    }
-  } catch {
-    return "The target hostname could not be resolved.";
+    await validateRedirectChain(value);
+  } catch (e) {
+    return e && e.message ? e.message : "The target URL could not be validated.";
   }
   return null;
+}
+const SUBMISSION_WINDOW_MS = 60 * 60 * 1000;
+const MAX_SUBMISSIONS_PER_IP = 5;
+const MAX_ACTIVE_QUEUE_ITEMS = 10;
+const submissionsByIp = new Map();
+
+function isSubmissionRateLimited(ip, now = Date.now()) {
+  for (const [key, timestamps] of submissionsByIp) {
+    const active = timestamps.filter((timestamp) => now - timestamp < SUBMISSION_WINDOW_MS);
+    if (active.length) submissionsByIp.set(key, active);
+    else submissionsByIp.delete(key);
+  }
+  const timestamps = submissionsByIp.get(ip) || [];
+  if (timestamps.length >= MAX_SUBMISSIONS_PER_IP) return true;
+  if (submissionsByIp.size >= 10000 && !submissionsByIp.has(ip)) return true;
+  timestamps.push(now);
+  submissionsByIp.set(ip, timestamps);
+  return false;
 }
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
   const p = url.pathname;
   if (req.method === 'POST' && p === '/submit') {
+    if (isSubmissionRateLimited(req.socket.remoteAddress || "unknown")) {
+      res.writeHead(429, { 'Content-Type': 'text/plain', 'Retry-After': '3600' });
+      res.end("Submission limit reached. Try again later.");
+      return;
+    }
     const result = await readBody(req);
     if (result.tooLarge) {
       res.writeHead(413, { 'Content-Type': 'text/plain' });
@@ -194,6 +189,12 @@ const server = http.createServer(async (req, res) => {
     }
     const q = readJson(QUEUE, []);
     const existing = q.findIndex((x) => x.targetId === targetUrl && (x.status === 'queued' || x.status === 'running'));
+    const activeItems = q.filter((x) => x.status === 'queued' || x.status === 'running').length;
+    if (existing < 0 && activeItems >= MAX_ACTIVE_QUEUE_ITEMS) {
+      res.writeHead(503, { 'Content-Type': 'text/plain', 'Retry-After': '300' });
+      res.end("The trial queue is full. Try again later.");
+      return;
+    }
     if (existing >= 0) {
       q[existing].note = note || q[existing].note;
       q[existing].at = new Date().toISOString();
@@ -253,8 +254,8 @@ if (process.env.QUEUE_WORKER !== '0') {
   // Start the worker slightly after the server so the port is free.
   setTimeout(kickWorker, 500);
 }
-server.listen(PORT, () => {
-  console.log('Kane Court listening on http://localhost:' + PORT);
+server.listen(PORT, HOST, () => {
+  console.log('Kane Court listening on http://' + HOST + ':' + PORT);
   console.log(process.env.QUEUE_WORKER === '0'
     ? 'queue worker: OFF (read-only court)'
     : 'queue worker: ON (submitted URLs are put on trial automatically)');

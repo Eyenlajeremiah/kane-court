@@ -61,14 +61,14 @@ function textResult(payload, isError = false) {
   };
 }
 
-function callTool(name, args = {}) {
+async function callTool(name, args = {}) {
   const targets = listTargets();
   const target = args.target || (targets[0] && targets[0].id);
   switch (name) {
     case "verify_with_kane": {
       if (!target) return textResult("No targets found.", true);
       const url = args.url || `http://localhost:3000/t/${target}`;
-      const verdict = verifyWithKane({ target, url, timeout: args.timeout || 240, replay: args.replay === true });
+      const verdict = await verifyWithKane({ target, url, timeout: args.timeout || 240, replay: args.replay === true });
       return textResult(verdict);
     }
     case "kane_gate":
@@ -104,10 +104,12 @@ function handle(msg) {
   if (method === "tools/list") return send({ jsonrpc: "2.0", id, result: { tools: TOOLS } });
   if (method === "tools/call") {
     try {
-      return send({
-        jsonrpc: "2.0", id,
-        result: callTool(params?.name, params?.arguments || {})
+      Promise.resolve(callTool(params?.name, params?.arguments || {})).then((result) => {
+        send({ jsonrpc: "2.0", id, result });
+      }).catch((e) => {
+        send({ jsonrpc: "2.0", id, result: textResult(String(e && e.message ? e.message : e), true) });
       });
+      return;
     } catch (e) {
       return send({ jsonrpc: "2.0", id, result: textResult(String(e && e.message ? e.message : e), true) });
     }

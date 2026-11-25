@@ -51,14 +51,14 @@ function cmdVerdict() {
   console.log(JSON.stringify(v, null, 2));
 }
 
-function cmdVerify() {
+async function cmdVerify() {
   const targets = listTargets();
   const target = flag("target", targets[0] && targets[0].id);
   if (!target) return console.error("no targets on the docket"), process.exit(2);
   const url = flag("url", `http://localhost:3000/t/${target}`);
   console.log(`Kane Court: putting "${target}" on trial at ${url}\n`);
   const replay = argv.includes("--replay");
-  const v = verifyWithKane({ target, url, timeout: Number(flag("timeout", 240)), replay });
+  const v = await verifyWithKane({ target, url, timeout: Number(flag("timeout", 240)), replay });
   for (const f of v.flows) {
     console.log(`[${target}][${f.id}] pass=${f.pass} exit=${f.exitCode} steps=${f.steps}`);
     for (const fail of f.failures || []) console.log(`    * ${fail.message || fail.status || JSON.stringify(fail)}`);
@@ -133,7 +133,7 @@ function cmdInstall() {
 
 switch (cmd) {
   case "serve": cmdServe(); break;
-  case "verify": cmdVerify(); break;
+  case "verify": await cmdVerify(); break;
   case "gate": cmdGate(); break;
   case "targets": cmdTargets(); break;
   case "verdict": cmdVerdict(); break;
