@@ -25,6 +25,38 @@ The court binds to `127.0.0.1` by default. To expose it on a network, set
 `HOST` explicitly and put authentication and network controls in front of it.
 URL submissions are rate-limited per client and the active trial queue is capped.
 
+### Optional: signed integrity and signed evidence
+
+The court works out of the box with **no setup** - clone, `npm install`,
+`npm start`. The hash-based integrity lock is always enforced.
+
+Two stronger guarantees are available and are **opt-in**. Set the environment
+variables and they are enforced as well; leave them unset and the court runs
+normally.
+
+| Variable | Effect when set |
+|---|---|
+| `KANE_LOCK_MANIFEST_PUBLIC_KEY` + `KANE_LOCK_MANIFEST_SIGNATURE` | The integrity manifest must also carry a valid signature, so the lock itself cannot be swapped. |
+| `KANE_ATTESTATION_PUBLIC_KEY` (and `KANE_ATTESTATION_PRIVATE_KEY` to sign) | Publishing requires a cryptographically signed evidence manifest for the round. |
+
+Sign the manifest:
+
+```bash
+node scripts/lock-files.js --init
+node scripts/sign-manifest.js            # writes scripts/lock-manifest.sig
+export KANE_LOCK_MANIFEST_SIGNATURE=scripts/lock-manifest.sig
+export KANE_LOCK_MANIFEST_PUBLIC_KEY=scripts/lock-manifest.pub
+```
+
+Sign a round's Kane evidence before publishing it:
+
+```bash
+export KANE_ATTESTATION_PRIVATE_KEY=keys/attest.key
+export KANE_ATTESTATION_PUBLIC_KEY=keys/attest.pub
+node scripts/attest-evidence.js atlas 1
+node scripts/publish.js atlas 1
+```
+
 To run the closed loop against a target you own:
 
 ```bash
