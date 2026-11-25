@@ -40,6 +40,7 @@
     "lib/kane-court-core.js",
     "lib/personas.json",
     "mcp/",
+    "public/",
     "scripts/",
     "server.js",
     "targets/"

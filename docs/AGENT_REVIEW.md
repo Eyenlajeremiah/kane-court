@@ -1,7 +1,7 @@
 # Kane Court — Post-Audit & Fix Review Report
 
 > **Prepared For**: AI Agent / Developer Code Review  
-> **Project**: [Kane Court](file:///c:/Users/dell/Desktop/kane-court)  
+> **Project**: [Kane Court]()  
 > **Repository Context**: Adversarial Closed-Loop QA Harness using TestMu AI Kane CLI & Google Antigravity  
 > **Date**: November 2026  
 
@@ -18,13 +18,13 @@ All 7 core defects have been repaired and verified against the real Kane CLI run
 ## 2. What Was Wrong ("What Went Wrong & What Was Not Right")
 
 ### Defect 1: Hardcoded Target Objectives on External Queue Submissions
-- **Affected File**: [scripts/queue-worker.js](file:///c:/Users/dell/Desktop/kane-court/scripts/queue-worker.js#L42-L59)
+- **Affected File**: [scripts/queue-worker.js](scripts/queue-worker.js#L42-L59)
 - **What Was Wrong**:
   In `personas()`, the code hardcoded `const tj = path.join(ROOT, "targets", "atlas", "flows.json")`. Whenever any external website (e.g. `https://stripe.com`, `https://example.com`) was submitted to the court via the web UI `/submit` or via `kane-court trial --url <url>`, the queue worker forced Atlas Capital's proprietary CTA ("View portfolio") and specific headline text onto that external site.
 - **Impact**: All external URLs submitted to the court failed unconditionally with nonsensical failures.
 
 ### Defect 2: Windows Subprocess Crash (`spawnSync kane-cli EINVAL` / `ENOENT`)
-- **Affected Files**: [lib/kane-court-core.js](file:///c:/Users/dell/Desktop/kane-court/lib/kane-court-core.js#L78-L80), [scripts/queue-worker.js](file:///c:/Users/dell/Desktop/kane-court/scripts/queue-worker.js#L69-L73)
+- **Affected Files**: [lib/kane-court-core.js](lib/kane-court-core.js#L78-L80), [scripts/queue-worker.js](scripts/queue-worker.js#L69-L73)
 - **What Was Wrong**:
   Node child process invocations used:
   ```javascript
@@ -34,7 +34,7 @@ All 7 core defects have been repaired and verified against the real Kane CLI run
 - **Impact**: `kane-court verify`, `kane-court trial`, and the MCP tool `verify_with_kane` failed immediately on Windows with exit code 2 and 0 steps.
 
 ### Defect 3: Queue Worker Silent Non-Execution on Windows
-- **Affected File**: [scripts/queue-worker.js](file:///c:/Users/dell/Desktop/kane-court/scripts/queue-worker.js#L158)
+- **Affected File**: [scripts/queue-worker.js](scripts/queue-worker.js#L158)
 - **What Was Wrong**:
   The main CLI entrypoint was guarded by:
   ```javascript
@@ -44,7 +44,7 @@ All 7 core defects have been repaired and verified against the real Kane CLI run
 - **Impact**: Running `node scripts/queue-worker.js --once` or `node scripts/queue-worker.js` exited immediately with code 0 without processing any queued URLs.
 
 ### Defect 4: Payload Schema Desynchronization & Typo in Stop Gate
-- **Affected Files**: [lib/kane-court-core.js](file:///c:/Users/dell/Desktop/kane-court/lib/kane-court-core.js#L101-L112), [scripts/kane-gate.sh](file:///c:/Users/dell/Desktop/kane-court/scripts/kane-gate.sh#L11-L18)
+- **Affected Files**: [lib/kane-court-core.js](lib/kane-court-core.js#L101-L112), [scripts/kane-gate.sh](scripts/kane-gate.sh#L11-L18)
 - **What Was Wrong**:
   - `run-case.sh` saved `.loop/last-round.json` with `{ targetId: "atlas" }`, but `kane-court-core.js` wrote `{ target: "atlas" }`.
   - `scripts/kane-gate.sh` only checked `j.targetId`. Because of the mismatch, `LAST_TARGET` resolved to empty, causing the gate to report `continue` ("not verified") even after a successful green run.
@@ -52,13 +52,13 @@ All 7 core defects have been repaired and verified against the real Kane CLI run
 - **Impact**: `kane-court gate` falsely blocked task completion and displayed broken error strings.
 
 ### Defect 5: False-Positive Integrity Violations on Runtime Logs
-- **Affected File**: [scripts/lock-files.js](file:///c:/Users/dell/Desktop/kane-court/scripts/lock-files.js#L18-L38)
+- **Affected File**: [scripts/lock-files.js](scripts/lock-files.js#L18-L38)
 - **What Was Wrong**:
   The integrity scanner monitored `.testmuai/`. When `kane-cli` executes a flow, it writes execution timestamps and run metrics to `.testmuai/tests/output-*/.internal/meta.json` and dumps session recordings into `.testmuai/evidence/*.evidence`. Because these ephemeral runtime logs were hashed into `lock-manifest.json`, every single test execution triggered a false-positive `INTEGRITY VIOLATION`.
 - **Impact**: Legitimate green test runs were flagged as integrity violations.
 
 ### Defect 6: Port 3000 Collision in Documentation
-- **Affected Files**: [README.md](file:///c:/Users/dell/Desktop/kane-court/README.md#L180-L188), [docs/JUDGE_GUIDE.md](file:///c:/Users/dell/Desktop/kane-court/docs/JUDGE_GUIDE.md#L10-L20)
+- **Affected Files**: [README.md](README.md#L180-L188), [docs/JUDGE_GUIDE.md](docs/JUDGE_GUIDE.md#L10-L20)
 - **What Was Wrong**:
   Both guides instructed the evaluator to run:
   ```bash
@@ -68,7 +68,7 @@ All 7 core defects have been repaired and verified against the real Kane CLI run
 - **Impact**: Any judge copying commands from the guide encountered an immediate crash in Terminal 2.
 
 ### Defect 7: Planted Bug Inconsistency in `targets/vault`
-- **Affected File**: [targets/vault/index.html](file:///c:/Users/dell/Desktop/kane-court/targets/vault/index.html#L38-L41)
+- **Affected File**: [targets/vault/index.html](targets/vault/index.html#L38-L41)
 - **What Was Wrong**:
   `README.md` documented `vault` as having a planted bug: `dead CTA (button does nothing)`. However, the HTML file already included an active click listener showing the invitation panel.
 - **Impact**: The demo corpus did not match the documented defect inventory.
@@ -81,13 +81,13 @@ All 7 core defects have been repaired and verified against the real Kane CLI run
 
 | Component | File Modified | Change Summary |
 |---|---|---|
-| **Core Library** | [lib/kane-court-core.js](file:///c:/Users/dell/Desktop/kane-court/lib/kane-court-core.js) | Added `getKaneBin()`, `getBashBin()`, `getSpawnEnv()`; set `shell: process.platform === "win32"`; unified `{ target, targetId }` in verdict payload. |
-| **Queue Worker** | [scripts/queue-worker.js](file:///c:/Users/dell/Desktop/kane-court/scripts/queue-worker.js) | Dynamic `personas(targetId)` (no more hardcoded `atlas`); Windows CLI entrypoint normalization using `fileURLToPath`; `.cmd` execution compatibility. |
-| **Stop Gate** | [scripts/kane-gate.sh](file:///c:/Users/dell/Desktop/kane-court/scripts/kane-gate.sh) | Checked `j.targetId || j.target`; removed redundant `$TARGET` variable from message. |
-| **Integrity Harness** | [scripts/lock-files.js](file:///c:/Users/dell/Desktop/kane-court/scripts/lock-files.js) | Excluded ephemeral runtime paths (`.testmuai/evidence/`, `.internal/`) from SHA-256 tracking while retaining test specs (`*_test.md`). |
-| **Integrity Manifest** | [scripts/lock-manifest.json](file:///c:/Users/dell/Desktop/kane-court/scripts/lock-manifest.json) | Re-initialized with clean hashes across all 47 immutable harness and spec files. |
-| **Demo Target** | [targets/vault/index.html](file:///c:/Users/dell/Desktop/kane-court/targets/vault/index.html) | Planted the missing dead CTA (`e.preventDefault()`) to align with documentation. |
-| **Guides** | [README.md](file:///c:/Users/dell/Desktop/kane-court/README.md), [docs/JUDGE_GUIDE.md](file:///c:/Users/dell/Desktop/kane-court/docs/JUDGE_GUIDE.md) | Fixed Terminal 2 instructions to run `bash scripts/replay.sh atlas` instead of crashing `node server.js`. |
+| **Core Library** | [lib/kane-court-core.js](lib/kane-court-core.js) | Added `getKaneBin()`, `getBashBin()`, `getSpawnEnv()`; set `shell: process.platform === "win32"`; unified `{ target, targetId }` in verdict payload. |
+| **Queue Worker** | [scripts/queue-worker.js](scripts/queue-worker.js) | Dynamic `personas(targetId)` (no more hardcoded `atlas`); Windows CLI entrypoint normalization using `fileURLToPath`; `.cmd` execution compatibility. |
+| **Stop Gate** | [scripts/kane-gate.sh](scripts/kane-gate.sh) | Checked `j.targetId || j.target`; removed redundant `$TARGET` variable from message. |
+| **Integrity Harness** | [scripts/lock-files.js](scripts/lock-files.js) | Excluded ephemeral runtime paths (`.testmuai/evidence/`, `.internal/`) from SHA-256 tracking while retaining test specs (`*_test.md`). |
+| **Integrity Manifest** | [scripts/lock-manifest.json](scripts/lock-manifest.json) | Re-initialized with clean hashes across all 47 immutable harness and spec files. |
+| **Demo Target** | [targets/vault/index.html](targets/vault/index.html) | Planted the missing dead CTA (`e.preventDefault()`) to align with documentation. |
+| **Guides** | [README.md](README.md), [docs/JUDGE_GUIDE.md](docs/JUDGE_GUIDE.md) | Fixed Terminal 2 instructions to run `bash scripts/replay.sh atlas` instead of crashing `node server.js`. |
 
 ---
 
@@ -126,7 +126,7 @@ curl http://localhost:3000/v/atlas
 
 ## 5. Review Checklist for the Reviewing Agent
 
-- [x] **No hardcoded target overrides**: Arbitrary external URLs use generic personas from [lib/personas.json](file:///c:/Users/dell/Desktop/kane-court/lib/personas.json).
+- [x] **No hardcoded target overrides**: Arbitrary external URLs use generic personas from [lib/personas.json](lib/personas.json).
 - [x] **Cross-platform child process execution**: Node subprocess calls handle `.cmd` extensions and Git bash locations cleanly on Windows, Linux, and macOS.
 - [x] **Integrity lock isolation**: Spec files (`lib/personas.json`, `scripts/*`, `*.md`) remain tamper-proof while runtime artifacts do not trigger false drift.
 - [x] **Stop hook integration**: The `.agents/hooks.json` Stop hook correctly enforces task continuation when Kane is red and permits termination when green.

@@ -18,6 +18,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
+import { getSpawnEnv } from "../lib/kane-court-core.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DATA = path.join(ROOT, "data");
@@ -67,8 +68,8 @@ function runKane(objective, url) {
   const raw = path.join(DATA, "queue-raw", `${externalId(url)}.ndjson`);
   fs.mkdirSync(path.dirname(raw), { recursive: true });
   const bin = process.env.KANE_BIN || (process.platform === "win32" ? "kane-cli.cmd" : "kane-cli");
-  const extraPath = process.platform === "win32" ? "C:\\Program Files\\Git\\bin;C:\\Program Files\\Git\\usr\\bin;C:\\Users\\dell\\AppData\\Roaming\\npm;" : "";
-  const spawnEnv = { ...process.env, PATH: extraPath + (process.env.PATH || "") };
+  // Build PATH from the machine, never from one developer's home directory.
+  const spawnEnv = getSpawnEnv();
   const r = spawnSync(
     bin,
     ["run", objective, "--url", url, "--agent", "--headless", "--timeout", String(TIMEOUT)],
