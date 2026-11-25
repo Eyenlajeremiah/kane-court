@@ -432,3 +432,34 @@ and the re-recording.
 
 **NEEDS HUMAN:** none. User specifically asked this agent to communicate the
 red-round checkpoint and stop. The next agent should proceed autonomously.
+
+### Entry 2026-11-25 — Copilot (green-closed-loop checkpoint)
+
+**Context:** The user's Kane CLI session is authenticated and has credits.
+
+**Green demo completed:**
+- Restored `targets/atlas/index.html` to the committed green page.
+- Re-recorded all five Atlas persona flows against the current green page.
+- Re-authored the skeptic flow after one replay was lost in a prior recording.
+- Ran a final replay of all five flows: `newcomer`, `skeptic`, `mobile`,
+  `saver`, and `promised` all passed with exit code 0.
+- Published Atlas round 1 with `node scripts/publish.js atlas 1`.
+- `data/verdicts.json` now contains `Atlas Capital` with `pass: true`,
+  `blocked: false`, and all five flows passing.
+- Re-pinned and verified the lock:
+  `integrity OK: 67 locked file(s) unchanged (manifest not signed)`.
+- `npm test`: 10 tests, 0 failures.
+- `npm pack --dry-run --json`: confirmed all five `*_test.md` specs,
+  `output-*` folders, targets, scripts, and data ship in the package.
+
+**Files changed in this checkpoint:**
+- `data/verdicts.json`
+- `targets/atlas/index.html`
+- Canonical `.testmuai/tests/*_test.md` and `output-*` recording artifacts
+- `scripts/lock-manifest.json`
+- This handoff file
+
+**NEEDS HUMAN:** None for code or credentials. Next steps are submission
+operations: decide whether to run `npm publish`, write the two public posts,
+and file the hackathon submission form. The repository now contains the
+single-use green verdict and replayable recordings needed for the demo.

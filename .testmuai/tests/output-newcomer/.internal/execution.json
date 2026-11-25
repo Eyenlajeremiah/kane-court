@@ -1,25 +1,25 @@
 {
-  "test_id": "3db9c8cc-dd4a-497a-8bfa-5af3167d546c",
+  "test_id": "aea7d4e3-bb18-4a7e-acd3-19c2f484c645",
   "version": "v4",
   "auto_heal_version": "AH2",
-  "session_id": "dc15851a-0739-438a-834e-cc83fa226669",
+  "session_id": "2c7e66fa-e104-40c7-9b56-b73c28c2c030",
   "org_id": "3434747",
   "user_id": "3613308",
   "url": "http://localhost:3000/t/atlas",
-  "start_timestamp": "2026-11-18T22:51:23.379Z",
-  "end_timestamp": "2026-11-18T22:53:40.770Z",
+  "start_timestamp": "2026-11-25T17:11:52.198Z",
+  "end_timestamp": "2026-11-25T17:13:07.114Z",
   "status": "success",
-  "commit_id": "dc15851a-0739-438a-834e-cc83fa226669",
+  "commit_id": "2c7e66fa-e104-40c7-9b56-b73c28c2c030",
   "instructions": [
     {
       "content_type": "generative_block",
-      "instruction_id": "generative_block_cdeb52dfbbe54536bb431011ca34dddd",
-      "generative_id": "cdeb52dfbbe54536bb431011ca34dddd",
+      "instruction_id": "generative_block_961dd680167d4d95913d77e71cbf3163",
+      "generative_id": "961dd680167d4d95913d77e71cbf3163",
       "objective": "On the page, find the primary call-to-action button labelled 'View portfolio' and click it. After the click, assert three things: (1) a portfolio section or panel is visible on the page; (2) the visible portfolio section contains at least one company name; (3) clicking the button produced a visible change on the page. The test PASSES when all three are true, and FAILS if any one of them is false.",
       "status": "success",
       "children": [
         {
-          "instruction_id": "6d77f911-77e4-4fbe-b246-90a9d3a6c498",
+          "instruction_id": "3bd2178f-2f2a-4b6f-8cf1-90a2dcf9ea63",
           "instruction_class": "driver_action",
           "module_id": "",
           "instruction": "Navigate to http://localhost:3000/t/atlas",
@@ -30,12 +30,12 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "4d8a7910-d9ed-4a9b-bb9a-c922d492f251",
-              "instruction_id": "6d77f911-77e4-4fbe-b246-90a9d3a6c498",
+              "operation_id": "6652c58b-495f-4e85-bc9b-bc25d197397c",
+              "instruction_id": "3bd2178f-2f2a-4b6f-8cf1-90a2dcf9ea63",
               "instruction": "Navigate to http://localhost:3000/t/atlas",
               "intent": "Navigate to http://localhost:3000/t/atlas",
-              "operation_start": "2026-11-18T22:53:05.810885+00:00",
-              "operation_end": "2026-11-18T22:53:06.716Z",
+              "operation_start": "2026-11-25T17:12:15.726302+00:00",
+              "operation_end": "2026-11-25T17:12:16.304Z",
               "status": "success",
               "command": "OPEN",
               "name": "",
@@ -60,7 +60,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/4d8a7910-d9ed-4a9b-bb9a-c922d492f251.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/6652c58b-495f-4e85-bc9b-bc25d197397c.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -158,8 +158,8 @@
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-18T22:53:05.810885+00:00",
-          "end_timestamp": "2026-11-18T22:53:06.716Z",
+          "start_timestamp": "2026-11-25T17:12:15.726302+00:00",
+          "end_timestamp": "2026-11-25T17:12:16.304Z",
           "type": "agent_generated",
           "tags": [],
           "html_paths": [],
@@ -185,7 +185,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "cdeb52dfbbe54536bb431011ca34dddd",
+          "generative_id": "961dd680167d4d95913d77e71cbf3163",
           "plan_id": "",
           "generative_objective": "On the page, find the primary call-to-action button labelled 'View portfolio' and click it. After the click, assert three things: (1) a portfolio section or panel is visible on the page; (2) the visible portfolio section contains at least one company name; (3) clicking the button produced a visible change on the page. The test PASSES when all three are true, and FAILS if any one of them is false.",
           "error_message": "",
@@ -196,7 +196,7 @@
           "reasoning": "Navigate to http://localhost:3000/t/atlas"
         },
         {
-          "instruction_id": "1705feb5-58ce-4d69-a10b-5429573919e6",
+          "instruction_id": "0c2700b1-30a4-4109-9aa8-247cb3c504e5",
           "instruction_class": "driver_action",
           "module_id": "",
           "instruction": "Clicking View portfolio button",
@@ -207,12 +207,12 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "76d3f07a-f13e-4425-aa9f-7b45998dfa69",
-              "instruction_id": "1705feb5-58ce-4d69-a10b-5429573919e6",
+              "operation_id": "c51f0b94-ba08-454c-8159-a89abb29c0c2",
+              "instruction_id": "0c2700b1-30a4-4109-9aa8-247cb3c504e5",
               "instruction": "Clicking View portfolio button",
               "intent": "Clicking View portfolio button",
-              "operation_start": "2026-11-18T22:53:18.015601+00:00",
-              "operation_end": "2026-11-18T22:53:18.218Z",
+              "operation_start": "2026-11-25T17:12:28.529012+00:00",
+              "operation_end": "2026-11-25T17:12:28.701Z",
               "status": "success",
               "command": "CLICK",
               "name": "",
@@ -226,7 +226,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Clicking View portfolio button\",\"agent\":\"Vision Agent\",\"operation_dict\":{\"operation_type\":\"CLICK\"},\"reasoning\":\"PRIMARY: Find the primary call-to-action button labelled 'View portfolio' and click it; role=button; text=\\\"View portfolio\\\" | HINTS: container=hero section below the introductory paragraph\",\"variable\":{},\"secrets\":{},\"params\":{}}",
+              "sub_instruction_obj": "{\"operation\":\"Clicking View portfolio button\",\"agent\":\"Vision Agent\",\"operation_dict\":{\"operation_type\":\"CLICK\"},\"reasoning\":\"PRIMARY: Find the primary call-to-action button labelled 'View portfolio' and click it; role=button; text=\\\"View portfolio\\\" | HINTS: position=top-center; color=gold; container=hero section\",\"variable\":{},\"secrets\":{},\"params\":{}}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -237,7 +237,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/76d3f07a-f13e-4425-aa9f-7b45998dfa69.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/c51f0b94-ba08-454c-8159-a89abb29c0c2.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -339,29 +339,29 @@
               "output_variables": {},
               "visual_context": {
                 "x": 959,
-                "y": 191,
+                "y": 168,
                 "confidence": 0,
                 "bbox": {
-                  "x": 908,
-                  "y": 179,
-                  "width": 103,
-                  "height": 25
+                  "x": 907,
+                  "y": 159,
+                  "width": 105,
+                  "height": 18
                 },
                 "bbox_source": "accessibility_tree",
                 "viewport_width": 1920,
                 "viewport_height": 1080,
                 "scale_factor": null,
-                "raw_image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/76d3f07a-f13e-4425-aa9f-7b45998dfa69.webp",
+                "raw_image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/c51f0b94-ba08-454c-8159-a89abb29c0c2.webp",
                 "raw_image_sas_url": "",
                 "annotated_image_url": "",
                 "annotated_image_sas_url": ""
               },
-              "reasoning": "PRIMARY: Find the primary call-to-action button labelled 'View portfolio' and click it; role=button; text=\"View portfolio\" | HINTS: container=hero section below the introductory paragraph"
+              "reasoning": "PRIMARY: Find the primary call-to-action button labelled 'View portfolio' and click it; role=button; text=\"View portfolio\" | HINTS: position=top-center; color=gold; container=hero section"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-18T22:53:18.015601+00:00",
-          "end_timestamp": "2026-11-18T22:53:18.218Z",
+          "start_timestamp": "2026-11-25T17:12:28.529012+00:00",
+          "end_timestamp": "2026-11-25T17:12:28.701Z",
           "type": "agent_generated",
           "tags": [],
           "html_paths": [],
@@ -387,7 +387,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "cdeb52dfbbe54536bb431011ca34dddd",
+          "generative_id": "961dd680167d4d95913d77e71cbf3163",
           "plan_id": "",
           "generative_objective": "On the page, find the primary call-to-action button labelled 'View portfolio' and click it. After the click, assert three things: (1) a portfolio section or panel is visible on the page; (2) the visible portfolio section contains at least one company name; (3) clicking the button produced a visible change on the page. The test PASSES when all three are true, and FAILS if any one of them is false.",
           "error_message": "",
@@ -395,13 +395,13 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "PRIMARY: Find the primary call-to-action button labelled 'View portfolio' and click it; role=button; text=\"View portfolio\" | HINTS: container=hero section below the introductory paragraph"
+          "reasoning": "PRIMARY: Find the primary call-to-action button labelled 'View portfolio' and click it; role=button; text=\"View portfolio\" | HINTS: position=top-center; color=gold; container=hero section"
         },
         {
-          "instruction_id": "12ead086-77ad-4a3f-a6fc-9e3f3cf3806d",
+          "instruction_id": "4f2ddcc0-3ac9-4493-ad47-52e7f5a08b15",
           "instruction_class": "driver_action",
           "module_id": "",
-          "instruction": "Checking whether the portfolio section is visible",
+          "instruction": "Checking whether the portfolio panel is visible",
           "command": "TEXTUAL_ANALYZER",
           "error": null,
           "parent_instruction_id": "",
@@ -409,11 +409,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "e8ee16e4-7327-403d-8798-8712bb8182d1",
-              "instruction_id": "12ead086-77ad-4a3f-a6fc-9e3f3cf3806d",
-              "instruction": "Checking whether the portfolio section is visible",
-              "intent": "Checking whether the portfolio section is visible",
-              "operation_start": "2026-11-18T22:53:36.708037+00:00",
+              "operation_id": "a5c4afce-b432-4196-ab0a-af5846b40644",
+              "instruction_id": "4f2ddcc0-3ac9-4493-ad47-52e7f5a08b15",
+              "instruction": "Checking whether the portfolio panel is visible",
+              "intent": "Checking whether the portfolio panel is visible",
+              "operation_start": "2026-11-25T17:13:01.345498+00:00",
               "operation_end": "",
               "status": "success",
               "command": "TEXTUAL_ANALYZER",
@@ -428,7 +428,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Checking whether the portfolio section is visible\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether the Portfolio Companies section in the main page content is visible\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"(() => { const s=getComputedStyle(el(4)), r=el(4).getBoundingClientRect(); return s.display !== 'none' && s.visibility !== 'hidden' && r.width > 0 && r.height > 0 && /Portfolio Companies/.test(el(4).innerText); })()\",\"wrapped_js\":\"(els) => {\\n  const __m = {4: 0};\\n  const el = (i) => els[__m[i]];\\n  const __v = ((() => { const s=getComputedStyle(el(4)), r=el(4).getBoundingClientRect(); return s.display !== 'none' && s.visibility !== 'hidden' && r.width > 0 && r.height > 0 && /Portfolio Companies/.test(el(4).innerText); })());\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:text=\\\"Active Investments Portfolio Companies Companies backed by Atlas Capital: Apex\\\"i\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether the Portfolio Companies section in the main page content is visible\",\"expected_value\":\"true\",\"needs_unit_conversion\":false,\"condition\":\"A portfolio section or panel is visible on the page.\"}",
+              "sub_instruction_obj": "{\"operation\":\"Checking whether the portfolio panel is visible\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether the Portfolio Companies panel is visible on the page\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"!!(el(4).offsetWidth || el(4).offsetHeight || el(4).getClientRects().length) && /Portfolio Companies/i.test(el(4).innerText)\",\"wrapped_js\":\"(els) => {\\n  const __m = {4: 0};\\n  const el = (i) => els[__m[i]];\\n  const __v = (!!(el(4).offsetWidth || el(4).offsetHeight || el(4).getClientRects().length) && /Portfolio Companies/i.test(el(4).innerText));\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:text=\\\"Active Investments Portfolio Companies Companies backed by Atlas Capital: Apex\\\"i\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether the Portfolio Companies panel is visible on the page\",\"expected_value\":\"true\",\"needs_unit_conversion\":false,\"condition\":\"A portfolio section or panel is visible on the page.\"}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -439,7 +439,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/e8ee16e4-7327-403d-8798-8712bb8182d1.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/a5c4afce-b432-4196-ab0a-af5846b40644.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -535,11 +535,11 @@
                 "portfolio_section_or_panel_visible": "true"
               },
               "visual_context": null,
-              "reasoning": "whether the Portfolio Companies section in the main page content is visible"
+              "reasoning": "whether the Portfolio Companies panel is visible on the page"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-18T22:53:36.708037+00:00",
+          "start_timestamp": "2026-11-25T17:13:01.345498+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -566,7 +566,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "cdeb52dfbbe54536bb431011ca34dddd",
+          "generative_id": "961dd680167d4d95913d77e71cbf3163",
           "plan_id": "",
           "generative_objective": "On the page, find the primary call-to-action button labelled 'View portfolio' and click it. After the click, assert three things: (1) a portfolio section or panel is visible on the page; (2) the visible portfolio section contains at least one company name; (3) clicking the button produced a visible change on the page. The test PASSES when all three are true, and FAILS if any one of them is false.",
           "error_message": "",
@@ -574,13 +574,13 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "whether the Portfolio Companies section in the main page content is visible"
+          "reasoning": "whether the Portfolio Companies panel is visible on the page"
         },
         {
-          "instruction_id": "9e09bc93-9d0e-4355-8cb4-4cec98438f6f",
+          "instruction_id": "0f989a9e-e159-4068-a1ed-d28460cdde89",
           "instruction_class": "driver_action",
           "module_id": "",
-          "instruction": "Checking for a company name in the portfolio section",
+          "instruction": "Checking for a company name in the portfolio panel",
           "command": "TEXTUAL_ANALYZER",
           "error": null,
           "parent_instruction_id": "",
@@ -588,11 +588,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "1ddb1a95-30fc-4e15-b228-758c15e3dae1",
-              "instruction_id": "9e09bc93-9d0e-4355-8cb4-4cec98438f6f",
-              "instruction": "Checking for a company name in the portfolio section",
-              "intent": "Checking for a company name in the portfolio section",
-              "operation_start": "2026-11-18T22:53:36.709042+00:00",
+              "operation_id": "1f4e58d0-263c-4521-8dc6-340ff8205e23",
+              "instruction_id": "0f989a9e-e159-4068-a1ed-d28460cdde89",
+              "instruction": "Checking for a company name in the portfolio panel",
+              "intent": "Checking for a company name in the portfolio panel",
+              "operation_start": "2026-11-25T17:13:01.429973+00:00",
               "operation_end": "",
               "status": "success",
               "command": "TEXTUAL_ANALYZER",
@@ -607,7 +607,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Checking for a company name in the portfolio section\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether at least one company name is present in the visible Portfolio Companies section\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"(() => { const s=getComputedStyle(el(4)), r=el(4).getBoundingClientRect(); return s.display !== 'none' && s.visibility !== 'hidden' && r.width > 0 && r.height > 0 && /Apex Robotics|FleetPulse/.test(el(4).innerText); })()\",\"wrapped_js\":\"(els) => {\\n  const __m = {4: 0};\\n  const el = (i) => els[__m[i]];\\n  const __v = ((() => { const s=getComputedStyle(el(4)), r=el(4).getBoundingClientRect(); return s.display !== 'none' && s.visibility !== 'hidden' && r.width > 0 && r.height > 0 && /Apex Robotics|FleetPulse/.test(el(4).innerText); })());\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:text=\\\"Active Investments Portfolio Companies Companies backed by Atlas Capital: Apex\\\"i\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether at least one company name is present in the visible Portfolio Companies section\",\"expected_value\":\"true\",\"needs_unit_conversion\":false,\"condition\":\"The visible portfolio section contains at least one company name.\"}",
+              "sub_instruction_obj": "{\"operation\":\"Checking for a company name in the portfolio panel\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether at least one company name is present in the visible Portfolio Companies panel\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"!!(el(4).offsetWidth || el(4).offsetHeight || el(4).getClientRects().length) && /Apex Robotics|FleetPulse|Ironclad Dynamics/.test(el(4).innerText)\",\"wrapped_js\":\"(els) => {\\n  const __m = {4: 0};\\n  const el = (i) => els[__m[i]];\\n  const __v = (!!(el(4).offsetWidth || el(4).offsetHeight || el(4).getClientRects().length) && /Apex Robotics|FleetPulse|Ironclad Dynamics/.test(el(4).innerText));\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:text=\\\"Active Investments Portfolio Companies Companies backed by Atlas Capital: Apex\\\"i\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether at least one company name is present in the visible Portfolio Companies panel\",\"expected_value\":\"true\",\"needs_unit_conversion\":false,\"condition\":\"The visible portfolio section contains at least one company name.\"}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -618,7 +618,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/1ddb1a95-30fc-4e15-b228-758c15e3dae1.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/1f4e58d0-263c-4521-8dc6-340ff8205e23.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -714,11 +714,11 @@
                 "portfolio_section_company_name_present": "true"
               },
               "visual_context": null,
-              "reasoning": "whether at least one company name is present in the visible Portfolio Companies section"
+              "reasoning": "whether at least one company name is present in the visible Portfolio Companies panel"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-18T22:53:36.709042+00:00",
+          "start_timestamp": "2026-11-25T17:13:01.429973+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -745,7 +745,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "cdeb52dfbbe54536bb431011ca34dddd",
+          "generative_id": "961dd680167d4d95913d77e71cbf3163",
           "plan_id": "",
           "generative_objective": "On the page, find the primary call-to-action button labelled 'View portfolio' and click it. After the click, assert three things: (1) a portfolio section or panel is visible on the page; (2) the visible portfolio section contains at least one company name; (3) clicking the button produced a visible change on the page. The test PASSES when all three are true, and FAILS if any one of them is false.",
           "error_message": "",
@@ -753,13 +753,13 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "whether at least one company name is present in the visible Portfolio Companies section"
+          "reasoning": "whether at least one company name is present in the visible Portfolio Companies panel"
         },
         {
-          "instruction_id": "e45a7193-5c39-46d9-91c3-d78c7322dcbf",
+          "instruction_id": "38ddea1c-7c08-4991-a449-ab8c3e394317",
           "instruction_class": "driver_action",
           "module_id": "",
-          "instruction": "Checking for visible portfolio content after the button click",
+          "instruction": "Checking for the visible portfolio view change",
           "command": "TEXTUAL_ANALYZER",
           "error": null,
           "parent_instruction_id": "",
@@ -767,11 +767,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "ce67bb4a-1420-4ebb-b3ed-ff8fc43c458f",
-              "instruction_id": "e45a7193-5c39-46d9-91c3-d78c7322dcbf",
-              "instruction": "Checking for visible portfolio content after the button click",
-              "intent": "Checking for visible portfolio content after the button click",
-              "operation_start": "2026-11-18T22:53:36.710038+00:00",
+              "operation_id": "f292e384-e387-4d83-a8c7-f4faca717ba7",
+              "instruction_id": "38ddea1c-7c08-4991-a449-ab8c3e394317",
+              "instruction": "Checking for the visible portfolio view change",
+              "intent": "Checking for the visible portfolio view change",
+              "operation_start": "2026-11-25T17:13:01.524715+00:00",
               "operation_end": "",
               "status": "success",
               "command": "TEXTUAL_ANALYZER",
@@ -786,7 +786,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Checking for visible portfolio content after the button click\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether the Active Investments portfolio content is visibly displayed in the main page after the View portfolio button\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"(() => { const s=getComputedStyle(el(4)), r=el(4).getBoundingClientRect(); return s.display !== 'none' && s.visibility !== 'hidden' && r.width > 0 && r.height > 0 && /ACTIVE INVESTMENTS/.test(el(4).innerText); })()\",\"wrapped_js\":\"(els) => {\\n  const __m = {4: 0};\\n  const el = (i) => els[__m[i]];\\n  const __v = ((() => { const s=getComputedStyle(el(4)), r=el(4).getBoundingClientRect(); return s.display !== 'none' && s.visibility !== 'hidden' && r.width > 0 && r.height > 0 && /ACTIVE INVESTMENTS/.test(el(4).innerText); })());\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:text=\\\"Active Investments Portfolio Companies Companies backed by Atlas Capital: Apex\\\"i\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether the Active Investments portfolio content is visibly displayed in the main page after the View portfolio button\",\"expected_value\":\"true\",\"needs_unit_conversion\":false,\"condition\":\"Clicking the button produced a visible change on the page.\"}",
+              "sub_instruction_obj": "{\"operation\":\"Checking for the visible portfolio view change\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether the Portfolio Companies panel is visibly displayed in its active state on the page\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"!!(el(4).offsetWidth || el(4).offsetHeight || el(4).getClientRects().length) && el(4).classList.contains('on') && /Portfolio Companies/i.test(el(4).innerText)\",\"wrapped_js\":\"(els) => {\\n  const __m = {4: 0};\\n  const el = (i) => els[__m[i]];\\n  const __v = (!!(el(4).offsetWidth || el(4).offsetHeight || el(4).getClientRects().length) && el(4).classList.contains('on') && /Portfolio Companies/i.test(el(4).innerText));\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:text=\\\"Active Investments Portfolio Companies Companies backed by Atlas Capital: Apex\\\"i\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether the Portfolio Companies panel is visibly displayed in its active state on the page\",\"expected_value\":\"true\",\"needs_unit_conversion\":false,\"condition\":\"Clicking the button produced a visible change on the page.\"}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -797,14 +797,14 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/ce67bb4a-1420-4ebb-b3ed-ff8fc43c458f.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/f292e384-e387-4d83-a8c7-f4faca717ba7.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
               "url": "",
               "navigation_direction": "",
               "tagified_image_url": "",
-              "query_variable_name": "post_click_visible_change",
+              "query_variable_name": "page_visible_change_after_view_portfolio_click",
               "query_variable_value": "true",
               "query_variable_type": "",
               "expected_value": "",
@@ -890,14 +890,14 @@
               "until_settle_ms": 0,
               "api_data": {},
               "output_variables": {
-                "post_click_visible_change": "true"
+                "page_visible_change_after_view_portfolio_click": "true"
               },
               "visual_context": null,
-              "reasoning": "whether the Active Investments portfolio content is visibly displayed in the main page after the View portfolio button"
+              "reasoning": "whether the Portfolio Companies panel is visibly displayed in its active state on the page"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-18T22:53:36.710038+00:00",
+          "start_timestamp": "2026-11-25T17:13:01.524715+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -924,7 +924,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "cdeb52dfbbe54536bb431011ca34dddd",
+          "generative_id": "961dd680167d4d95913d77e71cbf3163",
           "plan_id": "",
           "generative_objective": "On the page, find the primary call-to-action button labelled 'View portfolio' and click it. After the click, assert three things: (1) a portfolio section or panel is visible on the page; (2) the visible portfolio section contains at least one company name; (3) clicking the button produced a visible change on the page. The test PASSES when all three are true, and FAILS if any one of them is false.",
           "error_message": "",
@@ -932,10 +932,10 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "whether the Active Investments portfolio content is visibly displayed in the main page after the View portfolio button"
+          "reasoning": "whether the Portfolio Companies panel is visibly displayed in its active state on the page"
         },
         {
-          "instruction_id": "abb80326-6366-48b9-af2f-aa7b9faee635",
+          "instruction_id": "c3dae406-0b0d-43df-a117-61a1cba37b1a",
           "instruction_class": "non_driver_action",
           "module_id": "",
           "instruction": "Assertion check",
@@ -983,10 +983,10 @@
                       "transforms": [],
                       "json_path": null,
                       "expected": "true",
-                      "extracted_value": "{{post_click_visible_change}}",
-                      "store_key": "post_click_visible_change",
+                      "extracted_value": "{{page_visible_change_after_view_portfolio_click}}",
+                      "store_key": "page_visible_change_after_view_portfolio_click",
                       "variable_refs": {
-                        "{{post_click_visible_change}}": "true"
+                        "{{page_visible_change_after_view_portfolio_click}}": "true"
                       }
                     }
                   ],
@@ -1009,16 +1009,16 @@
                     },
                     {
                       "description": "Clicking the button produced a visible change on the page.",
-                      "store_key": "post_click_visible_change",
+                      "store_key": "page_visible_change_after_view_portfolio_click",
                       "expected_value": "true",
-                      "extracted_value": "{{post_click_visible_change}}",
+                      "extracted_value": "{{page_visible_change_after_view_portfolio_click}}",
                       "operator": "equals",
                       "transforms": []
                     }
                   ],
                   "composite_operator": "and",
                   "verification": "",
-                  "claim": "a portfolio section or panel is visible on the page; the visible portfolio section contains at least one company name; clicking the button produced a visible change on the page. The test PASSES when all three are true, and FAILS if any one of them is false.",
+                  "claim": "After the click, a portfolio section or panel is visible on the page, the visible portfolio section contains at least one company name, and clicking the button produced a visible change on the page.",
                   "operator": [],
                   "assertion_operands": [],
                   "left_operand": null,
@@ -1034,11 +1034,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "aee1e362-711e-4190-8814-26ad5bb1b038",
-              "instruction_id": "abb80326-6366-48b9-af2f-aa7b9faee635",
+              "operation_id": "a45b61f3-0686-46b4-83ba-063232eb15d6",
+              "instruction_id": "c3dae406-0b0d-43df-a117-61a1cba37b1a",
               "instruction": "Assertion check",
               "intent": "Assertion check",
-              "operation_start": "2026-11-18T22:53:37.504271+00:00",
+              "operation_start": "2026-11-25T17:13:02.326442+00:00",
               "operation_end": "",
               "status": "success",
               "command": "ASSERTION",
@@ -1064,7 +1064,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/aee1e362-711e-4190-8814-26ad5bb1b038.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/a45b61f3-0686-46b4-83ba-063232eb15d6.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -1162,10 +1162,10 @@
                     "transforms": [],
                     "json_path": null,
                     "expected": "true",
-                    "extracted_value": "{{post_click_visible_change}}",
-                    "store_key": "post_click_visible_change",
+                    "extracted_value": "{{page_visible_change_after_view_portfolio_click}}",
+                    "store_key": "page_visible_change_after_view_portfolio_click",
                     "variable_refs": {
-                      "{{post_click_visible_change}}": "true"
+                      "{{page_visible_change_after_view_portfolio_click}}": "true"
                     }
                   }
                 ],
@@ -1188,21 +1188,21 @@
                   },
                   {
                     "description": "Clicking the button produced a visible change on the page.",
-                    "store_key": "post_click_visible_change",
+                    "store_key": "page_visible_change_after_view_portfolio_click",
                     "expected_value": "true",
-                    "extracted_value": "{{post_click_visible_change}}",
+                    "extracted_value": "{{page_visible_change_after_view_portfolio_click}}",
                     "operator": "equals",
                     "transforms": []
                   }
                 ],
                 "composite_operator": "and",
-                "verification": "All three asserted post-click page states are true.",
-                "claim": "a portfolio section or panel is visible on the page; the visible portfolio section contains at least one company name; clicking the button produced a visible change on the page. The test PASSES when all three are true, and FAILS if any one of them is false."
+                "verification": "A portfolio section or panel is visible on the page; the visible portfolio section contains at least one company name; and the page has visibly changed after clicking 'View portfolio'.",
+                "claim": "After the click, a portfolio section or panel is visible on the page, the visible portfolio section contains at least one company name, and clicking the button produced a visible change on the page."
               },
               "assertion_tree": {
                 "assertion_id": "assert_cp_1",
                 "status": "passed",
-                "description": "a portfolio section or panel is visible on the page; the visible portfolio section contains at least one company name; clicking the button produced a visible change on the page. The test PASSES when all three are true, and FAILS if any one of them is false.",
+                "description": "After the click, a portfolio section or panel is visible on the page, the visible portfolio section contains at least one company name, and clicking the button produced a visible change on the page.",
                 "sub_results": [
                   {
                     "description": "A portfolio section or panel is visible on the page.",
@@ -1237,10 +1237,10 @@
                     "transforms": [],
                     "json_path": null,
                     "expected": "true",
-                    "extracted_value": "{{post_click_visible_change}}",
-                    "store_key": "post_click_visible_change",
+                    "extracted_value": "{{page_visible_change_after_view_portfolio_click}}",
+                    "store_key": "page_visible_change_after_view_portfolio_click",
                     "variable_refs": {
-                      "{{post_click_visible_change}}": "true"
+                      "{{page_visible_change_after_view_portfolio_click}}": "true"
                     }
                   }
                 ],
@@ -1248,7 +1248,7 @@
                 "passed": true,
                 "step": 4,
                 "is_final": true,
-                "verification": "All three asserted post-click page states are true.",
+                "verification": "A portfolio section or panel is visible on the page; the visible portfolio section contains at least one company name; and the page has visibly changed after clicking 'View portfolio'.",
                 "error_message": null,
                 "duration_ms": 0
               },
@@ -1290,7 +1290,7 @@
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-18T22:53:37.504271+00:00",
+          "start_timestamp": "2026-11-25T17:13:02.326442+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -1317,7 +1317,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "cdeb52dfbbe54536bb431011ca34dddd",
+          "generative_id": "961dd680167d4d95913d77e71cbf3163",
           "plan_id": "",
           "generative_objective": "On the page, find the primary call-to-action button labelled 'View portfolio' and click it. After the click, assert three things: (1) a portfolio section or panel is visible on the page; (2) the visible portfolio section contains at least one company name; (3) clicking the button produced a visible change on the page. The test PASSES when all three are true, and FAILS if any one of them is false.",
           "error_message": "",
@@ -1330,20 +1330,20 @@
       ],
       "error_message": null,
       "error_code": null,
-      "result_code": null,
+      "result_code": "100",
       "bifurcation_context": [],
       "approach_reason": [
-        "The requested “View portfolio” button was selected on the Atlas Capital page.",
-        "The page updated to show the Active Investments portfolio section.",
-        "The visible Portfolio Companies section included company names, including Apex Robotics and FleetPulse."
+        "You asked to open the portfolio from the primary “View portfolio” button.",
+        "Clicked “View portfolio” on the Atlas page.",
+        "The Portfolio Companies section appeared and showed company names, including Apex Robotics, FleetPulse, and Ironclad Dynamics."
       ],
-      "one_liner": null
+      "one_liner": "opened the portfolio section on the Atlas page"
     }
   ],
   "modules": [],
   "uploaded_files": [],
   "test_params": [],
-  "test_level_variables": "[{\"name\":\"portfolio_section_or_panel_visible\",\"value\":\"true\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"portfolio_section_company_name_present\",\"value\":\"true\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"post_click_visible_change\",\"value\":\"true\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"}]",
+  "test_level_variables": "[{\"name\":\"portfolio_section_or_panel_visible\",\"value\":\"true\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"portfolio_section_company_name_present\",\"value\":\"true\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"page_visible_change_after_view_portfolio_click\",\"value\":\"true\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"}]",
   "test_global_variables": [],
   "max_network_wait": 0,
   "wait_buffer": 0,

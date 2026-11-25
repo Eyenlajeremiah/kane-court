@@ -4,52 +4,61 @@
     "name": "Atlas Capital",
     "blurb": "A venture capital landing page. Ships with four planted bugs: a dead CTA, placeholder copy, a silent form and horizontal overflow. This is the demo target the agent repairs live on camera.",
     "targetUrl": "http://localhost:3000/t/atlas",
-    "pass": false,
-    "blocked": true,
-    "rounds": 3,
+    "pass": true,
+    "blocked": false,
+    "rounds": 1,
     "flows": [
       {
-        "id": "mobile",
-        "pass": false,
-        "exitCode": 2,
-        "steps": 2,
-        "failures": []
-      },
-      {
         "id": "newcomer",
-        "pass": false,
-        "exitCode": 2,
-        "steps": 2,
-        "failures": []
-      },
-      {
-        "id": "promised",
-        "pass": false,
-        "exitCode": 2,
-        "steps": 2,
-        "failures": []
-      },
-      {
-        "id": "saver",
-        "pass": false,
-        "exitCode": 2,
-        "steps": 2,
-        "failures": []
+        "pass": true,
+        "exitCode": 0,
+        "steps": 39,
+        "failures": [],
+        "skipped": false
       },
       {
         "id": "skeptic",
-        "pass": false,
-        "exitCode": 2,
-        "steps": 2,
-        "failures": []
+        "pass": true,
+        "exitCode": 0,
+        "steps": 54,
+        "failures": [],
+        "skipped": false
+      },
+      {
+        "id": "mobile",
+        "pass": true,
+        "exitCode": 0,
+        "steps": 44,
+        "failures": [],
+        "skipped": false
+      },
+      {
+        "id": "saver",
+        "pass": true,
+        "exitCode": 0,
+        "steps": 49,
+        "failures": [],
+        "skipped": false
+      },
+      {
+        "id": "promised",
+        "pass": true,
+        "exitCode": 0,
+        "steps": 73,
+        "failures": [],
+        "skipped": false
       }
     ],
-    "publishedAt": "2026-11-25T09:37:03.618Z",
+    "publishedAt": "2026-11-25T17:45:50.562Z",
     "kane": "Kane CLI (TestMu AI)",
     "agent": "gemini",
     "integrity": {
       "ok": true,
-      "note": "integrity OK: 62 locked file(s) unchanged"
+      "note": "integrity OK: 67 locked file(s) unchanged (manifest not signed)"
+    },
+    "attestation": {
+      "verified": false,
+      "note": "evidence attestation not configured"
     }
   },
   {

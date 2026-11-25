@@ -1,25 +1,25 @@
 {
-  "test_id": "c2879d21-0642-4ca0-be8d-53dd6fd86d61",
+  "test_id": "c27505aa-b7f3-4a8c-ac6d-d5b283f81f6c",
   "version": "v4",
   "auto_heal_version": "AH2",
-  "session_id": "bc6b4aa2-6a84-427c-b79a-95263fcb26bc",
+  "session_id": "fd9c858e-5fef-4a60-a33c-72728013acf4",
   "org_id": "3434747",
   "user_id": "3613308",
   "url": "http://localhost:3000/t/atlas",
-  "start_timestamp": "2026-11-18T22:54:09.772Z",
-  "end_timestamp": "2026-11-18T22:55:14.099Z",
+  "start_timestamp": "2026-11-25T17:13:33.427Z",
+  "end_timestamp": "2026-11-25T17:15:59.395Z",
   "status": "success",
-  "commit_id": "bc6b4aa2-6a84-427c-b79a-95263fcb26bc",
+  "commit_id": "fd9c858e-5fef-4a60-a33c-72728013acf4",
   "instructions": [
     {
       "content_type": "generative_block",
-      "instruction_id": "generative_block_0c7f6c0390bb4166aca969d175e9b2d0",
-      "generative_id": "0c7f6c0390bb4166aca969d175e9b2d0",
+      "instruction_id": "generative_block_3bd364da7db74cfe88aef262774962ae",
+      "generative_id": "3bd364da7db74cfe88aef262774962ae",
       "objective": "Read the whole page and assert that no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and that every table cell has a real value. The test PASSES when the page contains none of those placeholder strings and every table cell holds a real value. The test FAILS if any such placeholder text is present, and the failure message must quote the exact offending text.",
       "status": "success",
       "children": [
         {
-          "instruction_id": "527ce087-5e6d-42bd-80f1-f36144766b9e",
+          "instruction_id": "3e012675-1d06-4fb8-8257-6db4b293b105",
           "instruction_class": "driver_action",
           "module_id": "",
           "instruction": "Navigate to http://localhost:3000/t/atlas",
@@ -30,12 +30,12 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "3b33055e-7855-4d9d-aeae-6b65118818a6",
-              "instruction_id": "527ce087-5e6d-42bd-80f1-f36144766b9e",
+              "operation_id": "7e19a73a-bbb4-482e-bad9-69ef571c9ca6",
+              "instruction_id": "3e012675-1d06-4fb8-8257-6db4b293b105",
               "instruction": "Navigate to http://localhost:3000/t/atlas",
               "intent": "Navigate to http://localhost:3000/t/atlas",
-              "operation_start": "2026-11-18T22:54:43.692071+00:00",
-              "operation_end": "2026-11-18T22:54:44.661Z",
+              "operation_start": "2026-11-25T17:13:50.047128+00:00",
+              "operation_end": "2026-11-25T17:13:50.656Z",
               "status": "success",
               "command": "OPEN",
               "name": "",
@@ -60,7 +60,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/3b33055e-7855-4d9d-aeae-6b65118818a6.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/7e19a73a-bbb4-482e-bad9-69ef571c9ca6.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -158,8 +158,8 @@
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-18T22:54:43.692071+00:00",
-          "end_timestamp": "2026-11-18T22:54:44.661Z",
+          "start_timestamp": "2026-11-25T17:13:50.047128+00:00",
+          "end_timestamp": "2026-11-25T17:13:50.656Z",
           "type": "agent_generated",
           "tags": [],
           "html_paths": [],
@@ -185,7 +185,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "0c7f6c0390bb4166aca969d175e9b2d0",
+          "generative_id": "3bd364da7db74cfe88aef262774962ae",
           "plan_id": "",
           "generative_objective": "Read the whole page and assert that no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and that every table cell has a real value. The test PASSES when the page contains none of those placeholder strings and every table cell holds a real value. The test FAILS if any such placeholder text is present, and the failure message must quote the exact offending text.",
           "error_message": "",
@@ -196,7 +196,7 @@
           "reasoning": "Navigate to http://localhost:3000/t/atlas"
         },
         {
-          "instruction_id": "c5697646-8118-44d0-89f0-dea20d0cd92b",
+          "instruction_id": "94ec4f92-e9c3-475a-b8b6-3b8a9f808acc",
           "instruction_class": "driver_action",
           "module_id": "",
           "instruction": "Checking for visible undefined text",
@@ -207,11 +207,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "7be2f196-b503-4efa-b471-01fc148e8da9",
-              "instruction_id": "c5697646-8118-44d0-89f0-dea20d0cd92b",
+              "operation_id": "57f452c1-cc5f-486e-b6bc-16d090f86c27",
+              "instruction_id": "94ec4f92-e9c3-475a-b8b6-3b8a9f808acc",
               "instruction": "Checking for visible undefined text",
               "intent": "Checking for visible undefined text",
-              "operation_start": "2026-11-18T22:55:08.590743+00:00",
+              "operation_start": "2026-11-25T17:15:54.444521+00:00",
               "operation_end": "",
               "status": "success",
               "command": "VISION_QUERY",
@@ -226,7 +226,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Checking for visible undefined text\",\"agent\":\"Vision Agent\",\"operation_dict\":{\"operation_type\":\"VISION_QUERY\"},\"reasoning\":\"whether visible text reading 'undefined' is present anywhere on the page\",\"variable\":{},\"secrets\":{},\"params\":{}}",
+              "sub_instruction_obj": "{\"operation\":\"Checking for visible undefined text\",\"agent\":\"Vision Agent\",\"operation_dict\":{\"operation_type\":\"VISION_QUERY\"},\"reasoning\":\"whether visible text 'undefined' is present anywhere on the page\",\"variable\":{},\"secrets\":{},\"params\":{}}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -237,7 +237,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/7be2f196-b503-4efa-b471-01fc148e8da9.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/57f452c1-cc5f-486e-b6bc-16d090f86c27.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -333,11 +333,11 @@
                 "undefined_text_absent": "false"
               },
               "visual_context": null,
-              "reasoning": "whether visible text reading 'undefined' is present anywhere on the page"
+              "reasoning": "whether visible text 'undefined' is present anywhere on the page"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-18T22:55:08.590743+00:00",
+          "start_timestamp": "2026-11-25T17:15:54.444521+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -364,7 +364,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "0c7f6c0390bb4166aca969d175e9b2d0",
+          "generative_id": "3bd364da7db74cfe88aef262774962ae",
           "plan_id": "",
           "generative_objective": "Read the whole page and assert that no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and that every table cell has a real value. The test PASSES when the page contains none of those placeholder strings and every table cell holds a real value. The test FAILS if any such placeholder text is present, and the failure message must quote the exact offending text.",
           "error_message": "",
@@ -372,10 +372,10 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "whether visible text reading 'undefined' is present anywhere on the page"
+          "reasoning": "whether visible text 'undefined' is present anywhere on the page"
         },
         {
-          "instruction_id": "5453921e-739a-4159-b9e9-8daa69b7aabf",
+          "instruction_id": "a82d722f-450b-4ef2-a2f4-bc4edbcf820f",
           "instruction_class": "driver_action",
           "module_id": "",
           "instruction": "Checking for visible null text",
@@ -386,11 +386,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "41d69d82-b9bd-46c6-a44b-45df599001a8",
-              "instruction_id": "5453921e-739a-4159-b9e9-8daa69b7aabf",
+              "operation_id": "7f076500-0749-41f2-a6f0-332df1e7d51c",
+              "instruction_id": "a82d722f-450b-4ef2-a2f4-bc4edbcf820f",
               "instruction": "Checking for visible null text",
               "intent": "Checking for visible null text",
-              "operation_start": "2026-11-18T22:55:08.591744+00:00",
+              "operation_start": "2026-11-25T17:15:54.454035+00:00",
               "operation_end": "",
               "status": "success",
               "command": "VISION_QUERY",
@@ -405,7 +405,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Checking for visible null text\",\"agent\":\"Vision Agent\",\"operation_dict\":{\"operation_type\":\"VISION_QUERY\"},\"reasoning\":\"whether visible text reading 'null' is present anywhere on the page\",\"variable\":{},\"secrets\":{},\"params\":{}}",
+              "sub_instruction_obj": "{\"operation\":\"Checking for visible null text\",\"agent\":\"Vision Agent\",\"operation_dict\":{\"operation_type\":\"VISION_QUERY\"},\"reasoning\":\"whether visible text 'null' is present anywhere on the page\",\"variable\":{},\"secrets\":{},\"params\":{}}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -416,7 +416,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/41d69d82-b9bd-46c6-a44b-45df599001a8.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/7f076500-0749-41f2-a6f0-332df1e7d51c.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -512,11 +512,11 @@
                 "null_text_absent": "false"
               },
               "visual_context": null,
-              "reasoning": "whether visible text reading 'null' is present anywhere on the page"
+              "reasoning": "whether visible text 'null' is present anywhere on the page"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-18T22:55:08.591744+00:00",
+          "start_timestamp": "2026-11-25T17:15:54.454035+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -543,7 +543,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "0c7f6c0390bb4166aca969d175e9b2d0",
+          "generative_id": "3bd364da7db74cfe88aef262774962ae",
           "plan_id": "",
           "generative_objective": "Read the whole page and assert that no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and that every table cell has a real value. The test PASSES when the page contains none of those placeholder strings and every table cell holds a real value. The test FAILS if any such placeholder text is present, and the failure message must quote the exact offending text.",
           "error_message": "",
@@ -551,10 +551,10 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "whether visible text reading 'null' is present anywhere on the page"
+          "reasoning": "whether visible text 'null' is present anywhere on the page"
         },
         {
-          "instruction_id": "a6356799-4a48-4758-b1c1-a754af81cf05",
+          "instruction_id": "0e9828f9-894f-433b-85df-17857fd40b8a",
           "instruction_class": "driver_action",
           "module_id": "",
           "instruction": "Checking for visible NaN text",
@@ -565,11 +565,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "e56de72a-5e2b-4beb-8239-568d7b7f7b6b",
-              "instruction_id": "a6356799-4a48-4758-b1c1-a754af81cf05",
+              "operation_id": "eb55c7b9-4e00-4f6a-87d1-d36eb4c0bc57",
+              "instruction_id": "0e9828f9-894f-433b-85df-17857fd40b8a",
               "instruction": "Checking for visible NaN text",
               "intent": "Checking for visible NaN text",
-              "operation_start": "2026-11-18T22:55:08.591744+00:00",
+              "operation_start": "2026-11-25T17:15:54.463033+00:00",
               "operation_end": "",
               "status": "success",
               "command": "VISION_QUERY",
@@ -584,7 +584,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Checking for visible NaN text\",\"agent\":\"Vision Agent\",\"operation_dict\":{\"operation_type\":\"VISION_QUERY\"},\"reasoning\":\"whether visible text reading 'NaN' is present anywhere on the page\",\"variable\":{},\"secrets\":{},\"params\":{}}",
+              "sub_instruction_obj": "{\"operation\":\"Checking for visible NaN text\",\"agent\":\"Vision Agent\",\"operation_dict\":{\"operation_type\":\"VISION_QUERY\"},\"reasoning\":\"whether visible text 'NaN' is present anywhere on the page\",\"variable\":{},\"secrets\":{},\"params\":{}}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -595,7 +595,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/e56de72a-5e2b-4beb-8239-568d7b7f7b6b.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/eb55c7b9-4e00-4f6a-87d1-d36eb4c0bc57.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -691,11 +691,11 @@
                 "nan_text_absent": "false"
               },
               "visual_context": null,
-              "reasoning": "whether visible text reading 'NaN' is present anywhere on the page"
+              "reasoning": "whether visible text 'NaN' is present anywhere on the page"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-18T22:55:08.591744+00:00",
+          "start_timestamp": "2026-11-25T17:15:54.463033+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -722,7 +722,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "0c7f6c0390bb4166aca969d175e9b2d0",
+          "generative_id": "3bd364da7db74cfe88aef262774962ae",
           "plan_id": "",
           "generative_objective": "Read the whole page and assert that no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and that every table cell has a real value. The test PASSES when the page contains none of those placeholder strings and every table cell holds a real value. The test FAILS if any such placeholder text is present, and the failure message must quote the exact offending text.",
           "error_message": "",
@@ -730,10 +730,10 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "whether visible text reading 'NaN' is present anywhere on the page"
+          "reasoning": "whether visible text 'NaN' is present anywhere on the page"
         },
         {
-          "instruction_id": "bf4997fe-42bd-4835-bfd5-3a4a4778d135",
+          "instruction_id": "4f6ea34a-7570-415e-a89c-828aca2d56a1",
           "instruction_class": "driver_action",
           "module_id": "",
           "instruction": "Checking for visible Lorem ipsum text",
@@ -744,11 +744,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "69922c4b-b1c1-4711-81d9-505ad7c4dc83",
-              "instruction_id": "bf4997fe-42bd-4835-bfd5-3a4a4778d135",
+              "operation_id": "3243ba1c-1b24-440d-a210-ca1b1558a1e2",
+              "instruction_id": "4f6ea34a-7570-415e-a89c-828aca2d56a1",
               "instruction": "Checking for visible Lorem ipsum text",
               "intent": "Checking for visible Lorem ipsum text",
-              "operation_start": "2026-11-18T22:55:08.592743+00:00",
+              "operation_start": "2026-11-25T17:15:54.474035+00:00",
               "operation_end": "",
               "status": "success",
               "command": "VISION_QUERY",
@@ -763,7 +763,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Checking for visible Lorem ipsum text\",\"agent\":\"Vision Agent\",\"operation_dict\":{\"operation_type\":\"VISION_QUERY\"},\"reasoning\":\"whether visible text reading 'Lorem ipsum' is present anywhere on the page\",\"variable\":{},\"secrets\":{},\"params\":{}}",
+              "sub_instruction_obj": "{\"operation\":\"Checking for visible Lorem ipsum text\",\"agent\":\"Vision Agent\",\"operation_dict\":{\"operation_type\":\"VISION_QUERY\"},\"reasoning\":\"whether visible text 'Lorem ipsum' is present anywhere on the page\",\"variable\":{},\"secrets\":{},\"params\":{}}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -774,7 +774,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/69922c4b-b1c1-4711-81d9-505ad7c4dc83.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/3243ba1c-1b24-440d-a210-ca1b1558a1e2.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -870,11 +870,11 @@
                 "lorem_ipsum_text_absent": "false"
               },
               "visual_context": null,
-              "reasoning": "whether visible text reading 'Lorem ipsum' is present anywhere on the page"
+              "reasoning": "whether visible text 'Lorem ipsum' is present anywhere on the page"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-18T22:55:08.592743+00:00",
+          "start_timestamp": "2026-11-25T17:15:54.474035+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -901,7 +901,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "0c7f6c0390bb4166aca969d175e9b2d0",
+          "generative_id": "3bd364da7db74cfe88aef262774962ae",
           "plan_id": "",
           "generative_objective": "Read the whole page and assert that no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and that every table cell has a real value. The test PASSES when the page contains none of those placeholder strings and every table cell holds a real value. The test FAILS if any such placeholder text is present, and the failure message must quote the exact offending text.",
           "error_message": "",
@@ -909,10 +909,10 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "whether visible text reading 'Lorem ipsum' is present anywhere on the page"
+          "reasoning": "whether visible text 'Lorem ipsum' is present anywhere on the page"
         },
         {
-          "instruction_id": "0681a0d8-6178-445f-9571-612b9ae6ac5e",
+          "instruction_id": "ecf053ab-0dbd-4c6b-8b9b-05c9d26d8588",
           "instruction_class": "driver_action",
           "module_id": "",
           "instruction": "Checking for visible TODO text",
@@ -923,11 +923,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "8f34bfdd-d9f1-42ea-95fb-1a3a1a928762",
-              "instruction_id": "0681a0d8-6178-445f-9571-612b9ae6ac5e",
+              "operation_id": "f18edff6-286e-45ac-a3ff-be262f3278e3",
+              "instruction_id": "ecf053ab-0dbd-4c6b-8b9b-05c9d26d8588",
               "instruction": "Checking for visible TODO text",
               "intent": "Checking for visible TODO text",
-              "operation_start": "2026-11-18T22:55:08.592743+00:00",
+              "operation_start": "2026-11-25T17:15:54.486033+00:00",
               "operation_end": "",
               "status": "success",
               "command": "VISION_QUERY",
@@ -942,7 +942,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Checking for visible TODO text\",\"agent\":\"Vision Agent\",\"operation_dict\":{\"operation_type\":\"VISION_QUERY\"},\"reasoning\":\"whether visible text reading 'TODO' is present anywhere on the page\",\"variable\":{},\"secrets\":{},\"params\":{}}",
+              "sub_instruction_obj": "{\"operation\":\"Checking for visible TODO text\",\"agent\":\"Vision Agent\",\"operation_dict\":{\"operation_type\":\"VISION_QUERY\"},\"reasoning\":\"whether visible text 'TODO' is present anywhere on the page\",\"variable\":{},\"secrets\":{},\"params\":{}}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -953,7 +953,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/8f34bfdd-d9f1-42ea-95fb-1a3a1a928762.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/f18edff6-286e-45ac-a3ff-be262f3278e3.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -1049,11 +1049,11 @@
                 "todo_text_absent": "false"
               },
               "visual_context": null,
-              "reasoning": "whether visible text reading 'TODO' is present anywhere on the page"
+              "reasoning": "whether visible text 'TODO' is present anywhere on the page"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-18T22:55:08.592743+00:00",
+          "start_timestamp": "2026-11-25T17:15:54.486033+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -1080,7 +1080,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "0c7f6c0390bb4166aca969d175e9b2d0",
+          "generative_id": "3bd364da7db74cfe88aef262774962ae",
           "plan_id": "",
           "generative_objective": "Read the whole page and assert that no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and that every table cell has a real value. The test PASSES when the page contains none of those placeholder strings and every table cell holds a real value. The test FAILS if any such placeholder text is present, and the failure message must quote the exact offending text.",
           "error_message": "",
@@ -1088,10 +1088,10 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "whether visible text reading 'TODO' is present anywhere on the page"
+          "reasoning": "whether visible text 'TODO' is present anywhere on the page"
         },
         {
-          "instruction_id": "bbb9196b-406b-4929-88b2-e9cf0b1fe0bf",
+          "instruction_id": "1f5648e3-5091-4b1c-be42-56ff2a278f3c",
           "instruction_class": "driver_action",
           "module_id": "",
           "instruction": "Checking for visible coming soon text",
@@ -1102,11 +1102,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "6b860aa4-eae6-4d4e-8ce5-4b56fcb9ac7c",
-              "instruction_id": "bbb9196b-406b-4929-88b2-e9cf0b1fe0bf",
+              "operation_id": "1b691dee-d503-4485-8519-9bb6fa41afd0",
+              "instruction_id": "1f5648e3-5091-4b1c-be42-56ff2a278f3c",
               "instruction": "Checking for visible coming soon text",
               "intent": "Checking for visible coming soon text",
-              "operation_start": "2026-11-18T22:55:08.592743+00:00",
+              "operation_start": "2026-11-25T17:15:54.496034+00:00",
               "operation_end": "",
               "status": "success",
               "command": "VISION_QUERY",
@@ -1121,7 +1121,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Checking for visible coming soon text\",\"agent\":\"Vision Agent\",\"operation_dict\":{\"operation_type\":\"VISION_QUERY\"},\"reasoning\":\"whether visible text reading 'coming soon' is present anywhere on the page\",\"variable\":{},\"secrets\":{},\"params\":{}}",
+              "sub_instruction_obj": "{\"operation\":\"Checking for visible coming soon text\",\"agent\":\"Vision Agent\",\"operation_dict\":{\"operation_type\":\"VISION_QUERY\"},\"reasoning\":\"whether visible text 'coming soon' is present anywhere on the page\",\"variable\":{},\"secrets\":{},\"params\":{}}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -1132,7 +1132,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/6b860aa4-eae6-4d4e-8ce5-4b56fcb9ac7c.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/1b691dee-d503-4485-8519-9bb6fa41afd0.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -1228,11 +1228,11 @@
                 "coming_soon_text_absent": "false"
               },
               "visual_context": null,
-              "reasoning": "whether visible text reading 'coming soon' is present anywhere on the page"
+              "reasoning": "whether visible text 'coming soon' is present anywhere on the page"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-18T22:55:08.592743+00:00",
+          "start_timestamp": "2026-11-25T17:15:54.496034+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -1259,7 +1259,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "0c7f6c0390bb4166aca969d175e9b2d0",
+          "generative_id": "3bd364da7db74cfe88aef262774962ae",
           "plan_id": "",
           "generative_objective": "Read the whole page and assert that no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and that every table cell has a real value. The test PASSES when the page contains none of those placeholder strings and every table cell holds a real value. The test FAILS if any such placeholder text is present, and the failure message must quote the exact offending text.",
           "error_message": "",
@@ -1267,13 +1267,13 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "whether visible text reading 'coming soon' is present anywhere on the page"
+          "reasoning": "whether visible text 'coming soon' is present anywhere on the page"
         },
         {
-          "instruction_id": "75d22dfc-6264-415a-8261-e0f59110f632",
+          "instruction_id": "82bc86fb-acb3-484b-aae9-4ad7ea2fac88",
           "instruction_class": "driver_action",
           "module_id": "",
-          "instruction": "Checking table cells for real values",
+          "instruction": "Checking values in the Investment Focus table cells",
           "command": "TEXTUAL_ANALYZER",
           "error": null,
           "parent_instruction_id": "",
@@ -1281,11 +1281,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "94e73750-a72a-43d5-98ab-8e033b96fa9d",
-              "instruction_id": "75d22dfc-6264-415a-8261-e0f59110f632",
-              "instruction": "Checking table cells for real values",
-              "intent": "Checking table cells for real values",
-              "operation_start": "2026-11-18T22:55:08.593736+00:00",
+              "operation_id": "7940d7d5-1468-4dd6-be23-b7994adc82ea",
+              "instruction_id": "82bc86fb-acb3-484b-aae9-4ad7ea2fac88",
+              "instruction": "Checking values in the Investment Focus table cells",
+              "intent": "Checking values in the Investment Focus table cells",
+              "operation_start": "2026-11-25T17:15:54.685461+00:00",
               "operation_end": "",
               "status": "success",
               "command": "TEXTUAL_ANALYZER",
@@ -1300,7 +1300,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Checking table cells for real values\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether table cells without a real value are present in the Investment Focus table\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"Array.from(el(5).querySelectorAll('td,[role=\\\"cell\\\"]')).some(cell => !cell.textContent.trim() || /^(undefined|null|nan|n\\\\/a|—|-)$/i.test(cell.textContent.trim()))\",\"wrapped_js\":\"(els) => {\\n  const __m = {5: 0};\\n  const el = (i) => els[__m[i]];\\n  const __v = (Array.from(el(5).querySelectorAll('td,[role=\\\"cell\\\"]')).some(cell => !cell.textContent.trim() || /^(undefined|null|nan|n\\\\/a|—|-)$/i.test(cell.textContent.trim())));\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:text=\\\"Investment AreaFocus SectorStage Industrial RoboticsLogistics AutomationSeed\\\"i\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether table cells without a real value are present in the Investment Focus table\",\"expected_value\":\"false\",\"needs_unit_conversion\":false,\"condition\":\"Every table cell has a real value.\"}",
+              "sub_instruction_obj": "{\"operation\":\"Checking values in the Investment Focus table cells\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether every data cell in the Investment Focus table contains a non-placeholder value\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"Array.from(el(5).querySelectorAll('td')).every(td => { const value = td.innerText.trim(); return value.length > 0 && !/^(undefined|null|nan|lorem ipsum|todo|coming soon)$/i.test(value); })\",\"wrapped_js\":\"(els) => {\\n  const __m = {5: 0};\\n  const el = (i) => els[__m[i]];\\n  const __v = (Array.from(el(5).querySelectorAll('td')).every(td => { const value = td.innerText.trim(); return value.length > 0 && !/^(undefined|null|nan|lorem ipsum|todo|coming soon)$/i.test(value); }));\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:text=\\\"Investment AreaFocus SectorStage Industrial RoboticsLogistics AutomationSeed\\\"i\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether every data cell in the Investment Focus table contains a non-placeholder value\",\"expected_value\":\"true\",\"needs_unit_conversion\":false,\"condition\":\"Every table cell has a real value.\"}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -1311,7 +1311,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/94e73750-a72a-43d5-98ab-8e033b96fa9d.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/7940d7d5-1468-4dd6-be23-b7994adc82ea.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -1319,7 +1319,7 @@
               "navigation_direction": "",
               "tagified_image_url": "",
               "query_variable_name": "table_cells_real_values",
-              "query_variable_value": "false",
+              "query_variable_value": "true",
               "query_variable_type": "",
               "expected_value": "",
               "queried_value": "",
@@ -1404,14 +1404,14 @@
               "until_settle_ms": 0,
               "api_data": {},
               "output_variables": {
-                "table_cells_real_values": "false"
+                "table_cells_real_values": "true"
               },
               "visual_context": null,
-              "reasoning": "whether table cells without a real value are present in the Investment Focus table"
+              "reasoning": "whether every data cell in the Investment Focus table contains a non-placeholder value"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-18T22:55:08.593736+00:00",
+          "start_timestamp": "2026-11-25T17:15:54.685461+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -1438,7 +1438,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "0c7f6c0390bb4166aca969d175e9b2d0",
+          "generative_id": "3bd364da7db74cfe88aef262774962ae",
           "plan_id": "",
           "generative_objective": "Read the whole page and assert that no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and that every table cell has a real value. The test PASSES when the page contains none of those placeholder strings and every table cell holds a real value. The test FAILS if any such placeholder text is present, and the failure message must quote the exact offending text.",
           "error_message": "",
@@ -1446,10 +1446,10 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "whether table cells without a real value are present in the Investment Focus table"
+          "reasoning": "whether every data cell in the Investment Focus table contains a non-placeholder value"
         },
         {
-          "instruction_id": "339e537a-9351-4574-b4eb-f9d32a98886f",
+          "instruction_id": "ac06b49d-8a33-48d4-9dba-47986b6e4f6e",
           "instruction_class": "non_driver_action",
           "module_id": "",
           "instruction": "Assertion check",
@@ -1465,7 +1465,7 @@
                 "assertion_tree": {
                   "sub_results": [
                     {
-                      "description": "No visible text reads 'undefined'.",
+                      "description": "No visible text on the page reads 'undefined'.",
                       "passed": true,
                       "operator": "equals",
                       "transforms": [],
@@ -1478,7 +1478,7 @@
                       }
                     },
                     {
-                      "description": "No visible text reads 'null'.",
+                      "description": "No visible text on the page reads 'null'.",
                       "passed": true,
                       "operator": "equals",
                       "transforms": [],
@@ -1491,7 +1491,7 @@
                       }
                     },
                     {
-                      "description": "No visible text reads 'NaN'.",
+                      "description": "No visible text on the page reads 'NaN'.",
                       "passed": true,
                       "operator": "equals",
                       "transforms": [],
@@ -1504,7 +1504,7 @@
                       }
                     },
                     {
-                      "description": "No visible text reads 'Lorem ipsum'.",
+                      "description": "No visible text on the page reads 'Lorem ipsum'.",
                       "passed": true,
                       "operator": "equals",
                       "transforms": [],
@@ -1517,7 +1517,7 @@
                       }
                     },
                     {
-                      "description": "No visible text reads 'TODO'.",
+                      "description": "No visible text on the page reads 'TODO'.",
                       "passed": true,
                       "operator": "equals",
                       "transforms": [],
@@ -1530,7 +1530,7 @@
                       }
                     },
                     {
-                      "description": "No visible text reads 'coming soon'.",
+                      "description": "No visible text on the page reads 'coming soon'.",
                       "passed": true,
                       "operator": "equals",
                       "transforms": [],
@@ -1548,17 +1548,17 @@
                       "operator": "equals",
                       "transforms": [],
                       "json_path": null,
-                      "expected": "false",
+                      "expected": "true",
                       "extracted_value": "{{table_cells_real_values}}",
                       "store_key": "table_cells_real_values",
                       "variable_refs": {
-                        "{{table_cells_real_values}}": "false"
+                        "{{table_cells_real_values}}": "true"
                       }
                     }
                   ],
                   "sub_checks": [
                     {
-                      "description": "No visible text reads 'undefined'.",
+                      "description": "No visible text on the page reads 'undefined'.",
                       "store_key": "undefined_text_absent",
                       "expected_value": "false",
                       "extracted_value": "{{undefined_text_absent}}",
@@ -1566,7 +1566,7 @@
                       "transforms": []
                     },
                     {
-                      "description": "No visible text reads 'null'.",
+                      "description": "No visible text on the page reads 'null'.",
                       "store_key": "null_text_absent",
                       "expected_value": "false",
                       "extracted_value": "{{null_text_absent}}",
@@ -1574,7 +1574,7 @@
                       "transforms": []
                     },
                     {
-                      "description": "No visible text reads 'NaN'.",
+                      "description": "No visible text on the page reads 'NaN'.",
                       "store_key": "nan_text_absent",
                       "expected_value": "false",
                       "extracted_value": "{{nan_text_absent}}",
@@ -1582,7 +1582,7 @@
                       "transforms": []
                     },
                     {
-                      "description": "No visible text reads 'Lorem ipsum'.",
+                      "description": "No visible text on the page reads 'Lorem ipsum'.",
                       "store_key": "lorem_ipsum_text_absent",
                       "expected_value": "false",
                       "extracted_value": "{{lorem_ipsum_text_absent}}",
@@ -1590,7 +1590,7 @@
                       "transforms": []
                     },
                     {
-                      "description": "No visible text reads 'TODO'.",
+                      "description": "No visible text on the page reads 'TODO'.",
                       "store_key": "todo_text_absent",
                       "expected_value": "false",
                       "extracted_value": "{{todo_text_absent}}",
@@ -1598,7 +1598,7 @@
                       "transforms": []
                     },
                     {
-                      "description": "No visible text reads 'coming soon'.",
+                      "description": "No visible text on the page reads 'coming soon'.",
                       "store_key": "coming_soon_text_absent",
                       "expected_value": "false",
                       "extracted_value": "{{coming_soon_text_absent}}",
@@ -1608,7 +1608,7 @@
                     {
                       "description": "Every table cell has a real value.",
                       "store_key": "table_cells_real_values",
-                      "expected_value": "false",
+                      "expected_value": "true",
                       "extracted_value": "{{table_cells_real_values}}",
                       "operator": "equals",
                       "transforms": []
@@ -1616,7 +1616,7 @@
                   ],
                   "composite_operator": "and",
                   "verification": "",
-                  "claim": "no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and every table cell has a real value",
+                  "claim": "No visible text on the whole page reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and every table cell has a real value.",
                   "operator": [],
                   "assertion_operands": [],
                   "left_operand": null,
@@ -1632,11 +1632,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "4591dced-ced2-4ebd-8832-202e06452f0a",
-              "instruction_id": "339e537a-9351-4574-b4eb-f9d32a98886f",
+              "operation_id": "e0905b54-1675-4661-9008-01b9d25d9023",
+              "instruction_id": "ac06b49d-8a33-48d4-9dba-47986b6e4f6e",
               "instruction": "Assertion check",
               "intent": "Assertion check",
-              "operation_start": "2026-11-18T22:55:09.431643+00:00",
+              "operation_start": "2026-11-25T17:15:55.393560+00:00",
               "operation_end": "",
               "status": "success",
               "command": "ASSERTION",
@@ -1662,7 +1662,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/4591dced-ced2-4ebd-8832-202e06452f0a.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/e0905b54-1675-4661-9008-01b9d25d9023.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -1728,7 +1728,7 @@
                 "operands": [],
                 "sub_results": [
                   {
-                    "description": "No visible text reads 'undefined'.",
+                    "description": "No visible text on the page reads 'undefined'.",
                     "passed": true,
                     "operator": "equals",
                     "transforms": [],
@@ -1741,7 +1741,7 @@
                     }
                   },
                   {
-                    "description": "No visible text reads 'null'.",
+                    "description": "No visible text on the page reads 'null'.",
                     "passed": true,
                     "operator": "equals",
                     "transforms": [],
@@ -1754,7 +1754,7 @@
                     }
                   },
                   {
-                    "description": "No visible text reads 'NaN'.",
+                    "description": "No visible text on the page reads 'NaN'.",
                     "passed": true,
                     "operator": "equals",
                     "transforms": [],
@@ -1767,7 +1767,7 @@
                     }
                   },
                   {
-                    "description": "No visible text reads 'Lorem ipsum'.",
+                    "description": "No visible text on the page reads 'Lorem ipsum'.",
                     "passed": true,
                     "operator": "equals",
                     "transforms": [],
@@ -1780,7 +1780,7 @@
                     }
                   },
                   {
-                    "description": "No visible text reads 'TODO'.",
+                    "description": "No visible text on the page reads 'TODO'.",
                     "passed": true,
                     "operator": "equals",
                     "transforms": [],
@@ -1793,7 +1793,7 @@
                     }
                   },
                   {
-                    "description": "No visible text reads 'coming soon'.",
+                    "description": "No visible text on the page reads 'coming soon'.",
                     "passed": true,
                     "operator": "equals",
                     "transforms": [],
@@ -1811,17 +1811,17 @@
                     "operator": "equals",
                     "transforms": [],
                     "json_path": null,
-                    "expected": "false",
+                    "expected": "true",
                     "extracted_value": "{{table_cells_real_values}}",
                     "store_key": "table_cells_real_values",
                     "variable_refs": {
-                      "{{table_cells_real_values}}": "false"
+                      "{{table_cells_real_values}}": "true"
                     }
                   }
                 ],
                 "sub_checks": [
                   {
-                    "description": "No visible text reads 'undefined'.",
+                    "description": "No visible text on the page reads 'undefined'.",
                     "store_key": "undefined_text_absent",
                     "expected_value": "false",
                     "extracted_value": "{{undefined_text_absent}}",
@@ -1829,7 +1829,7 @@
                     "transforms": []
                   },
                   {
-                    "description": "No visible text reads 'null'.",
+                    "description": "No visible text on the page reads 'null'.",
                     "store_key": "null_text_absent",
                     "expected_value": "false",
                     "extracted_value": "{{null_text_absent}}",
@@ -1837,7 +1837,7 @@
                     "transforms": []
                   },
                   {
-                    "description": "No visible text reads 'NaN'.",
+                    "description": "No visible text on the page reads 'NaN'.",
                     "store_key": "nan_text_absent",
                     "expected_value": "false",
                     "extracted_value": "{{nan_text_absent}}",
@@ -1845,7 +1845,7 @@
                     "transforms": []
                   },
                   {
-                    "description": "No visible text reads 'Lorem ipsum'.",
+                    "description": "No visible text on the page reads 'Lorem ipsum'.",
                     "store_key": "lorem_ipsum_text_absent",
                     "expected_value": "false",
                     "extracted_value": "{{lorem_ipsum_text_absent}}",
@@ -1853,7 +1853,7 @@
                     "transforms": []
                   },
                   {
-                    "description": "No visible text reads 'TODO'.",
+                    "description": "No visible text on the page reads 'TODO'.",
                     "store_key": "todo_text_absent",
                     "expected_value": "false",
                     "extracted_value": "{{todo_text_absent}}",
@@ -1861,7 +1861,7 @@
                     "transforms": []
                   },
                   {
-                    "description": "No visible text reads 'coming soon'.",
+                    "description": "No visible text on the page reads 'coming soon'.",
                     "store_key": "coming_soon_text_absent",
                     "expected_value": "false",
                     "extracted_value": "{{coming_soon_text_absent}}",
@@ -1871,23 +1871,23 @@
                   {
                     "description": "Every table cell has a real value.",
                     "store_key": "table_cells_real_values",
-                    "expected_value": "false",
+                    "expected_value": "true",
                     "extracted_value": "{{table_cells_real_values}}",
                     "operator": "equals",
                     "transforms": []
                   }
                 ],
                 "composite_operator": "and",
-                "verification": "Inspect the whole current page for the listed visible placeholder strings and for table cells that lack a real value.",
-                "claim": "no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and every table cell has a real value"
+                "verification": "The page contains none of the specified placeholder strings and every table cell holds a real value.",
+                "claim": "No visible text on the whole page reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and every table cell has a real value."
               },
               "assertion_tree": {
                 "assertion_id": "assert_cp_1",
                 "status": "passed",
-                "description": "no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and every table cell has a real value",
+                "description": "No visible text on the whole page reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and every table cell has a real value.",
                 "sub_results": [
                   {
-                    "description": "No visible text reads 'undefined'.",
+                    "description": "No visible text on the page reads 'undefined'.",
                     "passed": true,
                     "operator": "equals",
                     "transforms": [],
@@ -1900,7 +1900,7 @@
                     }
                   },
                   {
-                    "description": "No visible text reads 'null'.",
+                    "description": "No visible text on the page reads 'null'.",
                     "passed": true,
                     "operator": "equals",
                     "transforms": [],
@@ -1913,7 +1913,7 @@
                     }
                   },
                   {
-                    "description": "No visible text reads 'NaN'.",
+                    "description": "No visible text on the page reads 'NaN'.",
                     "passed": true,
                     "operator": "equals",
                     "transforms": [],
@@ -1926,7 +1926,7 @@
                     }
                   },
                   {
-                    "description": "No visible text reads 'Lorem ipsum'.",
+                    "description": "No visible text on the page reads 'Lorem ipsum'.",
                     "passed": true,
                     "operator": "equals",
                     "transforms": [],
@@ -1939,7 +1939,7 @@
                     }
                   },
                   {
-                    "description": "No visible text reads 'TODO'.",
+                    "description": "No visible text on the page reads 'TODO'.",
                     "passed": true,
                     "operator": "equals",
                     "transforms": [],
@@ -1952,7 +1952,7 @@
                     }
                   },
                   {
-                    "description": "No visible text reads 'coming soon'.",
+                    "description": "No visible text on the page reads 'coming soon'.",
                     "passed": true,
                     "operator": "equals",
                     "transforms": [],
@@ -1970,11 +1970,11 @@
                     "operator": "equals",
                     "transforms": [],
                     "json_path": null,
-                    "expected": "false",
+                    "expected": "true",
                     "extracted_value": "{{table_cells_real_values}}",
                     "store_key": "table_cells_real_values",
                     "variable_refs": {
-                      "{{table_cells_real_values}}": "false"
+                      "{{table_cells_real_values}}": "true"
                     }
                   }
                 ],
@@ -1982,7 +1982,7 @@
                 "passed": true,
                 "step": 3,
                 "is_final": true,
-                "verification": "Inspect the whole current page for the listed visible placeholder strings and for table cells that lack a real value.",
+                "verification": "The page contains none of the specified placeholder strings and every table cell holds a real value.",
                 "error_message": null,
                 "duration_ms": 0
               },
@@ -2024,7 +2024,7 @@
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-18T22:55:09.431643+00:00",
+          "start_timestamp": "2026-11-25T17:15:55.393560+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -2051,7 +2051,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "0c7f6c0390bb4166aca969d175e9b2d0",
+          "generative_id": "3bd364da7db74cfe88aef262774962ae",
           "plan_id": "",
           "generative_objective": "Read the whole page and assert that no visible text reads 'undefined', 'null', 'NaN', 'Lorem ipsum', 'TODO' or 'coming soon', and that every table cell has a real value. The test PASSES when the page contains none of those placeholder strings and every table cell holds a real value. The test FAILS if any such placeholder text is present, and the failure message must quote the exact offending text.",
           "error_message": "",
@@ -2064,21 +2064,21 @@
       ],
       "error_message": null,
       "error_code": null,
-      "result_code": null,
+      "result_code": "100",
       "bifurcation_context": [],
       "approach_reason": [
-        "Reviewed the Atlas page to confirm that it contains complete, user-facing content.",
-        "Confirmed that no visible placeholder or error text such as “undefined,” “null,” “NaN,” “Lorem ipsum,” “TODO,” or “coming soon” appeared on the page.",
-        "Confirmed that all cells in the Investment Focus table contained real values.",
+        "Reviewed the Atlas page to ensure it did not display placeholder or invalid text and that the Investment Focus table was fully populated.",
+        "Confirmed that the page showed no visible “undefined,” “null,” “NaN,” “Lorem ipsum,” “TODO,” or “coming soon” text.",
+        "Confirmed that every cell in the Investment Focus table contained a real value.",
         "The review completed successfully."
       ],
-      "one_liner": null
+      "one_liner": "reviewed page content on the Atlas page"
     }
   ],
   "modules": [],
   "uploaded_files": [],
   "test_params": [],
-  "test_level_variables": "[{\"name\":\"undefined_text_absent\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"null_text_absent\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"nan_text_absent\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"lorem_ipsum_text_absent\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"todo_text_absent\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"coming_soon_text_absent\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"table_cells_real_values\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"}]",
+  "test_level_variables": "[{\"name\":\"undefined_text_absent\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"null_text_absent\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"nan_text_absent\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"lorem_ipsum_text_absent\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"todo_text_absent\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"coming_soon_text_absent\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"table_cells_real_values\",\"value\":\"true\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"}]",
   "test_global_variables": [],
   "max_network_wait": 0,
   "wait_buffer": 0,
