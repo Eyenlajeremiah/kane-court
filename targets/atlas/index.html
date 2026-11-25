@@ -4,94 +4,25 @@
 <title>Atlas Capital</title>
 <link rel="stylesheet" href="/style.css">
 <style>
-* { box-sizing: border-box; }
-body { margin: 0; padding: 0; }
-.hero { padding: 40px 16px; max-width: 820px; margin: 0 auto; text-align: center; }
-h1 { font-size: 32px; margin: 0 0 16px; line-height: 1.25; word-wrap: break-word; }
-.cta { display: inline-block; background: #c8a96a; color: #14161b; border: 0; padding: 14px 26px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; text-decoration: none; margin: 0 0 20px; }
-.cta:hover { background: #d8b97a; }
-.lede { color: #8b8f9a; font-size: 17px; line-height: 1.5; margin: 0 0 24px; }
-.wide { width: 100%; max-width: 100%; overflow-x: auto; margin-top: 24px; }
-.panel { display: none; margin: 24px 0; border: 2px solid #c8a96a; border-radius: 12px; padding: 24px; background: #191c24; text-align: left; box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
-.panel.on { display: block; }
-.portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 14px; }
-.company-card { background: #12141a; border: 1px solid #262a33; border-radius: 8px; padding: 14px; }
-.company-name { color: #fff; font-size: 17px; font-weight: 600; margin: 0 0 4px; }
-.company-desc { color: #8b8f9a; font-size: 13px; margin: 0; }
-table { width: 100%; border-collapse: collapse; margin-top: 8px; text-align: left; }
-th, td { padding: 8px 8px; border-bottom: 1px solid #262a33; font-size: 13px; }
-th { color: #8b8f9a; font-weight: 500; }
-td { color: #e2e4e9; }
-.sub { color: #8b8f9a; font-size: 14px; margin-top: 4px; }
-.form-wrap { margin-top: 36px; border-top: 1px solid #262a33; padding-top: 28px; }
-.form-inner { max-width: 440px; margin: 0 auto; text-align: left; }
-.form-input { width: 100%; padding: 12px 14px; border: 1px solid #262a33; border-radius: 6px; background: #15171d; color: #fff; font-size: 14px; margin-top: 6px; margin-bottom: 12px; }
-.submit-btn { width: 100%; background: #c8a96a; color: #14161b; border: 0; padding: 12px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 15px; }
-.alert-success { display: none; padding: 12px 16px; background: #132d20; border: 1px solid #22c55e; border-radius: 6px; color: #4ade80; font-size: 14px; text-align: center; margin-top: 12px; }
+.hero{padding:64px 20px;max-width:820px;margin:0 auto;text-align:center}
+h1{font-size:36px;margin:0 0 12px}
+.cta{background:#c8a96a;color:#14161b;border:0;padding:14px 26px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer}
+.lede{color:#8b8f9a;font-size:18px}
+.wide{min-width:960px}
+.panel{display:none;margin-top:22px;border:1px solid #262a33;border-radius:10px;padding:20px;background:#15171d;text-align:left}
+.panel.on{display:block}
 </style></head><body><div class="wrap">
 <div class="hero">
   <h1>Back the founders who build for decades.</h1>
-  <p class="lede">Atlas Capital partners with early teams in infrastructure, logistics and industrial software.</p>
-  <button class="cta" id="cta" type="button">View portfolio</button>
-  <div class="panel" id="panel">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-      <span class="pill pass">Active Investments</span>
-      <h2 style="color:#c8a96a;margin:0;font-size:22px">Portfolio Companies</h2>
-    </div>
-    <p class="sub">Companies backed by Atlas Capital:</p>
-    <div class="portfolio-grid">
-      <div class="company-card">
-        <div class="company-name">Apex Robotics</div>
-        <p class="company-desc">Autonomous warehouse robotics and automated fulfillment systems.</p>
-      </div>
-      <div class="company-card">
-        <div class="company-name">FleetPulse</div>
-        <p class="company-desc">Freight telematics and supply chain intelligence platform.</p>
-      </div>
-      <div class="company-card">
-        <div class="company-name">Ironclad Dynamics</div>
-        <p class="company-desc">Heavy machinery automation and predictive maintenance software.</p>
-      </div>
-    </div>
-  </div>
-  <div class="wide">
-    <h2 style="font-size:18px;margin:28px 0 10px;text-align:left">Investment Focus</h2>
-    <table>
-      <thead>
-        <tr><th>Investment Area</th><th>Focus Sector</th><th>Stage</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Industrial Robotics</td><td>Logistics Automation</td><td>Seed</td></tr>
-        <tr><td>Cloud Infrastructure</td><td>Enterprise Systems</td><td>Series A</td></tr>
-        <tr><td>Supply Chain Intelligence</td><td>Freight &amp; Cargo</td><td>Seed</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="form-wrap">
-    <form id="f" class="form-inner">
-      <label for="email" style="font-size:14px;color:#8b8f9a">Founder Newsletter</label>
-      <input type="email" id="email" name="email" class="form-input" placeholder="founder@example.com" required>
-      <button type="submit" class="submit-btn">Subscribe</button>
-      <div id="form-success" class="alert-success">
-        Thank you for subscribing! Your request has been received.
-      </div>
-    </form>
-  </div>
+  <p class="lede">Atlas Capital partners with early teams in infrastructure, logistics and industrial software. Coming soon.</p>
+  <a class="cta" href="#" id="cta">View portfolio</a>
+  <div class="panel" id="panel"><h2 style="margin-top:0">Portfolio</h2><p class="sub">The full portfolio listing is being prepared.</p></div>
+  <div class="wide"><table style="width:100%;margin-top:24px"><tr><th>Company</th><th>Sector</th><th>Stage</th></tr><tr><td>undefined</td><td>Logistics</td><td>Seed</td></tr></table></div>
 </div>
 </div>
 <script>
-document.getElementById('cta').addEventListener('click', function(e) {
-  e.preventDefault();
-  var p = document.getElementById('panel');
-  p.classList.add('on');
-  p.style.display = 'block';
-});
-var form = document.getElementById('f');
-if (form) {
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    document.getElementById('form-success').style.display = 'block';
-  });
-}
+document.getElementById('cta').addEventListener('click',function(e){ e.preventDefault(); });
+document.getElementById('f') && document.getElementById('f').addEventListener('submit',function(e){ e.preventDefault(); });
 </script>
 </body></html>
+

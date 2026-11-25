@@ -37,5 +37,217 @@
       "ok": true,
       "note": "integrity OK: 30 locked file(s) unchanged"
     }
+  },
+  {
+    "targetId": "ext-98c1de05aa",
+    "name": "www.dogster.com",
+    "blurb": "External target, judged by the court.",
+    "targetUrl": "https://www.dogster.com/dog-breeds/",
+    "pass": false,
+    "blocked": false,
+    "rounds": 1,
+    "flows": [
+      {
+        "id": "newcomer",
+        "pass": false,
+        "exitCode": 1,
+        "steps": 11,
+        "failures": [
+          {
+            "type": "run_end",
+            "status": "failed",
+            "message": "AP produced no action for 3 consecutive steps",
+            "at": ""
+          }
+        ]
+      },
+      {
+        "id": "skeptic",
+        "pass": false,
+        "exitCode": 2,
+        "steps": 2,
+        "failures": []
+      },
+      {
+        "id": "mobile",
+        "pass": false,
+        "exitCode": 2,
+        "steps": 2,
+        "failures": []
+      },
+      {
+        "id": "saver",
+        "pass": false,
+        "exitCode": 2,
+        "steps": 2,
+        "failures": []
+      },
+      {
+        "id": "promised",
+        "pass": false,
+        "exitCode": 2,
+        "steps": 2,
+        "failures": []
+      }
+    ],
+    "external": true,
+    "publishedAt": "2026-11-24T10:44:19.444Z",
+    "kane": "Kane CLI (TestMu AI)",
+    "agent": "gemini",
+    "integrity": {
+      "ok": true,
+      "note": "external target - not subject to the app lock"
+    }
+  },
+  {
+    "targetId": "ext-2af5025c0e",
+    "name": "www.kellyservices.com",
+    "blurb": "External target, judged by the court.",
+    "targetUrl": "https://www.kellyservices.com/divisions/professional-industrial/expertise/bpo/contact-center-solutions/",
+    "pass": false,
+    "blocked": false,
+    "rounds": 1,
+    "flows": [
+      {
+        "id": "newcomer",
+        "pass": true,
+        "exitCode": 0,
+        "steps": 12,
+        "failures": []
+      },
+      {
+        "id": "skeptic",
+        "pass": false,
+        "exitCode": 1,
+        "steps": 11,
+        "failures": [
+          {
+            "type": "run_end",
+            "status": "failed",
+            "message": "AP produced no action for 3 consecutive steps",
+            "at": ""
+          }
+        ]
+      },
+      {
+        "id": "mobile",
+        "pass": false,
+        "exitCode": 2,
+        "steps": 2,
+        "failures": []
+      },
+      {
+        "id": "saver",
+        "pass": false,
+        "exitCode": 2,
+        "steps": 2,
+        "failures": []
+      },
+      {
+        "id": "promised",
+        "pass": false,
+        "exitCode": 2,
+        "steps": 2,
+        "failures": []
+      }
+    ],
+    "external": true,
+    "publishedAt": "2026-11-24T10:44:20.440Z",
+    "kane": "Kane CLI (TestMu AI)",
+    "agent": "gemini",
+    "integrity": {
+      "ok": true,
+      "note": "external target - not subject to the app lock"
+    }
+  },
+  {
+    "targetId": "ext-b12a7841c5",
+    "name": "www.brightbazaarblog.com",
+    "blurb": "External target, judged by the court.",
+    "targetUrl": "https://www.brightbazaarblog.com/",
+    "pass": false,
+    "blocked": false,
+    "rounds": 1,
+    "flows": [
+      {
+        "id": "newcomer",
+        "pass": false,
+        "exitCode": 1,
+        "steps": 10,
+        "failures": [
+          {
+            "status": "failed",
+            "message": "(no message)",
+            "at": ""
+          },
+          {
+            "type": "run_end",
+            "status": "failed",
+            "message": "The task only says “Find” and does not specify an item, text, or target.",
+            "at": ""
+          }
+        ]
+      },
+      {
+        "id": "skeptic",
+        "pass": true,
+        "exitCode": 0,
+        "steps": 10,
+        "failures": []
+      },
+      {
+        "id": "mobile",
+        "pass": false,
+        "exitCode": 1,
+        "steps": 10,
+        "failures": [
+          {
+            "status": "failed",
+            "message": "(no message)",
+            "at": ""
+          },
+          {
+            "type": "run_end",
+            "status": "failed",
+            "message": "The objective contains only “Use” and names no action or target.",
+            "at": ""
+          }
+        ]
+      },
+      {
+        "id": "saver",
+        "pass": false,
+        "exitCode": 1,
+        "steps": 12,
+        "failures": [
+          {
+            "status": "failed",
+            "message": "(no message)",
+            "at": ""
+          },
+          {
+            "type": "run_end",
+            "status": "failed",
+            "message": "AP determined agent is stuck — no viable actions remain",
+            "at": ""
+          }
+        ]
+      },
+      {
+        "id": "promised",
+        "pass": true,
+        "exitCode": 0,
+        "steps": 10,
+        "failures": []
+      }
+    ],
+    "external": true,
+    "publishedAt": "2026-11-24T11:29:15.787Z",
+    "kane": "Kane CLI (TestMu AI)",
+    "agent": "gemini",
+    "integrity": {
+      "ok": true,
+      "note": "external target - not subject to the app lock"
+    }
   }
 ]
