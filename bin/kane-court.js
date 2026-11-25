@@ -141,7 +141,7 @@ switch (cmd) {
   const url = flag("url");
   if (!url) { console.error("usage: kane-court trial --url <url>"); process.exit(2); }
   const { judgeUrl } = await import("../scripts/queue-worker.js");
-  const v = judgeUrl(url, flag("note", "") || "");
+  const v = await judgeUrl(url, flag("note", "") || "");
   for (const f of v.flows) {
     console.log(`[${f.id}] pass=${f.pass} exit=${f.exitCode}`);
     for (const fail of f.failures || []) console.log(`    * ${fail.message}`);

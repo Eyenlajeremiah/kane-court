@@ -16,6 +16,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
+import dns from "node:dns/promises";
+import net from "node:net";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 import { getSpawnEnv } from "../lib/kane-court-core.js";
@@ -64,6 +66,38 @@ export function externalId(url) {
   return "ext-" + crypto.createHash("sha256").update(url).digest("hex").slice(0, 10);
 }
 
+function isPrivateAddress(address) {
+  if (!address) return false;
+  if (net.isIPv4(address)) {
+    const n = address.split(".").map(Number);
+    return n[0] === 10 || n[0] === 127 ||
+      (n[0] === 169 && n[1] === 254) ||
+      (n[0] === 172 && n[1] >= 16 && n[1] <= 31) ||
+      (n[0] === 192 && n[1] === 168) ||
+      (n[0] === 100 && n[1] >= 64 && n[1] <= 127) ||
+      (n[0] === 198 && (n[1] === 18 || n[1] === 19)) ||
+      n[0] >= 224 || n[0] === 0;
+  }
+  const lower = address.toLowerCase();
+  return lower === "::1" || lower === "::" ||
+    lower.startsWith("fc") || lower.startsWith("fd") ||
+    lower.startsWith("fe8") || lower.startsWith("fe9") ||
+    lower.startsWith("fea") || lower.startsWith("feb");
+}
+
+async function validateUrl(url) {
+  let u;
+  try { u = new URL(url); } catch { throw new Error("invalid target URL"); }
+  if (u.protocol !== "http:" && u.protocol !== "https:") throw new Error("target URL must use http or https");
+  if (u.username || u.password) throw new Error("target URL credentials are not allowed");
+  const host = u.hostname.replace(/^\[|\]$/g, "");
+  if (isPrivateAddress(host)) throw new Error("private target URLs are not allowed");
+  const addresses = await dns.lookup(host, { all: true, verbatim: true });
+  if (!addresses.length || addresses.some((x) => isPrivateAddress(x.address))) {
+    throw new Error("private target URLs are not allowed");
+  }
+}
+
 function runKane(objective, url) {
   const raw = path.join(DATA, "queue-raw", `${externalId(url)}.ndjson`);
   fs.mkdirSync(path.dirname(raw), { recursive: true });
@@ -73,7 +107,7 @@ function runKane(objective, url) {
   const r = spawnSync(
     bin,
     ["run", objective, "--url", url, "--agent", "--headless", "--timeout", String(TIMEOUT)],
-    { cwd: ROOT, encoding: "utf8", maxBuffer: 64 * 1024 * 1024, shell: process.platform === "win32", env: spawnEnv }
+    { cwd: ROOT, encoding: "utf8", maxBuffer: 64 * 1024 * 1024, shell: false, env: spawnEnv }
   );
   try { fs.writeFileSync(raw, r.stdout || ""); } catch {}
   const pr = spawnSync("node", [path.join(ROOT, "scripts", "parse-kane.js"), raw, String(r.status ?? 2)], {
@@ -84,7 +118,12 @@ function runKane(objective, url) {
 }
 
 // Judge one URL. Returns the verdict.
-export function judgeUrl(url, note = "", targetId = null) {
+export async function judgeUrl(url, note = "", targetId = null) {
+  try {
+    await validateUrl(url);
+  } catch (e) {
+    throw new Error("rejected target: " + (e && e.message ? e.message : e));
+  }
   const ps = personas(targetId);
   const flows = [];
   for (const p of ps) {
@@ -123,7 +162,7 @@ export function judgeUrl(url, note = "", targetId = null) {
   return verdict;
 }
 
-function drain(once = false) {
+async function drain(once = false) {
   const q = readJson(QUEUE, []);
   if (!Array.isArray(q) || !q.length) {
     if (once) { console.log("nothing queued"); return 0; }
@@ -138,7 +177,7 @@ function drain(once = false) {
     item.startedAt = new Date().toISOString();
     writeJson(QUEUE, q);
     try {
-      const v = judgeUrl(url, item.note || "");
+      const v = await judgeUrl(url, item.note || "");
       item.status = v.pass ? "green" : "red";
       item.verdictId = v.targetId;
       item.finishedAt = new Date().toISOString();
@@ -167,18 +206,24 @@ const isMain = Boolean(process.argv[1] && (
 if (isMain) {
   const urlIdx = argv.indexOf("--url");
   if (urlIdx >= 0 && argv[urlIdx + 1]) {
-    const v = judgeUrl(argv[urlIdx + 1]);
-    console.log(JSON.stringify(v, null, 2));
-    process.exit(v.pass ? 0 : 1);
+    judgeUrl(argv[urlIdx + 1]).then((v) => {
+      console.log(JSON.stringify(v, null, 2));
+      process.exit(v.pass ? 0 : 1);
+    }).catch((e) => {
+      console.error(e && e.message ? e.message : e);
+      process.exit(2);
+    });
+  } else if (has("--once")) {
+    drain(true).then(() => process.exit(0)).catch((e) => {
+      console.error(e && e.message ? e.message : e);
+      process.exit(2);
+    });
+  } else {
+    console.log("queue worker running. poll every " + POLL_MS + "ms. ctrl-c to stop.");
+    const tick = async () => {
+      try { await drain(false); } catch (e) { console.error("worker tick failed:", String(e && e.message ? e.message : e)); }
+    };
+    tick();
+    setInterval(tick, POLL_MS);
   }
-  if (has("--once")) {
-    drain(true);
-    process.exit(0);
-  }
-  console.log("queue worker running. poll every " + POLL_MS + "ms. ctrl-c to stop.");
-  const tick = () => {
-    try { drain(false); } catch (e) { console.error("worker tick failed:", String(e && e.message ? e.message : e)); }
-  };
-  tick();
-  setInterval(tick, POLL_MS);
 }

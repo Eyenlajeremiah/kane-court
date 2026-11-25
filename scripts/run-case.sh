@@ -60,7 +60,8 @@ for FID in "${FLOWS[@]}"; do
       CODE=$?
     else
       echo "--- SKIP $FID: no committed recording for this flow (author it with: bash scripts/record-flows.sh $TARGET_ID) ---"
-      rm -f "$OUT_DIR/$FID.json"
+      ALL_PASS=0
+      node -e "const fs=require('fs'); fs.writeFileSync(process.argv[1],JSON.stringify({pass:false,exitCode:0,steps:0,failures:[{message:'not verified: no committed recording for this flow'}],skipped:true}))" "$OUT_DIR/$FID.json"
       continue
     fi
   else
@@ -86,13 +87,14 @@ console.log(o);
   echo "[$TARGET_ID][$FID] pass=$OK exit=$CODE"
 done
 
-node -e "
+FLOW_IDS="$(printf '%s\n' "${FLOWS[@]}")" node -e "
 const fs=require('fs');
 const dir='$OUT_DIR';
-const ids=fs.readdirSync(dir).filter(f=>f.endsWith('.json')&&f!=='round.json');
-const flows=ids.map(f=>{
-  const j=JSON.parse(fs.readFileSync(dir+'/'+f,'utf8'));
-  return {id:f.replace('.json',''),pass:j.pass,exitCode:j.exitCode,steps:j.steps,failures:j.failures};
+const ids=(process.env.FLOW_IDS||'').split(/\r?\n/).filter(Boolean);
+const flows=ids.map(id=>{
+  let j={pass:false,exitCode:0,steps:0,failures:[{message:'not verified: missing flow result'}]};
+  try{j=JSON.parse(fs.readFileSync(dir+'/'+id+'.json','utf8'));}catch(e){}
+  return {id,pass:j.pass,exitCode:j.exitCode,steps:j.steps,failures:j.failures};
 });
 const out={targetId:'$TARGET_ID',round:$ROUND,targetUrl:'$TARGET_URL',mode:'$([[ $REPLAY -eq 1 ]] && echo replay || echo author)',
   pass:flows.length>0 && flows.every(f=>f.pass),flows,generatedAt:new Date().toISOString()};

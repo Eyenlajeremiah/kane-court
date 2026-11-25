@@ -3,6 +3,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
+import dns from "node:dns/promises";
+import net from "node:net";
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 3000);
 const DATA = path.join(ROOT, "data");
@@ -103,6 +105,7 @@ function homePage() {
   return layout('Kane Court', body);
 }
 function targetPage(id) {
+  if (!/^[A-Za-z0-9_-]+$/.test(id)) return layout('Not found', '<h1>Not found</h1><p><a href="/">Back</a></p>');
   const dir = path.join(ROOT, 'targets', id);
   const meta = readJson(path.join(dir, 'meta.json'), { id, name: id });
   const htmlPath = path.join(dir, 'index.html');
@@ -122,18 +125,73 @@ function staticFile(res, name) {
 function readBody(req) {
   return new Promise((resolve) => {
     let b = '';
-    req.on('data', (c) => { b += c; });
-    req.on('end', () => resolve(b));
+    let tooLarge = false;
+    req.on('data', (c) => {
+      if (tooLarge) return;
+      b += c;
+      if (Buffer.byteLength(b) > 64 * 1024) {
+        tooLarge = true;
+        b = '';
+      }
+    });
+    req.on('end', () => resolve({ body: b, tooLarge }));
   });
+}
+function isPrivateAddress(address) {
+  if (!address) return false;
+  if (net.isIPv4(address)) {
+    const n = address.split('.').map(Number);
+    return n[0] === 10 ||
+      (n[0] === 127) ||
+      (n[0] === 169 && n[1] === 254) ||
+      (n[0] === 172 && n[1] >= 16 && n[1] <= 31) ||
+      (n[0] === 192 && n[1] === 168) ||
+      (n[0] === 100 && n[1] >= 64 && n[1] <= 127) ||
+      (n[0] === 198 && (n[1] === 18 || n[1] === 19)) ||
+      n[0] >= 224 ||
+      (n[0] === 0);
+  }
+  const lower = address.toLowerCase();
+  return lower === "::1" || lower === "::" ||
+    lower.startsWith("fc") || lower.startsWith("fd") ||
+    lower.startsWith("fe8") || lower.startsWith("fe9") ||
+    lower.startsWith("fea") || lower.startsWith("feb");
+}
+async function validateTargetUrl(value) {
+  let u;
+  try { u = new URL(value); } catch { return "Enter a valid absolute URL."; }
+  if (u.protocol !== "http:" && u.protocol !== "https:") return "Only http and https URLs are allowed.";
+  if (u.username || u.password) return "URLs with embedded credentials are not allowed.";
+  if (isPrivateAddress(u.hostname.replace(/^\[|\]$/g, ""))) return "Private and loopback addresses are not allowed.";
+  try {
+    const addresses = await dns.lookup(u.hostname, { all: true, verbatim: true });
+    if (!addresses.length || addresses.some((x) => isPrivateAddress(x.address))) {
+      return "Private and loopback addresses are not allowed.";
+    }
+  } catch {
+    return "The target hostname could not be resolved.";
+  }
+  return null;
 }
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
   const p = url.pathname;
   if (req.method === 'POST' && p === '/submit') {
-    const body = await readBody(req);
-    const params = new URLSearchParams(body);
+    const result = await readBody(req);
+    if (result.tooLarge) {
+      res.writeHead(413, { 'Content-Type': 'text/plain' });
+      res.end("Request body too large");
+      return;
+    }
+    const params = new URLSearchParams(result.body);
     const targetUrl = (params.get('url') || '').trim();
     const note = (params.get('note') || '').trim();
+    const urlError = await validateTargetUrl(targetUrl);
+    if (urlError) {
+      res.writeHead(400, { 'Content-Type': 'text/plain' });
+      res.end(urlError);
+      return;
+    }
     const q = readJson(QUEUE, []);
     const existing = q.findIndex((x) => x.targetId === targetUrl && (x.status === 'queued' || x.status === 'running'));
     if (existing >= 0) {

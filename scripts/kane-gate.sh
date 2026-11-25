@@ -24,7 +24,10 @@ if [[ ! -f ".loop/last-round.json" ]]; then
 else
   REASON="Kane CLI has NOT verified $TARGET_ID as green. Read .loop/pending-prompt.md, fix the app under targets/$TARGET_ID, then run: bash scripts/run-case.sh $TARGET_ID."
 fi
-if [[ "$COUNT" -ge "$MAX_CONT" ]]; then echo '{"decision":"allow"}'; exit 0; fi
+if [[ "$COUNT" -ge "$MAX_CONT" ]]; then
+  node -e "console.log(JSON.stringify({decision:'continue',reason:process.argv[1]}))" "Kane verification remains unverified after $MAX_CONT attempts. Fix the app and run: bash scripts/run-case.sh $TARGET_ID."
+  exit 0
+fi
 NEWCOUNT=$((COUNT+1))
 node -e "const fs=require('fs');fs.mkdirSync('.loop',{recursive:true});fs.writeFileSync('$STATE',JSON.stringify({count:$NEWCOUNT,target:'$TARGET_ID',at:new Date().toISOString()}));"
 node -e "console.log(JSON.stringify({decision:'continue',reason:process.argv[1]}))" "$REASON"
