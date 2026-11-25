@@ -28,6 +28,10 @@ const isLocked = (rel) => {
   // report REMOVED drift, so the court would never verify for anyone else.
   if (/^scripts\/lock-manifest\.(key|sig|pub)$/.test(p)) return false;
   if (p.startsWith("keys/")) return false;
+  // The handoff note is a living log that every agent appends to, so it is
+  // deliberately excluded - locking it would make the next agent's update
+  // look like drift and block publication.
+  if (p === "docs/COPILOT_HANDOFF.md") return false;
   if (/^targets\/[^/]+\/index\.html$/.test(p)) return false; // the app is mutable
   return true;
 };
