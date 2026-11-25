@@ -267,3 +267,32 @@ test("integrity lock hashes text files independently of CRLF checkout settings",
     fs.rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test("integrity lock resolves its own root, so it verifies from any working directory", () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "kane-lock-cwd-test-"));
+  const lockScript = path.join(ROOT, "scripts", "lock-files.js");
+  const elsewhere = path.join(dir, "elsewhere");
+  try {
+    fs.mkdirSync(path.join(dir, "scripts"), { recursive: true });
+    fs.mkdirSync(elsewhere, { recursive: true });
+    fs.copyFileSync(lockScript, path.join(dir, "scripts", "lock-files.js"));
+    fs.writeFileSync(path.join(dir, "sample.js"), "const value = 1;\n");
+
+    const init = spawnSync(process.execPath, [path.join(dir, "scripts", "lock-files.js"), "--init"], {
+      cwd: elsewhere,
+      encoding: "utf8"
+    });
+    assert.equal(init.status, 0, init.stderr);
+
+    // Verify from a directory that is NOT the project root: the verifier must
+    // find its own manifest, not the caller's working directory.
+    const verify = spawnSync(process.execPath, [path.join(dir, "scripts", "lock-files.js"), "--verify"], {
+      cwd: elsewhere,
+      encoding: "utf8"
+    });
+    assert.equal(verify.status, 0, verify.stdout + verify.stderr);
+    assert.match(verify.stdout, /integrity OK/);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});

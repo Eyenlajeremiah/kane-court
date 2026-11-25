@@ -11,8 +11,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
+import { fileURLToPath } from "node:url";
 
-const ROOT = process.cwd();
+// Resolve the project root from this script's own location, not from the
+// current working directory. The verifier must work when it is invoked as
+// `node node_modules/kane-court/scripts/lock-files.js --verify` from an
+// arbitrary directory, which is how a judge checks an installed package.
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MANIFEST = path.join(ROOT, "scripts", "lock-manifest.json");
 const MANIFEST_SIGNATURE = process.env.KANE_LOCK_MANIFEST_SIGNATURE;
 const MANIFEST_PUBLIC_KEY = process.env.KANE_LOCK_MANIFEST_PUBLIC_KEY;
