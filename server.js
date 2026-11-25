@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
-import { resolveLoopbackUrl } from "./lib/network-policy.js";
+import { resolveCourtTargetUrl, resolvePublicUrl, validateRedirectChain } from "./lib/network-policy.js";
 import { withQueueLock, readQueue, writeQueueAtomic } from "./lib/queue-store.js";
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 3000);
@@ -140,7 +140,13 @@ function readBody(req) {
 }
 async function validateTargetUrl(value) {
   try {
-    resolveLoopbackUrl(value);
+    const u = new URL(value);
+    const host = u.hostname.replace(/^\[|\]$/g, "").toLowerCase();
+    if (host === "localhost" || host === "127.0.0.1" || host === "::1") {
+      resolveCourtTargetUrl(value, PORT);
+    } else {
+      await validateRedirectChain(value);
+    }
   } catch (e) {
     return e && e.message ? e.message : "The target URL could not be validated.";
   }

@@ -19,7 +19,7 @@ import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 import { getSpawnEnv, spawnKaneSync } from "../lib/kane-court-core.js";
-import { resolveLoopbackUrl } from "../lib/network-policy.js";
+import { resolveCourtTargetUrl, resolvePublicUrl, validateRedirectChain } from "../lib/network-policy.js";
 import { withQueueLock, readQueue, writeQueueAtomic } from "../lib/queue-store.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -111,7 +111,14 @@ export function externalId(url) {
 }
 
 async function validateUrl(url) {
-  resolveLoopbackUrl(url);
+  let u = new URL(url);
+  if (u.hostname.toLowerCase() === "localhost" ||
+      u.hostname.replace(/^\[|\]$/g, "") === "127.0.0.1" ||
+      u.hostname.replace(/^\[|\]$/g, "") === "::1") {
+    resolveCourtTargetUrl(url, process.env.PORT || 3000);
+  } else {
+    await validateRedirectChain(url);
+  }
 }
 
 function runKane(objective, url) {

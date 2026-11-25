@@ -14,6 +14,8 @@ import crypto from "node:crypto";
 
 const ROOT = process.cwd();
 const MANIFEST = path.join(ROOT, "scripts", "lock-manifest.json");
+const MANIFEST_SIGNATURE = process.env.KANE_LOCK_MANIFEST_SIGNATURE;
+const MANIFEST_PUBLIC_KEY = process.env.KANE_LOCK_MANIFEST_PUBLIC_KEY;
 
 const isLocked = (rel) => {
   const p = rel.split(path.sep).join("/");
@@ -72,7 +74,20 @@ if (!fs.existsSync(MANIFEST)) {
   console.error("NO MANIFEST. Run: node scripts/lock-files.js --init");
   process.exit(2);
 }
-const saved = JSON.parse(fs.readFileSync(MANIFEST, "utf8")).files || {};
+const manifestText = fs.readFileSync(MANIFEST, "utf8");
+if (!MANIFEST_SIGNATURE || !MANIFEST_PUBLIC_KEY) {
+  console.error("INTEGRITY MANIFEST SIGNATURE CONFIGURATION IS REQUIRED");
+  process.exit(1);
+}
+let publicKey = MANIFEST_PUBLIC_KEY;
+if (fs.existsSync(publicKey)) publicKey = fs.readFileSync(publicKey, "utf8");
+let signature = MANIFEST_SIGNATURE;
+if (fs.existsSync(signature)) signature = fs.readFileSync(signature, "utf8");
+if (!crypto.verify(null, Buffer.from(manifestText), publicKey, Buffer.from(signature.trim(), "base64"))) {
+  console.error("INTEGRITY MANIFEST SIGNATURE IS INVALID");
+  process.exit(1);
+}
+const saved = JSON.parse(manifestText).files || {};
 const now = current();
 
 const changed = [], removed = [], added = [];

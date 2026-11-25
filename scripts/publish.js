@@ -7,7 +7,7 @@ import { execFileSync } from "node:child_process";
 import { flowIdsFor } from "../lib/kane-court-core.js";
 import { roundPublishError } from "../lib/round-validation.js";
 import { withQueueLock, readQueue, writeQueueAtomic } from "../lib/queue-store.js";
-import { resolveLoopbackUrl } from "../lib/network-policy.js";
+import { resolveCourtTargetUrl } from "../lib/network-policy.js";
 import { verifyAttestation } from "../lib/evidence-attestation.js";
 
 const [, , targetId, round, ...rest] = process.argv;
@@ -24,7 +24,7 @@ const baseUrl = (process.env.BASE_URL
   : `http://localhost:${process.env.PORT || "3000"}`);
 let canonicalTargetUrl;
 try {
-  canonicalTargetUrl = resolveLoopbackUrl(`${baseUrl}/t/${targetId}`).toString();
+  canonicalTargetUrl = resolveCourtTargetUrl(`${baseUrl}/t/${targetId}`, process.env.PORT || 3000).toString();
 } catch (e) {
   console.error("refusing to publish: " + e.message);
   process.exit(1);
@@ -82,15 +82,17 @@ for (const flow of r.flows) {
 
 // Integrity gate - the agent may only change the application under test.
 let integrity = { ok: true, note: "no manifest (integrity lock not initialised)" };
-if (fs.existsSync("scripts/lock-manifest.json")) {
-  try {
-    const out = execFileSync("node", ["scripts/lock-files.js", "--verify"], { encoding: "utf8" });
-    integrity = { ok: true, note: out.trim() };
-  } catch (e) {
-    console.error((e.stderr || e.stdout || "").toString().trim());
-    console.error("refusing to publish: integrity lock violated");
-    process.exit(1);
-  }
+if (!fs.existsSync("scripts/lock-manifest.json")) {
+  console.error("refusing to publish: integrity manifest is missing");
+  process.exit(1);
+}
+try {
+  const out = execFileSync("node", ["scripts/lock-files.js", "--verify"], { encoding: "utf8" });
+  integrity = { ok: true, note: out.trim() };
+} catch (e) {
+  console.error((e.stderr || e.stdout || "").toString().trim());
+  console.error("refusing to publish: integrity lock violated");
+  process.exit(1);
 }
 
 const meta = JSON.parse(fs.readFileSync(path.join("targets", targetId, "meta.json"), "utf8"));
