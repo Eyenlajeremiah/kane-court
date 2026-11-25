@@ -34,11 +34,16 @@ const runEnd = [...events].reverse().find((e) =>
 );
 const streamStart = events.find((e) => e.type === "stream_start");
 const runStart = events.find((e) => e.type === "run_start");
+const bifurcation = events.find((e) => e.type === "bifurcation");
 const runId = runEnd && runEnd.run_id;
-const finalUrl = runEnd && (runEnd.final_url || "");
+const finalUrl = runEnd && (runEnd.final_url || (runEnd.final_state && runEnd.final_state.url) || "");
 const targetUrl = process.env.KANE_TARGET_URL || "";
+const hasObjectiveEvidence =
+  Boolean(runStart && typeof runStart.objective === "string" && runStart.objective.trim()) ||
+  Boolean(bifurcation && Array.isArray(bifurcation.flows) &&
+    bifurcation.flows.some((flow) => typeof flow === "string" && flow.trim()));
 const structuralEvidence =
-  Boolean(streamStart && streamStart.cli_version && runStart && runStart.objective) &&
+  Boolean(streamStart && streamStart.cli_version && hasObjectiveEvidence) &&
   Boolean(runEnd && runId) &&
   (!targetUrl || finalUrl === targetUrl);
 const evidenceFile = path.resolve(file);

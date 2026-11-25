@@ -160,3 +160,67 @@ test("the parser does not turn empty or explicitly failed Kane output green", ()
     fs.rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test("the parser accepts current Kane run events and requires the requested final URL", () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "kane-current-events-test-"));
+  const file = path.join(dir, "run.ndjson");
+  const parser = path.join(ROOT, "scripts", "parse-kane.js");
+  const events = [
+    { type: "stream_start", cli_version: "0.10.9", surface: "run" },
+    { type: "recording_state", enabled: true },
+    { type: "bifurcation", flows: ["Navigate to target then review"] },
+    { type: "step", status: "done" },
+    {
+      type: "run_end",
+      status: "passed",
+      run_id: "run-0",
+      final_state: { url: "http://localhost:3000/t/atlas" }
+    }
+  ];
+  try {
+    for (const [finalUrl, expected] of [
+      ["http://localhost:3000/t/atlas", true],
+      ["http://localhost:3000/t/ledger", false]
+    ]) {
+      const output = events.map((event) => {
+        if (event.type === "run_end") {
+          return JSON.stringify({ ...event, final_state: { url: finalUrl } });
+        }
+        return JSON.stringify(event);
+      }).join("\n") + "\n";
+      fs.writeFileSync(file, output);
+      const result = spawnSync(process.execPath, [parser, file, "0"], {
+        encoding: "utf8",
+        env: { ...process.env, KANE_TARGET_URL: "http://localhost:3000/t/atlas" }
+      });
+      assert.equal(result.status, 0, result.stderr);
+      assert.equal(JSON.parse(result.stdout).pass, expected);
+    }
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("integrity lock hashes text files independently of CRLF checkout settings", () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "kane-lock-eol-test-"));
+  const lockScript = path.join(ROOT, "scripts", "lock-files.js");
+  const file = path.join(dir, "sample.js");
+  try {
+    fs.mkdirSync(path.join(dir, "scripts"), { recursive: true });
+    fs.writeFileSync(file, "const value = 1;\r\n");
+    const init = spawnSync(process.execPath, [lockScript, "--init"], {
+      cwd: dir,
+      encoding: "utf8"
+    });
+    assert.equal(init.status, 0, init.stderr);
+
+    fs.writeFileSync(file, "const value = 1;\n");
+    const verify = spawnSync(process.execPath, [lockScript, "--verify"], {
+      cwd: dir,
+      encoding: "utf8"
+    });
+    assert.equal(verify.status, 0, verify.stderr);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});

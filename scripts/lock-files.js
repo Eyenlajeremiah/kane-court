@@ -16,6 +16,7 @@ const ROOT = process.cwd();
 const MANIFEST = path.join(ROOT, "scripts", "lock-manifest.json");
 const MANIFEST_SIGNATURE = process.env.KANE_LOCK_MANIFEST_SIGNATURE;
 const MANIFEST_PUBLIC_KEY = process.env.KANE_LOCK_MANIFEST_PUBLIC_KEY;
+const LINE_ENDING_NORMALIZED = /\.(?:sh|js|json|md|html|css)$/i;
 
 const isLocked = (rel) => {
   const p = rel.split(path.sep).join("/");
@@ -60,7 +61,11 @@ function walk(dir, out = []) {
 }
 
 function hash(rel) {
-  return crypto.createHash("sha256").update(fs.readFileSync(path.join(ROOT, rel))).digest("hex");
+  const content = fs.readFileSync(path.join(ROOT, rel));
+  const canonical = LINE_ENDING_NORMALIZED.test(rel)
+    ? Buffer.from(content.toString("utf8").replace(/\r\n/g, "\n"), "utf8")
+    : content;
+  return crypto.createHash("sha256").update(canonical).digest("hex");
 }
 
 function current() {
