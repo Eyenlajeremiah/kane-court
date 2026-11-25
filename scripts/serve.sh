@@ -12,8 +12,10 @@ PORT="${PORT:-3000}"
 BASE_URL="${BASE_URL:-http://localhost:$PORT}"
 mkdir -p .loop
 
+NODE_BIN="${NODE_BIN:-$(command -v node || true)}"
+
 is_up() {
-  node -e 'const http=require("http");const req=http.get(process.argv[1]+"/data-version",r=>process.exit(r.statusCode===200?0:1));req.on("error",()=>process.exit(1));req.setTimeout(2000,()=>{req.destroy();process.exit(1)});' "$BASE_URL" >/dev/null 2>&1
+  "$NODE_BIN" -e 'const http=require("http");const req=http.get(process.argv[1]+"/data-version",r=>process.exit(r.statusCode===200?0:1));req.on("error",()=>process.exit(1));req.setTimeout(2000,()=>{req.destroy();process.exit(1)});' "$BASE_URL" >/dev/null 2>&1
 }
 
 case "${1:-start}" in
@@ -32,7 +34,11 @@ case "${1:-start}" in
     if is_up; then echo "court is already up on $BASE_URL"; exit 0; fi
     # setsid detaches the server from this terminal's session, so it keeps
     # running after the terminal is closed.
-    setsid nohup node server.js > .loop/server.log 2>&1 < /dev/null &
+    # Use the same node that is running npm (so an nvm-managed node works),
+    # falling back to whatever `node` resolves to on PATH.
+    NODE_BIN="${NODE_BIN:-$(command -v node || true)}"
+    [[ -z "$NODE_BIN" ]] && { echo "node not found on PATH" >&2; exit 2; }
+    setsid nohup "$NODE_BIN" server.js > .loop/server.log 2>&1 < /dev/null &
     echo $! > .loop/server.pid
     for _ in $(seq 1 40); do sleep 0.25; is_up && break; done
     if is_up; then echo "court is up on $BASE_URL (pid $(cat .loop/server.pid))"; else
