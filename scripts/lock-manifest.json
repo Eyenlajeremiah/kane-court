@@ -1,5 +1,5 @@
 {
-  "lockedAt": "2026-11-25T15:29:22.410Z",
+  "lockedAt": "2026-11-25T15:34:10.844Z",
   "files": {
     ".agents/hooks.json": "4480fcba1dd5b936f1825ed46591e9a1855adb5ce44a0c81000fab9736f4cda7",
     ".agents/rules/closed-loop.md": "309f0891f0694ba3cbd1df33e6e769f5adacb0e50ea971bd8f233d127b894380",
@@ -32,7 +32,6 @@
     "README.md": "15654d37c7a15b1b03b7a7885e5317ed5a4b0021413acc5c2a10ac2580d5bea6",
     "bin/kane-court.js": "9dd2c339f7075d32f23f49e62ac9c1d011cff66fe7201a42450f5d323b34507c",
     "docs/AGENT_REVIEW.md": "7005d90ae721cdbbc09c2baf0394ea12b9aaa7fb0eabb5e5f4b0670f596be454",
-    "docs/COPILOT_HANDOFF.md": "ec73483b52a29351f715eb0cae0a2468a6c51f5f4a095764315ee60c60218bb2",
     "docs/FLOW_SPEC_NOTES.md": "8f1c7af469cf2252d2f71698e6a0523cff2a09b3ac6d41ed7dda07ee0cf803e8",
     "docs/JUDGE_GUIDE.md": "7958f28870f157b9f48afbe5d603e02e21014ec5f38c01ff19db0aa4ae7bd509",
     "docs/LAUNCH_POSTS.md": "de0911f226a653056527debf39d8ea8b77ce537f69b510346acc616e9f95eb73",
@@ -53,7 +52,7 @@
     "scripts/build-prompt.js": "37e53c06a0621d47763f00efe2abd0c41e7c8d98e2fe8b6b3cb7703230d945bc",
     "scripts/kane-env.sh": "6384baad9fe9ce4b36960f7df5652afbca5a627a8cb724e16d529025dbd5fc4c",
     "scripts/kane-gate.sh": "29498ec9b7bd86fbb9c7f5f5e3a68b5bfb566c78c7809bebc23a9e74320bed28",
-    "scripts/lock-files.js": "0d657e81fd730a9a8b9102d2a2737bdbc4fd9646e097513a544b0e03d4c884d9",
+    "scripts/lock-files.js": "bc621d35492f606ba46baf9a6451c26f39c9ca8f89abd8bc66bed718f12bbcea",
     "scripts/loop.sh": "9f4c6b0932636dd32d4c8b9d44daa78b940a09cff2e254e663cd6ffec60d9881",
     "scripts/parse-kane.js": "ee3f2a208f3435e963201fe142eb54aef1938eaa0c66d2d3ae28533a6339f13d",
     "scripts/publish.js": "671c011c15a6005e4e1f4c30179a443f32fc4ffc4bc54bf4c5ddf4082bb36bd3",
