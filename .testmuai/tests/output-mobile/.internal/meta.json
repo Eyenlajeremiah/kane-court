@@ -1,5 +1,5 @@
 {
-  "commit_id": "36c48052-193a-424d-906a-d958e476b5fd",
+  "commit_id": "796c5832-021b-461e-94bf-2ea600626f3b",
   "test_id": "46acd8ec-e9bb-414c-b631-ff7ef0401d77",
   "testcase_id": "01M89VADD1YFPT2NB6R0VFY4WQ",
   "project_id": "01M7KVC27YA392JFKTNJD4F9ZN",
@@ -8,18 +8,11 @@
   "session_name": "mobile",
   "executions": [
     {
-      "execution_id": "dbe2aad8-4b61-434d-8d3c-c2552698af96",
-      "run_kind": "replay",
+      "execution_id": "6c0db5a2-508d-46d3-b7e6-94bcd02365d3",
+      "run_kind": "author",
       "status": "passed",
       "valid": true,
-      "at": "2026-11-25T17:32:59.603Z"
-    },
-    {
-      "execution_id": "efbe5c5e-a748-4c20-9643-183ad64bb9d1",
-      "run_kind": "replay",
-      "status": "passed",
-      "valid": true,
-      "at": "2026-11-25T17:42:50.242Z"
+      "at": "2026-11-25T21:46:08.773Z"
     }
   ]
 }

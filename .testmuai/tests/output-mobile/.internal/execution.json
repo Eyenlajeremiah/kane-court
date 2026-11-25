@@ -2,24 +2,24 @@
   "test_id": "46acd8ec-e9bb-414c-b631-ff7ef0401d77",
   "version": "v4",
   "auto_heal_version": "AH2",
-  "session_id": "36c48052-193a-424d-906a-d958e476b5fd",
+  "session_id": "796c5832-021b-461e-94bf-2ea600626f3b",
   "org_id": "3434747",
   "user_id": "3613308",
   "url": "http://localhost:3000/t/atlas",
-  "start_timestamp": "2026-11-25T17:16:12.407Z",
-  "end_timestamp": "2026-11-25T17:17:46.443Z",
+  "start_timestamp": "2026-11-25T21:44:26.290Z",
+  "end_timestamp": "2026-11-25T21:45:58.352Z",
   "status": "success",
-  "commit_id": "36c48052-193a-424d-906a-d958e476b5fd",
+  "commit_id": "796c5832-021b-461e-94bf-2ea600626f3b",
   "instructions": [
     {
       "content_type": "generative_block",
-      "instruction_id": "generative_block_ddcf3a98931c406fa06f96144ead80e5",
-      "generative_id": "ddcf3a98931c406fa06f96144ead80e5",
+      "instruction_id": "generative_block_07caf83f7bff4759a5336f88145ebf7d",
+      "generative_id": "07caf83f7bff4759a5336f88145ebf7d",
       "objective": "View the page at a narrow viewport of 800px wide (the narrowest Chrome supports). Assert that the page does not scroll sideways, and that the headline and the primary call-to-action button are fully visible and not overlapping. The test PASSES when there is no horizontal overflow and both the headline and the button are fully visible without overlap. The test FAILS if content overflows horizontally or is cut off.",
       "status": "success",
       "children": [
         {
-          "instruction_id": "480e9ddd-9ff1-40e5-955f-690ee64a04e3",
+          "instruction_id": "4c849c0b-8774-4087-aaf2-f0105c0e170f",
           "instruction_class": "driver_action",
           "module_id": "",
           "instruction": "Navigate to http://localhost:3000/t/atlas",
@@ -30,12 +30,12 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "b08678fb-e40d-478e-adb4-439893738968",
-              "instruction_id": "480e9ddd-9ff1-40e5-955f-690ee64a04e3",
+              "operation_id": "0a170468-7fdd-4a5e-a1fb-3bd02cace1d4",
+              "instruction_id": "4c849c0b-8774-4087-aaf2-f0105c0e170f",
               "instruction": "Navigate to http://localhost:3000/t/atlas",
               "intent": "Navigate to http://localhost:3000/t/atlas",
-              "operation_start": "2026-11-25T17:16:28.220417+00:00",
-              "operation_end": "2026-11-25T17:16:28.704Z",
+              "operation_start": "2026-11-25T21:44:53.381697+00:00",
+              "operation_end": "2026-11-25T21:44:54.193Z",
               "status": "success",
               "command": "OPEN",
               "name": "",
@@ -60,7 +60,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/b08678fb-e40d-478e-adb4-439893738968.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/0a170468-7fdd-4a5e-a1fb-3bd02cace1d4.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -158,8 +158,8 @@
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-25T17:16:28.220417+00:00",
-          "end_timestamp": "2026-11-25T17:16:28.704Z",
+          "start_timestamp": "2026-11-25T21:44:53.381697+00:00",
+          "end_timestamp": "2026-11-25T21:44:54.193Z",
           "type": "agent_generated",
           "tags": [],
           "html_paths": [],
@@ -185,7 +185,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "ddcf3a98931c406fa06f96144ead80e5",
+          "generative_id": "07caf83f7bff4759a5336f88145ebf7d",
           "plan_id": "",
           "generative_objective": "View the page at a narrow viewport of 800px wide (the narrowest Chrome supports). Assert that the page does not scroll sideways, and that the headline and the primary call-to-action button are fully visible and not overlapping. The test PASSES when there is no horizontal overflow and both the headline and the button are fully visible without overlap. The test FAILS if content overflows horizontally or is cut off.",
           "error_message": "",
@@ -196,10 +196,10 @@
           "reasoning": "Navigate to http://localhost:3000/t/atlas"
         },
         {
-          "instruction_id": "94619072-13b9-42f5-86cd-def1ddf15ff0",
+          "instruction_id": "023be8b2-1778-43d7-8f10-445ee750c8ba",
           "instruction_class": "driver_action",
           "module_id": "",
-          "instruction": "Waiting for the page to load at a narrow 800px viewport",
+          "instruction": "Waiting for the narrow 800px viewport page view",
           "command": "WAIT",
           "error": null,
           "parent_instruction_id": "",
@@ -207,17 +207,17 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "cd8b4e49-25cb-4eec-9eb6-b280116fb0f0",
-              "instruction_id": "94619072-13b9-42f5-86cd-def1ddf15ff0",
-              "instruction": "Waiting for the page to load at a narrow 800px viewport",
-              "intent": "Waiting for the page to load at a narrow 800px viewport",
-              "operation_start": "2026-11-25T17:16:53.150147+00:00",
-              "operation_end": "2026-11-25T17:16:54.228Z",
+              "operation_id": "90164066-a941-4ad8-8626-01af40c5cb1c",
+              "instruction_id": "023be8b2-1778-43d7-8f10-445ee750c8ba",
+              "instruction": "Waiting for the narrow 800px viewport page view",
+              "intent": "Waiting for the narrow 800px viewport page view",
+              "operation_start": "2026-11-25T21:45:10.691039+00:00",
+              "operation_end": "2026-11-25T21:45:11.254Z",
               "status": "success",
               "command": "WAIT",
               "name": "",
               "target": "",
-              "value": "1000",
+              "value": "500",
               "message": "",
               "operation_dict": "",
               "frame": "",
@@ -226,7 +226,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Waiting for the page to load at a narrow 800px viewport\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"WAIT\"},\"reasoning\":\"PRIMARY: view the page at a narrow viewport of 800px wide\",\"variable\":{},\"secrets\":{},\"params\":{}}",
+              "sub_instruction_obj": "{\"operation\":\"Waiting for the narrow 800px viewport page view\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"WAIT\"},\"reasoning\":\"PRIMARY: View the page at a narrow viewport of 800px wide\",\"variable\":{},\"secrets\":{},\"params\":{}}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -237,7 +237,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/cd8b4e49-25cb-4eec-9eb6-b280116fb0f0.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/90164066-a941-4ad8-8626-01af40c5cb1c.webp",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -331,12 +331,12 @@
               "api_data": {},
               "output_variables": {},
               "visual_context": null,
-              "reasoning": "PRIMARY: view the page at a narrow viewport of 800px wide"
+              "reasoning": "PRIMARY: View the page at a narrow viewport of 800px wide"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-25T17:16:53.150147+00:00",
-          "end_timestamp": "2026-11-25T17:16:54.228Z",
+          "start_timestamp": "2026-11-25T21:45:10.691039+00:00",
+          "end_timestamp": "2026-11-25T21:45:11.254Z",
           "type": "agent_generated",
           "tags": [],
           "html_paths": [],
@@ -362,7 +362,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "ddcf3a98931c406fa06f96144ead80e5",
+          "generative_id": "07caf83f7bff4759a5336f88145ebf7d",
           "plan_id": "",
           "generative_objective": "View the page at a narrow viewport of 800px wide (the narrowest Chrome supports). Assert that the page does not scroll sideways, and that the headline and the primary call-to-action button are fully visible and not overlapping. The test PASSES when there is no horizontal overflow and both the headline and the button are fully visible without overlap. The test FAILS if content overflows horizontally or is cut off.",
           "error_message": "",
@@ -370,13 +370,13 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "PRIMARY: view the page at a narrow viewport of 800px wide"
+          "reasoning": "PRIMARY: View the page at a narrow viewport of 800px wide"
         },
         {
-          "instruction_id": "01de0b29-3c7a-46d6-94fd-3271abc400a6",
+          "instruction_id": "6308f024-9712-43f2-8b13-2f66c936d012",
           "instruction_class": "driver_action",
           "module_id": "",
-          "instruction": "Checking whether page horizontal scrolling is present",
+          "instruction": "Checking whether the page scrolls horizontally",
           "command": "TEXTUAL_ANALYZER",
           "error": null,
           "parent_instruction_id": "",
@@ -384,11 +384,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "ebfc9098-a096-477f-94e0-c4875a18bf42",
-              "instruction_id": "01de0b29-3c7a-46d6-94fd-3271abc400a6",
-              "instruction": "Checking whether page horizontal scrolling is present",
-              "intent": "Checking whether page horizontal scrolling is present",
-              "operation_start": "2026-11-25T17:17:15.461268+00:00",
+              "operation_id": "ca8f4d8d-9b48-4965-bb24-57fe3b800544",
+              "instruction_id": "6308f024-9712-43f2-8b13-2f66c936d012",
+              "instruction": "Checking whether the page scrolls horizontally",
+              "intent": "Checking whether the page scrolls horizontally",
+              "operation_start": "2026-11-25T21:45:50.324253+00:00",
               "operation_end": "",
               "status": "success",
               "command": "TEXTUAL_ANALYZER",
@@ -403,7 +403,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Checking whether page horizontal scrolling is present\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether horizontal scrolling is present on the page\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"el(1).ownerDocument.documentElement.scrollWidth > el(1).ownerDocument.documentElement.clientWidth\",\"wrapped_js\":\"(els) => {\\n  const __m = {1: 0};\\n  const el = (i) => els[__m[i]];\\n  const __v = (el(1).ownerDocument.documentElement.scrollWidth > el(1).ownerDocument.documentElement.clientWidth);\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:role=heading[name=\\\"Back the founders who build\\\"i]\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether horizontal scrolling is present on the page\",\"expected_value\":\"false\",\"needs_unit_conversion\":false,\"condition\":\"the page does not scroll sideways\"}",
+              "sub_instruction_obj": "{\"operation\":\"Checking whether the page scrolls horizontally\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether horizontal scrolling is present on the page document\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"el(1).ownerDocument.documentElement.scrollWidth > el(1).ownerDocument.documentElement.clientWidth\",\"wrapped_js\":\"(els) => {\\n  const __m = {1: 0};\\n  const el = (i) => els[__m[i]];\\n  const __v = (el(1).ownerDocument.documentElement.scrollWidth > el(1).ownerDocument.documentElement.clientWidth);\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:role=heading[name=\\\"Back the founders who build\\\"i]\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether horizontal scrolling is present on the page document\",\"expected_value\":\"false\",\"needs_unit_conversion\":false,\"condition\":\"the page does not scroll sideways\"}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -414,14 +414,14 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/ebfc9098-a096-477f-94e0-c4875a18bf42.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/ca8f4d8d-9b48-4965-bb24-57fe3b800544.png",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
               "url": "",
               "navigation_direction": "",
               "tagified_image_url": "",
-              "query_variable_name": "page_horizontal_scrolling",
+              "query_variable_name": "page_horizontal_scroll_check",
               "query_variable_value": "false",
               "query_variable_type": "",
               "expected_value": "",
@@ -507,14 +507,14 @@
               "until_settle_ms": 0,
               "api_data": {},
               "output_variables": {
-                "page_horizontal_scrolling": "false"
+                "page_horizontal_scroll_check": "false"
               },
               "visual_context": null,
-              "reasoning": "whether horizontal scrolling is present on the page"
+              "reasoning": "whether horizontal scrolling is present on the page document"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-25T17:17:15.461268+00:00",
+          "start_timestamp": "2026-11-25T21:45:50.324253+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -541,7 +541,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "ddcf3a98931c406fa06f96144ead80e5",
+          "generative_id": "07caf83f7bff4759a5336f88145ebf7d",
           "plan_id": "",
           "generative_objective": "View the page at a narrow viewport of 800px wide (the narrowest Chrome supports). Assert that the page does not scroll sideways, and that the headline and the primary call-to-action button are fully visible and not overlapping. The test PASSES when there is no horizontal overflow and both the headline and the button are fully visible without overlap. The test FAILS if content overflows horizontally or is cut off.",
           "error_message": "",
@@ -549,10 +549,10 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "whether horizontal scrolling is present on the page"
+          "reasoning": "whether horizontal scrolling is present on the page document"
         },
         {
-          "instruction_id": "5834be5c-348b-4c5e-bb95-5197a18feac9",
+          "instruction_id": "04741d29-48f5-418e-9780-69f22489b805",
           "instruction_class": "driver_action",
           "module_id": "",
           "instruction": "Checking whether the headline is fully visible",
@@ -563,11 +563,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "ee173bfa-730b-46d9-be59-6551f67116dc",
-              "instruction_id": "5834be5c-348b-4c5e-bb95-5197a18feac9",
+              "operation_id": "56397e96-3369-4a77-8914-54b943d6a9ca",
+              "instruction_id": "04741d29-48f5-418e-9780-69f22489b805",
               "instruction": "Checking whether the headline is fully visible",
               "intent": "Checking whether the headline is fully visible",
-              "operation_start": "2026-11-25T17:17:15.579696+00:00",
+              "operation_start": "2026-11-25T21:45:50.457048+00:00",
               "operation_end": "",
               "status": "success",
               "command": "TEXTUAL_ANALYZER",
@@ -582,7 +582,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Checking whether the headline is fully visible\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether the headline at the top of the page is fully visible\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"(()=>{const r=el(1).getBoundingClientRect(),s=getComputedStyle(el(1));return r.width>0&&r.height>0&&r.top>=0&&r.left>=0&&r.right<=innerWidth&&r.bottom<=innerHeight&&s.display!=='none'&&s.visibility!=='hidden'&&parseFloat(s.opacity)>0})()\",\"wrapped_js\":\"(els) => {\\n  const __m = {1: 0};\\n  const el = (i) => els[__m[i]];\\n  const __v = ((()=>{const r=el(1).getBoundingClientRect(),s=getComputedStyle(el(1));return r.width>0&&r.height>0&&r.top>=0&&r.left>=0&&r.right<=innerWidth&&r.bottom<=innerHeight&&s.display!=='none'&&s.visibility!=='hidden'&&parseFloat(s.opacity)>0})());\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:role=heading[name=\\\"Back the founders who build\\\"i]\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether the headline at the top of the page is fully visible\",\"expected_value\":\"true\",\"needs_unit_conversion\":false,\"condition\":\"the headline is fully visible\"}",
+              "sub_instruction_obj": "{\"operation\":\"Checking whether the headline is fully visible\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether the headline at the top of the page is fully visible in the viewport\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"(()=>{const r=el(1).getBoundingClientRect(), d=el(1).ownerDocument.documentElement; return r.width>0&&r.height>0&&r.left>=0&&r.top>=0&&r.right<=d.clientWidth&&r.bottom<=d.clientHeight})()\",\"wrapped_js\":\"(els) => {\\n  const __m = {1: 0};\\n  const el = (i) => els[__m[i]];\\n  const __v = ((()=>{const r=el(1).getBoundingClientRect(), d=el(1).ownerDocument.documentElement; return r.width>0&&r.height>0&&r.left>=0&&r.top>=0&&r.right<=d.clientWidth&&r.bottom<=d.clientHeight})());\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:role=heading[name=\\\"Back the founders who build\\\"i]\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether the headline at the top of the page is fully visible in the viewport\",\"expected_value\":\"true\",\"needs_unit_conversion\":false,\"condition\":\"the headline is fully visible\"}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -593,7 +593,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/ee173bfa-730b-46d9-be59-6551f67116dc.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/56397e96-3369-4a77-8914-54b943d6a9ca.png",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -689,11 +689,11 @@
                 "headline_fully_visible": "true"
               },
               "visual_context": null,
-              "reasoning": "whether the headline at the top of the page is fully visible"
+              "reasoning": "whether the headline at the top of the page is fully visible in the viewport"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-25T17:17:15.579696+00:00",
+          "start_timestamp": "2026-11-25T21:45:50.457048+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -720,7 +720,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "ddcf3a98931c406fa06f96144ead80e5",
+          "generative_id": "07caf83f7bff4759a5336f88145ebf7d",
           "plan_id": "",
           "generative_objective": "View the page at a narrow viewport of 800px wide (the narrowest Chrome supports). Assert that the page does not scroll sideways, and that the headline and the primary call-to-action button are fully visible and not overlapping. The test PASSES when there is no horizontal overflow and both the headline and the button are fully visible without overlap. The test FAILS if content overflows horizontally or is cut off.",
           "error_message": "",
@@ -728,10 +728,10 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "whether the headline at the top of the page is fully visible"
+          "reasoning": "whether the headline at the top of the page is fully visible in the viewport"
         },
         {
-          "instruction_id": "02234c94-632a-4584-a5b9-4af6a08d3dc4",
+          "instruction_id": "09369b6f-db7c-4514-854e-4f74dbf43c4e",
           "instruction_class": "driver_action",
           "module_id": "",
           "instruction": "Checking whether the primary call-to-action button is fully visible",
@@ -742,11 +742,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "f511c79f-fed2-4796-96be-04142caccdeb",
-              "instruction_id": "02234c94-632a-4584-a5b9-4af6a08d3dc4",
+              "operation_id": "08823522-4b07-4772-9b1f-a57ec69df7db",
+              "instruction_id": "09369b6f-db7c-4514-854e-4f74dbf43c4e",
               "instruction": "Checking whether the primary call-to-action button is fully visible",
               "intent": "Checking whether the primary call-to-action button is fully visible",
-              "operation_start": "2026-11-25T17:17:15.699741+00:00",
+              "operation_start": "2026-11-25T21:45:50.610874+00:00",
               "operation_end": "",
               "status": "success",
               "command": "TEXTUAL_ANALYZER",
@@ -761,7 +761,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Checking whether the primary call-to-action button is fully visible\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether the View portfolio primary call-to-action button in the hero area is fully visible\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"(()=>{const r=el(3).getBoundingClientRect(),s=getComputedStyle(el(3));return r.width>0&&r.height>0&&r.top>=0&&r.left>=0&&r.right<=innerWidth&&r.bottom<=innerHeight&&s.display!=='none'&&s.visibility!=='hidden'&&parseFloat(s.opacity)>0})()\",\"wrapped_js\":\"(els) => {\\n  const __m = {3: 0};\\n  const el = (i) => els[__m[i]];\\n  const __v = ((()=>{const r=el(3).getBoundingClientRect(),s=getComputedStyle(el(3));return r.width>0&&r.height>0&&r.top>=0&&r.left>=0&&r.right<=innerWidth&&r.bottom<=innerHeight&&s.display!=='none'&&s.visibility!=='hidden'&&parseFloat(s.opacity)>0})());\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:role=button[name=\\\"View portfolio\\\"i]\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether the View portfolio primary call-to-action button in the hero area is fully visible\",\"expected_value\":\"true\",\"needs_unit_conversion\":false,\"condition\":\"the primary call-to-action button is fully visible\"}",
+              "sub_instruction_obj": "{\"operation\":\"Checking whether the primary call-to-action button is fully visible\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether the primary call-to-action button labeled View portfolio is fully visible in the viewport\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"(()=>{const r=el(3).getBoundingClientRect(), d=el(3).ownerDocument.documentElement; return r.width>0&&r.height>0&&r.left>=0&&r.top>=0&&r.right<=d.clientWidth&&r.bottom<=d.clientHeight})()\",\"wrapped_js\":\"(els) => {\\n  const __m = {3: 0};\\n  const el = (i) => els[__m[i]];\\n  const __v = ((()=>{const r=el(3).getBoundingClientRect(), d=el(3).ownerDocument.documentElement; return r.width>0&&r.height>0&&r.left>=0&&r.top>=0&&r.right<=d.clientWidth&&r.bottom<=d.clientHeight})());\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:role=button[name=\\\"View portfolio\\\"i]\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether the primary call-to-action button labeled View portfolio is fully visible in the viewport\",\"expected_value\":\"true\",\"needs_unit_conversion\":false,\"condition\":\"the primary call-to-action button is fully visible\"}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -772,7 +772,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/f511c79f-fed2-4796-96be-04142caccdeb.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/08823522-4b07-4772-9b1f-a57ec69df7db.png",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -868,11 +868,11 @@
                 "primary_call_to_action_button_fully_visible": "true"
               },
               "visual_context": null,
-              "reasoning": "whether the View portfolio primary call-to-action button in the hero area is fully visible"
+              "reasoning": "whether the primary call-to-action button labeled View portfolio is fully visible in the viewport"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-25T17:17:15.699741+00:00",
+          "start_timestamp": "2026-11-25T21:45:50.610874+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -899,7 +899,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "ddcf3a98931c406fa06f96144ead80e5",
+          "generative_id": "07caf83f7bff4759a5336f88145ebf7d",
           "plan_id": "",
           "generative_objective": "View the page at a narrow viewport of 800px wide (the narrowest Chrome supports). Assert that the page does not scroll sideways, and that the headline and the primary call-to-action button are fully visible and not overlapping. The test PASSES when there is no horizontal overflow and both the headline and the button are fully visible without overlap. The test FAILS if content overflows horizontally or is cut off.",
           "error_message": "",
@@ -907,10 +907,10 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "whether the View portfolio primary call-to-action button in the hero area is fully visible"
+          "reasoning": "whether the primary call-to-action button labeled View portfolio is fully visible in the viewport"
         },
         {
-          "instruction_id": "1c88f54f-ee8d-4bd3-80bb-e614d5ddc810",
+          "instruction_id": "94a0192c-e5f3-44b3-b333-de409a5c70da",
           "instruction_class": "driver_action",
           "module_id": "",
           "instruction": "Checking whether the headline and primary call-to-action button overlap",
@@ -921,11 +921,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "1f1dc60b-401b-47ab-8f81-f35fd9b86261",
-              "instruction_id": "1c88f54f-ee8d-4bd3-80bb-e614d5ddc810",
+              "operation_id": "fe70de8b-dd46-44cb-8db5-615d5b682cd1",
+              "instruction_id": "94a0192c-e5f3-44b3-b333-de409a5c70da",
               "instruction": "Checking whether the headline and primary call-to-action button overlap",
               "intent": "Checking whether the headline and primary call-to-action button overlap",
-              "operation_start": "2026-11-25T17:17:15.860282+00:00",
+              "operation_start": "2026-11-25T21:45:50.798701+00:00",
               "operation_end": "",
               "status": "success",
               "command": "TEXTUAL_ANALYZER",
@@ -940,7 +940,7 @@
               "grounded_by": "",
               "error_message": "",
               "code_snippet": "",
-              "sub_instruction_obj": "{\"operation\":\"Checking whether the headline and primary call-to-action button overlap\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether the headline and the View portfolio primary call-to-action button in the hero area overlap\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"(()=>{const a=el(1).getBoundingClientRect(),b=el(3).getBoundingClientRect();return a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top})()\",\"wrapped_js\":\"(els) => {\\n  const __m = {1: 0, 3: 1};\\n  const el = (i) => els[__m[i]];\\n  const __v = ((()=>{const a=el(1).getBoundingClientRect(),b=el(3).getBoundingClientRect();return a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top})());\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:role=heading[name=\\\"Back the founders who build\\\"i]\",\"internal:role=button[name=\\\"View portfolio\\\"i]\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether the headline and the View portfolio primary call-to-action button in the hero area overlap\",\"expected_value\":\"false\",\"needs_unit_conversion\":false,\"condition\":\"the headline and the primary call-to-action button are not overlapping\"}",
+              "sub_instruction_obj": "{\"operation\":\"Checking whether the headline and primary call-to-action button overlap\",\"agent\":\"Operation Agent\",\"operation_dict\":{\"operation_type\":\"TEXTUAL_ANALYZER\"},\"reasoning\":\"whether the top-page headline and the primary call-to-action button labeled View portfolio overlap\",\"variable\":{},\"secrets\":{},\"params\":{},\"code_js\":\"(()=>{const a=el(1).getBoundingClientRect(), b=el(3).getBoundingClientRect(); return a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top})()\",\"wrapped_js\":\"(els) => {\\n  const __m = {1: 0, 3: 1};\\n  const el = (i) => els[__m[i]];\\n  const __v = ((()=>{const a=el(1).getBoundingClientRect(), b=el(3).getBoundingClientRect(); return a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top})());\\n  return (typeof __v === 'boolean' ? String(__v) : __v);\\n}\",\"locators\":[\"internal:role=heading[name=\\\"Back the founders who build\\\"i]\",\"internal:role=button[name=\\\"View portfolio\\\"i]\"],\"operator\":\"equals\",\"transforms\":[],\"query\":\"whether the top-page headline and the primary call-to-action button labeled View portfolio overlap\",\"expected_value\":\"false\",\"needs_unit_conversion\":false,\"condition\":\"the headline and the primary call-to-action button are not overlapping\"}",
               "test_id": "",
               "test_version": "",
               "action": "",
@@ -951,14 +951,14 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/1f1dc60b-401b-47ab-8f81-f35fd9b86261.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/fe70de8b-dd46-44cb-8db5-615d5b682cd1.png",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
               "url": "",
               "navigation_direction": "",
               "tagified_image_url": "",
-              "query_variable_name": "headline_primary_cta_overlap",
+              "query_variable_name": "headline_primary_call_to_action_button_overlap",
               "query_variable_value": "false",
               "query_variable_type": "",
               "expected_value": "",
@@ -1044,14 +1044,14 @@
               "until_settle_ms": 0,
               "api_data": {},
               "output_variables": {
-                "headline_primary_cta_overlap": "false"
+                "headline_primary_call_to_action_button_overlap": "false"
               },
               "visual_context": null,
-              "reasoning": "whether the headline and the View portfolio primary call-to-action button in the hero area overlap"
+              "reasoning": "whether the top-page headline and the primary call-to-action button labeled View portfolio overlap"
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-25T17:17:15.860282+00:00",
+          "start_timestamp": "2026-11-25T21:45:50.798701+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -1078,7 +1078,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "ddcf3a98931c406fa06f96144ead80e5",
+          "generative_id": "07caf83f7bff4759a5336f88145ebf7d",
           "plan_id": "",
           "generative_objective": "View the page at a narrow viewport of 800px wide (the narrowest Chrome supports). Assert that the page does not scroll sideways, and that the headline and the primary call-to-action button are fully visible and not overlapping. The test PASSES when there is no horizontal overflow and both the headline and the button are fully visible without overlap. The test FAILS if content overflows horizontally or is cut off.",
           "error_message": "",
@@ -1086,10 +1086,10 @@
           "reason": "",
           "title": "",
           "used_variables": [],
-          "reasoning": "whether the headline and the View portfolio primary call-to-action button in the hero area overlap"
+          "reasoning": "whether the top-page headline and the primary call-to-action button labeled View portfolio overlap"
         },
         {
-          "instruction_id": "d15b2630-b43c-439c-b336-ec915dbcd8fa",
+          "instruction_id": "021394fb-794c-4b82-97c8-bdce5139df09",
           "instruction_class": "non_driver_action",
           "module_id": "",
           "instruction": "Assertion check",
@@ -1111,10 +1111,10 @@
                       "transforms": [],
                       "json_path": null,
                       "expected": "false",
-                      "extracted_value": "{{page_horizontal_scrolling}}",
-                      "store_key": "page_horizontal_scrolling",
+                      "extracted_value": "{{page_horizontal_scroll_check}}",
+                      "store_key": "page_horizontal_scroll_check",
                       "variable_refs": {
-                        "{{page_horizontal_scrolling}}": "false"
+                        "{{page_horizontal_scroll_check}}": "false"
                       }
                     },
                     {
@@ -1150,19 +1150,19 @@
                       "transforms": [],
                       "json_path": null,
                       "expected": "false",
-                      "extracted_value": "{{headline_primary_cta_overlap}}",
-                      "store_key": "headline_primary_cta_overlap",
+                      "extracted_value": "{{headline_primary_call_to_action_button_overlap}}",
+                      "store_key": "headline_primary_call_to_action_button_overlap",
                       "variable_refs": {
-                        "{{headline_primary_cta_overlap}}": "false"
+                        "{{headline_primary_call_to_action_button_overlap}}": "false"
                       }
                     }
                   ],
                   "sub_checks": [
                     {
                       "description": "the page does not scroll sideways",
-                      "store_key": "page_horizontal_scrolling",
+                      "store_key": "page_horizontal_scroll_check",
                       "expected_value": "false",
-                      "extracted_value": "{{page_horizontal_scrolling}}",
+                      "extracted_value": "{{page_horizontal_scroll_check}}",
                       "operator": "equals",
                       "transforms": []
                     },
@@ -1184,9 +1184,9 @@
                     },
                     {
                       "description": "the headline and the primary call-to-action button are not overlapping",
-                      "store_key": "headline_primary_cta_overlap",
+                      "store_key": "headline_primary_call_to_action_button_overlap",
                       "expected_value": "false",
-                      "extracted_value": "{{headline_primary_cta_overlap}}",
+                      "extracted_value": "{{headline_primary_call_to_action_button_overlap}}",
                       "operator": "equals",
                       "transforms": []
                     }
@@ -1209,11 +1209,11 @@
           "classification_error": {},
           "operations": [
             {
-              "operation_id": "60360cf6-8625-4beb-a5be-9dad62570c34",
-              "instruction_id": "d15b2630-b43c-439c-b336-ec915dbcd8fa",
+              "operation_id": "00879b1a-2e83-4e14-ba84-b19247a52963",
+              "instruction_id": "021394fb-794c-4b82-97c8-bdce5139df09",
               "instruction": "Assertion check",
               "intent": "Assertion check",
-              "operation_start": "2026-11-25T17:17:16.556581+00:00",
+              "operation_start": "2026-11-25T21:45:51.554695+00:00",
               "operation_end": "",
               "status": "success",
               "command": "ASSERTION",
@@ -1239,7 +1239,7 @@
               "update_time_stamp": "",
               "locator_variable": "",
               "locator_variable_name": "",
-              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/60360cf6-8625-4beb-a5be-9dad62570c34.webp",
+              "image_url": "https://prodauteurartefacts.blob.core.windows.net/test-screenshots/test_screenshots/untagged_screenshot/00879b1a-2e83-4e14-ba84-b19247a52963.png",
               "alternative_xpaths": [],
               "attribute": "",
               "value_description": "",
@@ -1311,10 +1311,10 @@
                     "transforms": [],
                     "json_path": null,
                     "expected": "false",
-                    "extracted_value": "{{page_horizontal_scrolling}}",
-                    "store_key": "page_horizontal_scrolling",
+                    "extracted_value": "{{page_horizontal_scroll_check}}",
+                    "store_key": "page_horizontal_scroll_check",
                     "variable_refs": {
-                      "{{page_horizontal_scrolling}}": "false"
+                      "{{page_horizontal_scroll_check}}": "false"
                     }
                   },
                   {
@@ -1350,19 +1350,19 @@
                     "transforms": [],
                     "json_path": null,
                     "expected": "false",
-                    "extracted_value": "{{headline_primary_cta_overlap}}",
-                    "store_key": "headline_primary_cta_overlap",
+                    "extracted_value": "{{headline_primary_call_to_action_button_overlap}}",
+                    "store_key": "headline_primary_call_to_action_button_overlap",
                     "variable_refs": {
-                      "{{headline_primary_cta_overlap}}": "false"
+                      "{{headline_primary_call_to_action_button_overlap}}": "false"
                     }
                   }
                 ],
                 "sub_checks": [
                   {
                     "description": "the page does not scroll sideways",
-                    "store_key": "page_horizontal_scrolling",
+                    "store_key": "page_horizontal_scroll_check",
                     "expected_value": "false",
-                    "extracted_value": "{{page_horizontal_scrolling}}",
+                    "extracted_value": "{{page_horizontal_scroll_check}}",
                     "operator": "equals",
                     "transforms": []
                   },
@@ -1384,15 +1384,15 @@
                   },
                   {
                     "description": "the headline and the primary call-to-action button are not overlapping",
-                    "store_key": "headline_primary_cta_overlap",
+                    "store_key": "headline_primary_call_to_action_button_overlap",
                     "expected_value": "false",
-                    "extracted_value": "{{headline_primary_cta_overlap}}",
+                    "extracted_value": "{{headline_primary_call_to_action_button_overlap}}",
                     "operator": "equals",
                     "transforms": []
                   }
                 ],
                 "composite_operator": "and",
-                "verification": "The page has no horizontal scrolling, and both the headline and the primary call-to-action button are fully visible without overlap.",
+                "verification": "Check the page for horizontal scrolling and the visibility and overlap state of the headline and primary call-to-action button.",
                 "claim": "the page does not scroll sideways, and the headline and the primary call-to-action button are fully visible and not overlapping"
               },
               "assertion_tree": {
@@ -1407,10 +1407,10 @@
                     "transforms": [],
                     "json_path": null,
                     "expected": "false",
-                    "extracted_value": "{{page_horizontal_scrolling}}",
-                    "store_key": "page_horizontal_scrolling",
+                    "extracted_value": "{{page_horizontal_scroll_check}}",
+                    "store_key": "page_horizontal_scroll_check",
                     "variable_refs": {
-                      "{{page_horizontal_scrolling}}": "false"
+                      "{{page_horizontal_scroll_check}}": "false"
                     }
                   },
                   {
@@ -1446,10 +1446,10 @@
                     "transforms": [],
                     "json_path": null,
                     "expected": "false",
-                    "extracted_value": "{{headline_primary_cta_overlap}}",
-                    "store_key": "headline_primary_cta_overlap",
+                    "extracted_value": "{{headline_primary_call_to_action_button_overlap}}",
+                    "store_key": "headline_primary_call_to_action_button_overlap",
                     "variable_refs": {
-                      "{{headline_primary_cta_overlap}}": "false"
+                      "{{headline_primary_call_to_action_button_overlap}}": "false"
                     }
                   }
                 ],
@@ -1457,7 +1457,7 @@
                 "passed": true,
                 "step": 4,
                 "is_final": true,
-                "verification": "The page has no horizontal scrolling, and both the headline and the primary call-to-action button are fully visible without overlap.",
+                "verification": "Check the page for horizontal scrolling and the visibility and overlap state of the headline and primary call-to-action button.",
                 "error_message": null,
                 "duration_ms": 0
               },
@@ -1499,7 +1499,7 @@
             }
           ],
           "status": "success",
-          "start_timestamp": "2026-11-25T17:17:16.556581+00:00",
+          "start_timestamp": "2026-11-25T21:45:51.554695+00:00",
           "end_timestamp": "",
           "type": "agent_generated",
           "tags": [],
@@ -1526,7 +1526,7 @@
           "network_assertion_content": {},
           "screenshot_command": "",
           "smartui_contents": {},
-          "generative_id": "ddcf3a98931c406fa06f96144ead80e5",
+          "generative_id": "07caf83f7bff4759a5336f88145ebf7d",
           "plan_id": "",
           "generative_objective": "View the page at a narrow viewport of 800px wide (the narrowest Chrome supports). Assert that the page does not scroll sideways, and that the headline and the primary call-to-action button are fully visible and not overlapping. The test PASSES when there is no horizontal overflow and both the headline and the button are fully visible without overlap. The test FAILS if content overflows horizontally or is cut off.",
           "error_message": "",
@@ -1542,10 +1542,10 @@
       "result_code": "100",
       "bifurcation_context": [],
       "approach_reason": [
-        "Viewed the Atlas page at a narrow 800px-wide viewport as requested.",
+        "Viewed the Atlas page at a narrow 800px-wide viewport.",
         "Confirmed that the page did not scroll sideways.",
         "Confirmed that the “Back the founders who build” headline and “View portfolio” button were fully visible and did not overlap.",
-        "Completed the narrow-viewport check successfully."
+        "The narrow-screen layout check completed successfully."
       ],
       "one_liner": "viewed the Atlas page at a narrow viewport on localhost"
     }
@@ -1553,7 +1553,7 @@
   "modules": [],
   "uploaded_files": [],
   "test_params": [],
-  "test_level_variables": "[{\"name\":\"page_horizontal_scrolling\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"headline_fully_visible\",\"value\":\"true\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"primary_call_to_action_button_fully_visible\",\"value\":\"true\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"headline_primary_cta_overlap\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"}]",
+  "test_level_variables": "[{\"name\":\"page_horizontal_scroll_check\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"headline_fully_visible\",\"value\":\"true\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"primary_call_to_action_button_fully_visible\",\"value\":\"true\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"},{\"name\":\"headline_primary_call_to_action_button_overlap\",\"value\":\"false\",\"value_type\":\"test_level\",\"variable_description\":\"ANALYZE result\"}]",
   "test_global_variables": [],
   "max_network_wait": 0,
   "wait_buffer": 0,
