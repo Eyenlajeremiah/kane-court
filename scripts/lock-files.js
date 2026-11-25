@@ -16,7 +16,24 @@ const ROOT = process.cwd();
 const MANIFEST = path.join(ROOT, "scripts", "lock-manifest.json");
 const MANIFEST_SIGNATURE = process.env.KANE_LOCK_MANIFEST_SIGNATURE;
 const MANIFEST_PUBLIC_KEY = process.env.KANE_LOCK_MANIFEST_PUBLIC_KEY;
-const LINE_ENDING_NORMALIZED = /\.(?:sh|js|json|md|html|css)$/i;
+// Text files whose bytes may legitimately differ by line ending between
+// platforms (Windows checkout = CRLF, Linux = LF). Hashing raw bytes would
+// report drift on every text file a Windows operator touched, so the hash
+// must be computed on CRLF-normalized content for ALL text files - not just
+// the original sh|js|json|md|html|css subset.
+const LINE_ENDING_EXTENSIONS = new Set([
+  "sh", "js", "json", "md", "html", "css",
+  "txt", "py", "example", "yml", "yaml", "toml", "env", "cfg", "ini",
+]);
+// Extensionless files that are still plain text.
+const LINE_ENDING_BASENAMES = new Set([".gitignore", ".npmignore"]);
+const isLineEndingNormalized = (rel) => {
+  const base = path.basename(rel).toLowerCase();
+  if (LINE_ENDING_BASENAMES.has(base)) return true;
+  const dot = base.lastIndexOf(".");
+  if (dot <= 0) return false; // no extension
+  return LINE_ENDING_EXTENSIONS.has(base.slice(dot + 1));
+};
 
 const isLocked = (rel) => {
   const p = rel.split(path.sep).join("/");
@@ -62,7 +79,7 @@ function walk(dir, out = []) {
 
 function hash(rel) {
   const content = fs.readFileSync(path.join(ROOT, rel));
-  const canonical = LINE_ENDING_NORMALIZED.test(rel)
+  const canonical = isLineEndingNormalized(rel)
     ? Buffer.from(content.toString("utf8").replace(/\r\n/g, "\n"), "utf8")
     : content;
   return crypto.createHash("sha256").update(canonical).digest("hex");

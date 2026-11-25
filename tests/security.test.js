@@ -201,6 +201,49 @@ test("the parser accepts current Kane run events and requires the requested fina
   }
 });
 
+test("integrity lock normalizes CRLF for every text file extension, not just js", () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "kane-lock-eol-ext-test-"));
+  const lockScript = path.join(ROOT, "scripts", "lock-files.js");
+  // These extensions were previously excluded from CRLF normalization, so a
+  // lock taken on a Windows checkout reported drift on every Linux clone.
+  const samples = [
+    "sample.js",
+    "sample.md",
+    "sample.json",
+    "sample.txt",
+    "sample.py",
+    "sample.html",
+    "sample.css",
+    "sample.sh",
+    ".env.example",
+    ".gitignore",
+    ".npmignore",
+  ];
+  try {
+    fs.mkdirSync(path.join(dir, "scripts"), { recursive: true });
+    for (const name of samples) {
+      fs.writeFileSync(path.join(dir, name), "line one\r\nline two\r\n");
+    }
+    const init = spawnSync(process.execPath, [lockScript, "--init"], {
+      cwd: dir,
+      encoding: "utf8"
+    });
+    assert.equal(init.status, 0, init.stderr);
+
+    // Re-write every file with LF endings, as a Linux checkout would have them.
+    for (const name of samples) {
+      fs.writeFileSync(path.join(dir, name), "line one\nline two\n");
+    }
+    const verify = spawnSync(process.execPath, [lockScript, "--verify"], {
+      cwd: dir,
+      encoding: "utf8"
+    });
+    assert.equal(verify.status, 0, verify.stderr);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("integrity lock hashes text files independently of CRLF checkout settings", () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "kane-lock-eol-test-"));
   const lockScript = path.join(ROOT, "scripts", "lock-files.js");
