@@ -1,7 +1,21 @@
 # Demo video script (3-5 minutes, YouTube Unlisted)
 
-Judges watch this first. Show the working app AND Kane running. Lead with the
-strangest moment, not with your face or your slides.
+Judges watch this first. Lead with the strangest moment, not your face or your
+slides.
+
+## THE ONE RULE FOR THIS VIDEO
+
+Everything must be LIVE. No pre-recorded output, no replay of a cached run.
+
+- Use `bash scripts/run-case.sh atlas <round>` - NOT `scripts/replay.sh`.
+  Replay reuses a cached recording made against the fixed page, so it does not
+  re-judge the broken page. Author mode drives a real Chrome with a real
+  vision model, so it genuinely rules on what is on screen right now.
+- Show the agent actually editing the file. Do not cut to a finished page.
+
+The broken page itself is a committed file (`targets/atlas/buggy.html`). That is
+not a shortcut - a court needs a defendant. What matters on camera is that the
+judge rules live and the fix is made live.
 
 ## Before you record (off camera)
 
@@ -15,13 +29,16 @@ node scripts/lock-files.js --verify
 
 Expect `integrity OK: 66 locked file(s) unchanged`.
 
+Open VS Code with Copilot on the same folder. You will paste the re-prompt into
+it during the recording.
+
 ## 0:00 - Cold open: the app looks finished
 
 Browser: `http://localhost:3000/t/atlas`
 
 > "This is a venture capital landing page. It looks finished. It is not."
 
-## 0:30 - Reset it to the broken version
+## 0:30 - Put it on trial
 
 Terminal:
 
@@ -29,67 +46,55 @@ Terminal:
 bash scripts/reset-demo.sh atlas
 ```
 
-> "Kane Court ships with the app deliberately broken. Four planted defects: a
-> dead call-to-action, placeholder copy with an `undefined` in the table, a
-> newsletter form that submits silently, and a 960px table that overflows on
-> mobile."
+> "Four planted defects: a dead call-to-action, placeholder copy with an
+> `undefined` in the table, a newsletter form that submits silently, and a
+> 960px table that overflows on mobile."
 
-## 1:00 - Kane judges it RED
+## 1:00 - Kane judges it RED (live)
 
 Terminal:
-
-```bash
-bash scripts/replay.sh atlas
-```
-
-> "Kane CLI drives a real Chrome. It replays five adversarial personas -
-> newcomer, skeptic, mobile, saver, promised. Watch it catch the dead button."
-
-Show the red lines. Let them sit for a second.
-
-**Fallback if replay does not go red** (replay reuses cached recordings, so it
-may not re-assert against the broken page). Author the flows for real instead -
-this costs Kane credits but is the proven path:
 
 ```bash
 bash scripts/run-case.sh atlas 1
 ```
 
-## 1:45 - What the agent actually sees
+> "Kane CLI drives a real Chrome with a real vision model. Five adversarial
+> personas - newcomer, skeptic, mobile, saver, promised. Watch it catch the dead
+> button."
+
+Show the red lines. Let them sit for a second. This takes a few minutes -
+that is fine, it proves it is live.
+
+## 2:00 - What the agent actually sees
 
 Terminal:
 
 ```bash
 node scripts/build-prompt.js atlas 1
-cat .loop/pending-prompt.md
 ```
 
 > "This is the only thing the coding agent receives. It never sees the app. It
 > sees the exact failure the judge found - not 'fix the bugs.'"
 
-## 2:10 - The fix
+## 2:20 - The live fix
 
-Open `targets/atlas/index.html` in your editor. Let the cursor land on the
-broken CTA, the placeholder text, the form. Fix them on camera.
+VS Code, Copilot chat. Paste the whole contents of `.loop/pending-prompt.md`.
 
-No narration over the keystrokes - let the edit be visible.
+> "Now the agent gets re-entered with the failure. It fixes the app. Watch the
+> actual edits."
 
-To match the committed green page exactly instead of hand-fixing:
+Let the edits happen on camera. Do not cut away. If it takes a minute, let it.
 
-```bash
-cp targets/atlas/buggy.html /tmp/keep-buggy.html   # before you start
-git checkout HEAD -- targets/atlas/index.html      # after the shot
-```
-
-## 2:40 - The re-run, GREEN
+## 3:20 - The re-run, GREEN (live)
 
 Terminal:
 
 ```bash
-bash scripts/replay.sh atlas
+bash scripts/run-case.sh atlas 2
 ```
 
-> "Same judge, same flows. It goes green - and only now can a verdict publish."
+> "Same judge, same flows, run again against the code the agent just wrote. It
+> goes green."
 
 On camera:
 
@@ -101,14 +106,20 @@ On camera:
 [atlas][promised] pass=true exit=0
 ```
 
-## 3:15 - The verdict
+## 3:50 - The verdict
+
+Terminal:
+
+```bash
+node scripts/publish.js atlas 2
+```
 
 Browser: `http://localhost:3000/v/atlas`
 
-> "That badge is not something I typed. It only appears when Kane's own re-run
-> comes back green."
+> "That badge is not something I typed. It only appears when Kane's own live
+> re-run came back green."
 
-## 3:40 - The point
+## 4:05 - The point
 
 Terminal:
 
@@ -116,14 +127,14 @@ Terminal:
 cat .agents/hooks.json
 ```
 
-> "The agent cannot finish a task while the judge is red. It gets re-entered
-> with the failure until the app genuinely works. Any app can be put on trial."
+> "This is a Stop hook. The agent cannot finish a task while the judge is red.
+> It gets re-entered with the failure until the app genuinely works."
 
 ## Shot list
 
 - Browser: the atlas target page
 - Terminal, full screen, large font
-- Editor with `targets/atlas/index.html` open
+- VS Code + Copilot chat, the edits visible
 - Terminal again for the green re-run
 - Browser for the verdict page
 - Editor with `.agents/hooks.json` open
@@ -133,5 +144,7 @@ cat .agents/hooks.json
 - Upload as **Unlisted**, not Private. Test the link in an incognito window.
 - Do NOT show your face, your name, or any account balances.
 - Do NOT blur the terminal output - the terminal IS the evidence.
-- Leave the interesting part in the first 30 seconds. Judges stop watching at
-  3:00 if the video runs long.
+- Judge-proof note: the live run costs Kane credits. You have 10,000 free.
+  Two rounds of five personas fits inside that.
+- If the live run is too slow, cut the wait - but never cut back to a
+  pre-recorded run.
