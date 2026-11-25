@@ -7,3 +7,9 @@ scripts/reset-demo.sh
 scripts/setup-antigravity.sh
 *.log
 *.ndjson
+
+# Integrity-manifest signing material - never ship the private key.
+scripts/lock-manifest.key
+scripts/lock-manifest.sig
+scripts/lock-manifest.pub
+keys/
