@@ -11,3 +11,12 @@ data/queue-raw/
 
 # Kane CLI replayable tests + recordings - these MUST be committed
 # so a judge with no credits can still run the flows.
+
+# Integrity-manifest signing material - NEVER commit.
+# The private key must stay off the repo, and the .sig/.pub pair is
+# deployment-specific (every operator signs their own manifest).
+scripts/lock-manifest.key
+scripts/lock-manifest.sig
+scripts/lock-manifest.pub
+keys/
+*.pem
