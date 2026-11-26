@@ -59,12 +59,12 @@ npm install && npm start   # court on :3000
 
 ## 5. Launch buzz
 
-At least two public posts, four planned:
+Two public posts live (X + LinkedIn), two more planned (Reddit, Hacker News):
 
-- Hacker News — <HN_URL>
+- X — https://x.com/Miah_io/status/2125391879378444640  (LIVE)
 - X — <X_URL>
-- Reddit — <REDDIT_URL>
-- LinkedIn — https://www.linkedin.com/feed/update/urn:li:share:7531783603425456128/  (LIVE)
+- Reddit — <REDDIT_URL>  (pending)
+- LinkedIn — https://www.linkedin.com/posts/jeremiah-eyenla_kaneclihackathon-kanecli-aiagents-share-7531783603425456128-tFkz/  (LIVE)  (LIVE)
 
 ## Before you submit
 
