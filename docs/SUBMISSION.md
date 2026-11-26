@@ -64,7 +64,7 @@ At least two public posts, four planned:
 - Hacker News — <HN_URL>
 - X — <X_URL>
 - Reddit — <REDDIT_URL>
-- LinkedIn — <LINKEDIN_URL>
+- LinkedIn — https://www.linkedin.com/feed/update/urn:li:share:7531783603425456128/  (LIVE)
 
 ## Before you submit
 
