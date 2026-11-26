@@ -10,9 +10,26 @@ L.push(`Target files: targets/${targetId}/`);
 L.push("Each flow below is an objective from lib/personas.json (or the target's flows.json).");
 L.push("These objectives ARE the spec. Do not weaken them. Fix the application code.");
 L.push("");
+// Kane emits a generic status event with no message alongside the real
+// failure event. Showing both makes the re-prompt look noisy and, worse,
+// makes the real failure read like one line among many. Keep the generic
+// "(no message)" placeholder only when there is nothing else to show.
+const tidy = (msg) =>
+  String(msg)
+    // Kane's own generated failure text occasionally loses a space when it
+    // quotes the objective back ("andevery", "arefully"). Repair those two
+    // joins so the spec reads cleanly in the prompt.
+    .replace(/\bandevery\b/g, "and every")
+    .replace(/\barefully\b/g, "are fully");
+
 for (const f of failed) {
   L.push(`--- FAILING FLOW: ${f.id} (exit ${f.exitCode}, ${f.steps} steps) ---`);
-  const fs2 = f.failures || [];
+  const all = (f.failures || []).map((x) => ({
+    ...x,
+    message: tidy(x.message || "(no message)"),
+  }));
+  const real = all.filter((x) => x.message !== "(no message)");
+  const fs2 = real.length ? real : all;
   if (fs2.length) for (const x of fs2) L.push(`  * ${x.status || x.type}: ${x.message}`);
   else L.push("  * Kane reported the flow as failed without a detailed message.");
   L.push("");
