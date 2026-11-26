@@ -1,15 +1,12 @@
-# Kane Court — Post-Audit & Fix Review Report
+# Engineering log — defects found and fixed
 
-> **Prepared For**: AI Agent / Developer Code Review  
-> **Project**: [Kane Court]()  
-> **Repository Context**: Adversarial Closed-Loop QA Harness using TestMu AI Kane CLI & Google Antigravity  
-> **Date**: November 2026  
-
----
+Seven defects were found during hardening of the closed loop and fixed before
+the first public round. Each one is listed with what broke, why, and the exact
+code change. The table of contents in the section headers below is unchanged.
 
 ## 1. Executive Summary
 
-This audit reviewed the entire Kane Court codebase to eliminate fragile workarounds, resolve platform incompatibilities (especially on Windows), fix test spec pollution on external targets, and ensure the closed-loop gate functions autonomously.
+The codebase was hardened end to end to eliminate fragile workarounds, resolve platform incompatibilities (especially on Windows), fix test spec pollution on external targets, and ensure the closed-loop gate functions autonomously.
 
 All 7 core defects have been repaired and verified against the real Kane CLI runtime (`kane-cli 0.10.5` on Node `v24.18.1`). The integrity lock is green with **0 drift**, the replay runner executes with **zero credit consumption**, and the Stop gate cleanly outputs `allow`.
 
@@ -124,7 +121,7 @@ curl http://localhost:3000/v/atlas
 
 ---
 
-## 5. Review Checklist for the Reviewing Agent
+## 5. Checklist
 
 - [x] **No hardcoded target overrides**: Arbitrary external URLs use generic personas from [lib/personas.json](lib/personas.json).
 - [x] **Cross-platform child process execution**: Node subprocess calls handle `.cmd` extensions and Git bash locations cleanly on Windows, Linux, and macOS.

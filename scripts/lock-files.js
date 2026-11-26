@@ -62,10 +62,6 @@ const isLocked = (rel) => {
   // make an npm-installed court fail its own integrity check with REMOVED
   // drift. Same reasoning as package-lock.json above.
   if (p === ".gitignore") return false;
-  // The handoff note is a living log that every agent appends to, so it is
-  // deliberately excluded - locking it would make the next agent's update
-  // look like drift and block publication.
-  if (p === "docs/COPILOT_HANDOFF.md") return false;
   if (/^targets\/[^/]+\/index\.html$/.test(p)) return false; // the app is mutable
   return true;
 };
