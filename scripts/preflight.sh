@@ -88,6 +88,105 @@ else
 fi
 
 echo
+echo "== 7. Is the court serving THIS repo? =="
+# Resolve the process actually LISTENING on $PORT, not just any node process
+# named server.js. Two checkouts running at once is exactly how you end up
+# judging a page you never edited.
+# ALL pids listening on the port. A port can be served by more than one
+# process (a socat/tunnel proxy in front of the node server), so take them
+# all and let the cwd check decide.
+SERVER_PIDS_BY_PORT="$(ss -lptnH "sport = :$PORT" 2>/dev/null | grep -oE 'pid=[0-9]+' | cut -d= -f2 | sort -u | tr '\n' ' ')"
+SERVER_PID_BY_PORT="$(printf '%s' "$SERVER_PIDS_BY_PORT" | awk '{print $1}')"
+SERVER_CWD="$(node -e '
+const fs=require("fs");
+const {execSync}=require("child_process");
+const pids=[];
+const byPort=(process.argv[1]||"").split(/\s+/).filter(Boolean);
+for(const p of byPort) if(fs.existsSync("/proc/"+p)) pids.push(p);
+if(!pids.length){
+  try{
+    const p=fs.readFileSync(".loop/server.pid","utf8").trim();
+    if(p && fs.existsSync("/proc/"+p)) pids.push(p);
+  }catch(e){}
+  try{
+    execSync("pgrep -f \"node server.js\"",{stdio:["ignore","pipe","ignore"]})
+      .toString().split(/\s+/).filter(Boolean).forEach(p=>{ if(!pids.includes(p)) pids.push(p); });
+  }catch(e){}
+}
+for(const pid of pids){
+  try{
+    // /proc/<pid>/cwd is a symlink, not a file: readlinkSync, not readFileSync.
+    console.log(fs.readlinkSync("/proc/"+pid+"/cwd"));
+    break;
+  }catch(e){}
+}
+' "$SERVER_PIDS_BY_PORT" 2>/dev/null | sed -e 's/\x1b\[[0-9;]*m//g' | tr -d '\r' | head -1)"
+REPO_DIR="$(pwd -P)"
+MATCH_CWD=""
+for PID in $SERVER_PIDS_BY_PORT; do
+  CWD_RAW="$(readlink "/proc/$PID/cwd" 2>/dev/null)"
+  if [[ -n "$CWD_RAW" ]]; then
+    CWD_ABS="$(cd "$CWD_RAW" 2>/dev/null && pwd -P)"
+    if [[ "$CWD_ABS" == "$REPO_DIR" ]]; then MATCH_CWD="$PID"; break; fi
+  fi
+done
+if [[ -n "$MATCH_CWD" ]]; then
+  ok "the server listening on port $PORT (pid $MATCH_CWD) is serving THIS repo"
+elif [[ -n "$SERVER_PIDS_BY_PORT" ]]; then
+  bad "nothing on port $PORT is serving this repo"
+  for PID in $SERVER_PIDS_BY_PORT; do
+    echo "        pid $PID runs from: $(readlink "/proc/$PID/cwd" 2>/dev/null || echo unknown)"
+  done
+  echo "        it is serving a DIFFERENT copy of the app - stop it and run: npm start"
+else
+  warn "cannot determine the server directory (nothing listening on port $PORT)"
+fi
+echo
+echo "  live check - does the served page match the file on disk?"
+node -e '
+const http=require("http"); const fs=require("fs");
+const port=process.argv[1], idx=process.argv[2];
+http.get("http://localhost:"+port+"/t/atlas",r=>{
+  let b=""; r.on("data",d=>b+=d); r.on("end",()=>{
+    const disk=fs.readFileSync(idx,"utf8");
+    // The court injects its stylesheet link before </head>. Strip whatever
+    // was injected so we compare the two documents on their real content.
+    const norm=s=>s.replace(/\r\n/g,"\n")
+      .replace(/<link[^>]*rel="stylesheet"[^>]*>/g,"")
+      .replace(/<\/head>/,"")
+      .trim();
+    if(norm(disk)===norm(b)) console.log("    \u2713 served page == file on disk");
+    else {
+      console.log("    \u2717 MISMATCH - the judge would see a different page than the file you edited");
+      const a=norm(disk), c=norm(b);
+      let i=0; while(i<a.length && i<c.length && a[i]===c[i]) i++;
+      console.log("      first difference at char "+i);
+      console.log("      on disk:  "+JSON.stringify(a.slice(i,i+90)));
+      console.log("      served:   "+JSON.stringify(c.slice(i,i+90)));
+    }
+  });
+}).on("error",e=>console.log("    (court not reachable: "+e.message+")"));
+' "$PORT" "targets/$TARGET/index.html" 2>/dev/null
+echo
+echo "== 8. Queue worker (can spend Kane credits mid-take) =="
+PENDING=$(node -e '
+const fs=require("fs");
+try{
+  const q=JSON.parse(fs.readFileSync("data/queue.json","utf8"));
+  const n=q.filter(x=>!x.finishedAt && ["queued","pending","running"].includes(String(x.status||""))).length;
+  console.log(n);
+}catch(e){console.log(0)}
+' 2>/dev/null | sed -e 's/\x1b\[[0-9;]*m//g' | tr -d '\r' | head -1)
+PENDING="$(printf '%s' "$PENDING" | tr -cd '0-9')"
+if [[ "${PENDING:-0}" -gt 0 ]]; then
+  bad "$PENDING queued target(s) will spend Kane credits while you record"
+  echo "        the worker judges real websites. Clear data/queue.json, or start with QUEUE_WORKER=0 npm start"
+elif pgrep -f "queue-worker.js" >/dev/null 2>&1; then
+  ok "queue worker running but no pending targets - it will not spend credits"
+else
+  ok "no queue worker running"
+fi
+echo
 if [[ $FAIL -eq 0 ]]; then
   echo "  ALL CHECKS PASSED - you are ready to record."
 else
