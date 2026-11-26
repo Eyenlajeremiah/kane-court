@@ -62,7 +62,6 @@ npm install && npm start   # court on :3000
 Two public posts live (X + LinkedIn), two more planned (Reddit, Hacker News):
 
 - X — https://x.com/Miah_io/status/2125391879378444640  (LIVE)
-- X — <X_URL>
 - Reddit — <REDDIT_URL>  (pending)
 - LinkedIn — https://www.linkedin.com/posts/jeremiah-eyenla_kaneclihackathon-kanecli-aiagents-share-7531783603425456128-tFkz/  (LIVE)
 
