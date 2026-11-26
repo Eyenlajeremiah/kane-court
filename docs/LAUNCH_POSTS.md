@@ -1,98 +1,130 @@
-# Launch posts
+# Launch posts — Kane Court
 
-The rules ask for at least **two public posts**. Aim for four, staggered. Post the
-verdict link, not a screenshot of a screenshot.
+Repo: https://github.com/Eyenlajeremiah/kane-court
+Video: <VIDEO_URL>
+Live: <LIVE_URL>
 
----
-
-## Post 1 — Hacker News (post the demo + repo)
-
-**Title:** Show HN: Kane Court — an AI agent that can't finish until a browser agent says it's green
-
-> I built a small thing for the Kane CLI hackathon and I think the idea is
-> stranger than the code.
-
-> Most "AI + AI testing" demos run the test once, at the end, and print a green
-> tick. That tick proves very little.
-
-> Kane Court inverts it. The coding agent is the prosecutor. Kane CLI — a
-> vision-based agent that drives a real Chrome — is the judge. It rules against
-> the app on five adversarial personas: the impatient newcomer, the skeptical
-> reader, the mobile user, the form filler, the promise checker.
-
-> When Kane returns a failure, the failure is written to a file and the coding
-> agent is re-prompted with exactly that failure. It fixes the app. Kane re-runs.
-> A verdict is published only when the final round is green — and the green is
-> Kane's, not mine. There's a Stop hook too, so the agent literally cannot end
-> its turn while the judge is red.
-
-> The demo target has four deliberate bugs. Watch it get caught, fixed, and
-> re-verified.
-
-> Repo (built with Antigravity): https://github.com/Eyenlajeremiah/kane-court
-> Demo video: <VIDEO_URL>
+Post at least TWO of these on different platforms. Required tags on LinkedIn:
+`#KaneCLIHackathon #KaneCLI #AIAgents` and tag the TestMu AI page.
 
 ---
 
-## Post 2 — X (the quotable one)
+## 1. X (primary — post first)
 
-> An AI agent wrote a landing page. It looked perfect.
->
-> A browser agent clicked the button. Nothing happened.
+An AI coding agent can tell you its work is done. Kane CLI is what checks.
 
-> So we made it a court: the agent is the prosecutor, the browser is the judge,
-> and a verdict only prints when the judge says green.
+Kane Court puts an adversarial QA court in the loop:
 
-> Built for the Kane CLI hackathon.
->
-> <VIDEO_URL> | https://github.com/Eyenlajeremiah/kane-court
+  agent builds -> Kane tests -> Kane fails -> agent is re-prompted with the
+  exact failure -> agent fixes the code -> Kane re-runs -> green -> published
 
----
+The part that matters: a verdict is published ONLY after a green re-run. No
+green light without Kane's own signature. The agent cannot mark its own
+homework, and it cannot weaken a spec to force a pass — every harness file is
+pinned by SHA-256, so the thing being judged is the thing you wrote.
 
-## Post 3 — Reddit (r/webdev or r/programming)
+Five personas judge your app on camera: the impatient newcomer, the skeptical
+reader, the mobile user at 375px, the form filler, the promise checker.
 
-> Built this for the Kane CLI hackathon: a QA court where the coding agent has
-> to earn a green verdict from a real browser agent.
->
-> The part I like: a Stop hook means the agent can't finish a task while the
-> browser agent is failing it. It gets re-entered with the failure and has to
-> fix the actual code. The verdict page only renders a green badge if the final
-> Kane run was genuinely green.
->
-> The demo target ships with four planted bugs (dead CTA, `undefined` in a table,
-> a form that submits silently, content that overflows on mobile) and you can
-> watch the loop catch and repair them.
->
-> Repo: https://github.com/Eyenlajeremiah/kane-court
-> Video: <VIDEO_URL>
->
-> Feedback welcome — especially on the persona objectives. I'm opinionated that
-> the agent must not be allowed to weaken an assertion to force a pass.
+Built with Antigravity, verified with Kane CLI (TestMu AI).
+
+<VIDEO_URL>
+
+#KaneCLIHackathon #KaneCLI #AIAgents
 
 ---
 
-## Post 4 — LinkedIn (professional angle)
+## 2. LinkedIn (tag the TestMu AI page)
 
-> How do you know an AI-built feature actually works? You don't — until something
-> other than the AI tries to use it.
->
-> For the Kane CLI hackathon I built Kane Court: a QA court where the coding agent
-> is the prosecutor, Kane CLI (a vision-based agent that drives a real Chrome) is
-> the judge, and adversarial personas — the impatient newcomer, the skeptical
-> reader, the mobile user — rule against what was built.
->
-> The interesting part isn't the testing. It's the closed loop: a failure is fed
-> back to the agent as a re-prompt, the agent repairs the code, and a verdict is
-> published only when the browser agent confirms green.
->
-> Repo: https://github.com/Eyenlajeremiah/kane-court
-> Demo: <VIDEO_URL>
+Your AI agent will confidently tell you the build is done.
+
+Kane Court is what actually checks.
+
+I built an adversarial QA court where the AI coding agent is the prosecutor
+and Kane CLI (TestMu AI) is the judge — a vision-based E2E agent that drives
+a real Chrome browser and rules against the app on five adversarial personas:
+the impatient newcomer, the skeptical reader, the mobile user at 375px, the
+form filler, and the promise checker.
+
+The loop:
+
+  agent builds -> Kane tests -> Kane fails -> agent is re-prompted with the
+  exact failure -> agent fixes the code -> Kane re-runs -> green -> published
+
+A verdict is published only when the final round is genuinely green. The agent
+cannot mark its own homework, and it cannot weaken a test to force a pass —
+every harness and spec file is pinned by SHA-256 in an integrity manifest, so
+the thing being judged is the thing that was actually written.
+
+The best demo is a failing run, not a passing one. So the video shows the
+failure, the agent reading it, and the green re-run.
+
+Repo: https://github.com/Eyenlajeremiah/kane-court
+Demo: <VIDEO_URL>
+
+Built with Google Antigravity, verified with Kane CLI (TestMu AI).
+
+#KaneCLIHackathon #KaneCLI #AIAgents
 
 ---
 
-## Posting notes
+## 3. Reddit (r/SideProject, r/AI_Agents, r/webdev)
 
-- Replace `https://github.com/Eyenlajeremiah/kane-court` and `<VIDEO_URL>` everywhere before posting.
-- Post HN and Reddit after the video is confirmed unlisted-and-working in incognito.
-- Reply to every comment in the first hour — engagement earns brownie points.
-- Do not mention the prize amount; do not tag TestMu unless they asked you to.
+Title: I built a court where an AI coding agent has to earn a green light
+
+Body:
+
+Kane Court is an adversarial QA harness. The AI coding agent is the
+prosecutor; Kane CLI (from TestMu AI) is the judge — a vision-based E2E agent
+that drives a real Chrome browser and rules against your app on five
+personas: impatient newcomer, skeptical reader, mobile user at 375px, form
+filler, promise checker.
+
+The loop runs on every change:
+
+  agent builds -> Kane tests -> Kane fails -> agent gets re-prompted with the
+  exact failure -> agent fixes the code -> Kane re-runs -> green -> published
+
+Two rules make the green mean something:
+1. A verdict is published only after a green re-run.
+2. The agent cannot weaken a test to force a pass — the harness and the
+   persona specs are pinned by SHA-256, so it has to fix the app, not the
+   assertion.
+
+The committed persona flows also replay for free, so a judge with zero credits
+can still run it end to end.
+
+Repo (built with Google Antigravity): https://github.com/Eyenlajeremiah/kane-court
+Demo: <VIDEO_URL>
+
+Feedback welcome — especially on the closed-loop wiring.
+
+---
+
+## 4. Hacker News (post last, HN can be brutal)
+
+Title: Show HN: Kane Court — an adversarial QA harness where your AI agent has to earn a green light
+
+Body:
+
+Most "the AI fixed it" demos show you the passing run. That's the least
+interesting part.
+
+Kane Court is a closed-loop QA harness: an AI coding agent is the prosecutor,
+Kane CLI (TestMu AI) is the judge — a vision-based E2E agent that drives a
+real Chrome browser and rules against the app on five adversarial personas.
+
+When a persona flow fails, the agent gets re-prompted with the exact failure
+and has to fix the app. Only a green re-run publishes a verdict.
+
+The part I cared about most: the agent cannot mark its own homework. The
+persona objectives are the spec, and every harness and spec file is pinned by
+SHA-256 in an integrity manifest — so weakening an assertion to force a pass
+gets you a lock violation, not a green badge.
+
+The demo video shows the failure, the agent reading it, and the green re-run.
+
+The committed persona flows replay for free, so it runs without Kane credits.
+
+Built with Google Antigravity. Repo: https://github.com/Eyenlajeremiah/kane-court
+Video: <VIDEO_URL>

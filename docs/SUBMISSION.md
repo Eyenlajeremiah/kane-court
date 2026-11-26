@@ -22,7 +22,7 @@ Do these five things in order. Nothing else. Do not build anything new.
 
 Deadline: 26 Nov, 19:29 WAT. You have time. Submit as early as you can.
 
-Form: <https://www.surveymonkey.com/r/kane-cli-hackathon-submission>
+Form: <https://www.kaneclihack.sh/o/submit>
 
 ## 1. GitHub URL
 
