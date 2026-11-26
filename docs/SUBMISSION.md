@@ -17,7 +17,7 @@ Do these five things in order. Nothing else. Do not build anything new.
 - [ ] 3. **Record the demo video** (1-2 hrs) - see `docs/RECORDING_GUIDE.md`
       Upload as UNLISTED. Test the link in an incognito window.
 - [ ] 4. **Post twice** (30 min) - see `docs/LAUNCH_POSTS.md`
-      Replace `https://github.com/Eyenlajeremiah/kane-court` and `<VIDEO_URL>` first.
+      Replace `https://github.com/Eyenlajeremiah/kane-court` and `https://www.youtube.com/watch?v=g1sLt9zbD80` first.
 - [ ] 5. **Submit the form** (20 min) - use the text in section 2 below.
 
 Deadline: 26 Nov, 19:29 WAT. You have time. Submit as early as you can.
@@ -46,12 +46,12 @@ Form: <https://www.kaneclihack.sh/o/submit>
 
 ## 3. Demo video
 
-`<VIDEO_URL>` — YouTube **Unlisted** (not Private), 3-5 minutes, shows the app working
+`https://www.youtube.com/watch?v=g1sLt9zbD80` — YouTube **Unlisted** (not Private), 3-5 minutes, shows the app working
 and Kane running. Test the link in an incognito window.
 
 ## 4. Live URL
 
-`<LIVE_URL>` — or the runnable command, which must work in under 30 seconds:
+`http://localhost:3000` — or the runnable command, which must work in under 30 seconds:
 
 ```bash
 npm install && npm start   # court on :3000

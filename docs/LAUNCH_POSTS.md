@@ -1,8 +1,8 @@
 # Launch posts — Kane Court
 
 Repo: https://github.com/Eyenlajeremiah/kane-court
-Video: <VIDEO_URL>
-Live: <LIVE_URL>
+Video: https://www.youtube.com/watch?v=g1sLt9zbD80
+Live: http://localhost:3000
 
 Post at least TWO of these on different platforms. Required tags on LinkedIn:
 `#KaneCLIHackathon #KaneCLI #AIAgents` and tag the TestMu AI page.
@@ -28,7 +28,7 @@ reader, the mobile user at 375px, the form filler, the promise checker.
 
 Built with Antigravity, verified with Kane CLI (TestMu AI).
 
-<VIDEO_URL>
+https://www.youtube.com/watch?v=g1sLt9zbD80
 
 #KaneCLIHackathon #KaneCLI #AIAgents
 
@@ -60,7 +60,7 @@ The best demo is a failing run, not a passing one. So the video shows the
 failure, the agent reading it, and the green re-run.
 
 Repo: https://github.com/Eyenlajeremiah/kane-court
-Demo: <VIDEO_URL>
+Demo: https://www.youtube.com/watch?v=g1sLt9zbD80
 
 Built with Google Antigravity, verified with Kane CLI (TestMu AI).
 
@@ -95,7 +95,7 @@ The committed persona flows also replay for free, so a judge with zero credits
 can still run it end to end.
 
 Repo (built with Google Antigravity): https://github.com/Eyenlajeremiah/kane-court
-Demo: <VIDEO_URL>
+Demo: https://www.youtube.com/watch?v=g1sLt9zbD80
 
 Feedback welcome — especially on the closed-loop wiring.
 
@@ -127,4 +127,4 @@ The demo video shows the failure, the agent reading it, and the green re-run.
 The committed persona flows replay for free, so it runs without Kane credits.
 
 Built with Google Antigravity. Repo: https://github.com/Eyenlajeremiah/kane-court
-Video: <VIDEO_URL>
+Video: https://www.youtube.com/watch?v=g1sLt9zbD80
