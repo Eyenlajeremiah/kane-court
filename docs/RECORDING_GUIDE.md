@@ -1,129 +1,253 @@
-# Recording guide — what to do and what to say
+# Recording guide — robust narration
 
-Everything here is a NEW file, so it does not touch the integrity lock.
+Total runtime: **4 to 6 minutes**, including the waiting. The waiting is fine.
+Judges are not watching for pace, they are watching for proof.
 
-Read the "SAY" lines out loud, roughly. Don't memorise them. The point is that
-you sound like you know what you built, not that you hit a word count.
+**The rule that saves you: never sit in silence.** Every wait gets a line of
+narration over it. If Kane is taking four minutes to judge five personas, that
+is four minutes where you explain what is happening. Silence reads as a broken
+recording; narration over a wait reads as competence.
 
-Total runtime: about 4 minutes.
+You do not need to memorise any of this. Read it once, then talk like yourself
+about the same ideas.
 
 ---
 
 ## Before you press record
 
-1. Open these in separate windows, all visible:
-   - Terminal A - the harness (big font, full screen)
-   - Terminal B - the server, running `node server.js`, left alone
-   - Editor - `targets/atlas/index.html`, `scripts/kane-gate.sh`, `.agents/hooks.json`
-   - Browser - `http://localhost:3000`
-2. Terminal A, run `bash scripts/reset-demo.sh`. Confirm it prints
-   `atlas reset to buggy state`. Leave the server in Terminal B running.
-3. Start recording, then run `bash scripts/loop.sh atlas` in Terminal A.
-   It takes 10-12 minutes. Speed it up in the edit, or film it in two pieces:
-   the red round now, and the green re-run separately with `bash scripts/run-case.sh atlas 2`.
-4. No face, no name, no account balances. Upload as **Unlisted**, not Private.
-   Test the link in an incognito window before you submit.
+```
+git fetch origin && git reset --hard origin/main
+```
+```
+npm install
+```
+```
+npm start
+```
+```
+kane-cli login --oauth
+```
+```
+bash scripts/preflight.sh atlas
+```
+
+**Do not start recording until preflight says ALL CHECKS PASSED.** It checks
+the server, the lock, the Kane login, the recordings, free disk space, and
+that the target is in its broken state. Two of yesterday's failures would have
+been caught here.
+
+**Free up disk space first.** Yesterday your recorder crashed and left a
+corrupt file. That is almost always a full disk. Make sure you have at least
+10 GB free, and record to a local disk, not a network drive.
+
+**Open these windows before you record, all visible:**
+- Terminal A — the harness, large font, full screen
+- Terminal B — left alone, do not type in it
+- Editor — `targets/atlas/index.html`, `.agents/hooks.json`
+- Browser — `http://localhost:3000`
+
+**One critical rule for the agent:** you must stay in the SAME terminal for the
+whole round. Yesterday you switched terminals, so the agent's edits went to a
+different working copy and round 2 judged an unfixed page. Do not switch. Do
+not open a second terminal. If the agent asks you something, answer it in that
+same terminal.
 
 ---
 
-## 0:00 - Cold open (terminal, no intro, no logo)
+## 0:00 — Cold open (browser, the page looks fine)
 
-Run `bash scripts/loop.sh atlas`. Kane starts against the broken page.
+Browser: `http://localhost:3000/t/atlas`
 
-**SAY:**
+> "This is a landing page for a venture capital firm. Scroll it, read it,
+> click the button. Everything looks finished. It is not.
+>
+> What you are watching is an adversarial QA court. It puts an app on trial
+> against five AI personas, and it only publishes a verdict the judge actually
+> signed off on."
 
-> This is a landing page. It looks finished. It is not.
+**Then switch to Terminal A** and run:
 
-Then, as the failures come in, read one of them out loud, verbatim:
+```
+bash scripts/reset-demo.sh atlas
+```
 
-> The judge says the primary button does nothing when you click it. And there is
-> the word "undefined" sitting in the table. And the page is nine hundred and
-> sixty pixels wide, so on a phone the button is off the screen.
-
----
-
-## 0:40 - The re-prompt (editor, `.loop/pending-prompt.md`)
-
-Show the file. Let the camera read it.
-
-**SAY:**
-
-> This file is the whole idea. The agent never sees the app. It sees only what
-> the judge found, written down like this. It is re-entered with exactly these
-> failures and nothing else.
+> "The page ships deliberately broken. Four planted defects: a button that does
+> nothing, placeholder copy with the word 'undefined' in the table, a
+> newsletter form that submits silently, and a table nine hundred and sixty
+> pixels wide, so on a phone the button is off screen."
 
 ---
 
-## 1:10 - The fix (editor, the agent working)
+## 0:40 — The trial begins (terminal, live)
 
-Show the agent opening `targets/atlas/index.html` and changing the code. Let the
-keystrokes be visible. No voiceover over the typing.
+```
+bash scripts/run-case.sh atlas 1
+```
 
-**SAY (before or after, not during):**
+**This takes 3-6 minutes. Narrate through it. Do not go silent.**
 
-> It only gets to change the application. The judge and the rules are locked.
+> "Now the judge starts. This is not a script reading a page. Kane CLI drives a
+> real Chrome browser with a real vision model. It has to actually look at
+> what is on screen and decide.
+>
+> There are five personas. The newcomer just wants the button to work. The
+> skeptic hunts for placeholder text. The mobile persona opens it at eight
+> hundred pixels wide. The saver tries to subscribe. The promised persona
+> checks that the headline is telling the truth."
 
----
+**As the red lines appear, read one out loud, verbatim:**
 
-## 2:00 - The re-run (terminal)
+> "There it is. The skeptic caught 'undefined' in the table. The newcomer says
+> the button produced no visible change. The mobile persona says the page
+> scrolls sideways. Three real failures, three different ways of being wrong."
 
-**SAY:**
+**If there is a quiet gap while the last persona runs:**
 
-> Same judge, same rules, no human in between. If the fix was cosmetic, this
-> is where it shows up.
-
-Let the three pass lines land on screen. Do not talk over them.
-
----
-
-## 2:45 - The verdict (browser, `/v/atlas`)
-
-Show the green badge and the per-flow table.
-
-**SAY:**
-
-> That badge is not something I typed. There is no code path that writes "green"
-> unless the last run was actually green. The harness refuses to publish
-> otherwise - and it did refuse, earlier, when the server was down. It published
-> a red verdict instead.
-
-*(That last line is optional, but it is the strongest sentence in the whole video.
-Keep it only if you have the take.)*
+> "And that is the fifth one still running. This is the part people usually
+> cut out of the demo, but it is the whole point. It is not a test suite
+> asserting on a mock. It is a browser, a model, and real time."
 
 ---
 
-## 3:15 - The point (editor, `scripts/kane-gate.sh` + `.agents/hooks.json`)
+## 2:00 — What the agent actually receives (terminal)
 
-**SAY:**
+```
+node scripts/build-prompt.js atlas 1
+```
 
-> This is the gate. While the judge is red, the agent is not allowed to finish
-> its turn. It gets pulled back in with the failure until the app genuinely
-> works. And these files are locked by hash - the agent cannot weaken the rules
-> it is being judged against. If it touches them, the verdict is refused.
+> "Here is the entire input the coding agent gets. It never sees the app. It
+> never sees the screenshot. It sees this — the exact failure the judge found,
+> written down. Not 'fix the bugs.' The precise thing that is wrong.
+>
+> And notice what it is told: the objectives are the specification. Do not
+> weaken the test, fix the code."
+
+**If there is a pause before the agent starts:**
+
+> "The agent is reading that now. It has a choice. It could edit the test to
+> make it pass, which would be cheating, or it could fix the page. The
+> harness makes that choice expensive — the rules are locked by hash, and if
+> the agent touches them, the verdict is refused outright."
 
 ---
 
-## 3:45 - The court itself (browser, home page)
+## 2:20 — The fix (editor, live)
 
-Show the docket, a couple of targets, the submit form.
+Show the agent editing `targets/atlas/index.html`. Let the edits be visible.
 
-**SAY:**
+> "Here it is fixing the actual page. The button gets a real handler. The
+> placeholder text gets replaced with real companies. The form gets a
+> confirmation. The fixed-width table becomes a responsive grid."
 
-> And any app can be put on trial. Real browser, real failures, public verdict.
+**If the agent is slow or you need to talk while it works:**
+
+> "This is the part that is genuinely hard to fake. I am not going to cut to a
+> finished page. What you are watching is the agent reading a failure and
+> writing the fix that satisfies it."
+
+**If the agent asks you a question, answer it on camera.** That is not a
+mistake, it is a feature. Say something like:
+
+> "It is asking me whether it should change the test or the app. The answer
+> is in the prompt: the app."
+
+---
+
+## 3:30 — The re-run, live (terminal)
+
+```
+bash scripts/run-case.sh atlas 2
+```
+
+> "Same judge, same five personas, same page URL. Only the code changed. If
+> the fix was cosmetic, this is where it shows up."
+
+**Let the pass lines land. Do not talk over them.**
+
+```
+[atlas][newcomer] pass=true exit=0
+[atlas][skeptic]  pass=true exit=0
+[atlas][mobile]   pass=true exit=0
+[atlas][saver]    pass=true exit=0
+[atlas][promised] pass=true exit=0
+```
+
+> "Five green. And it is green because the judge said so, not because
+> anything was written by hand."
+
+**If you are not sure it went green, say that. It builds trust:**
+
+> "If it comes back red, I re-prompt the agent and go round again. The court
+> does not let a red round publish."
+
+---
+
+## 4:00 — The verdict (browser)
+
+```
+node scripts/publish.js atlas 2
+```
+
+Then browser: `http://localhost:3000/v/atlas`
+
+> "That badge is not something I typed. There is no code path in this harness
+> that writes 'green' unless the last run was actually green. The publish
+> step refuses otherwise. We saw it refuse — earlier in this build, it
+> published a red verdict instead, honestly labelled, because the server was
+> down when the judge ran."
+
+---
+
+## 4:20 — The point (editor)
+
+Show `.agents/hooks.json` and `scripts/kane-gate.sh`.
+
+> "This is a Stop hook. While the judge is red, the agent is not allowed to
+> finish its turn. It gets pulled back in with the failure until the app
+> genuinely works.
+>
+> And these files — the gate, the personas, the harness — are locked by
+> hash. The agent cannot weaken the rules it is being judged against. If it
+> tries, the verdict is refused. That is what makes the green mean something."
+
+---
+
+## 4:45 — Close (browser, home page)
+
+> "Any app can be put on trial. Real browser, real model, real failures, and
+> a public verdict you can check. That is Kane Court."
 
 ---
 
 ## Shot list
 
-- Terminal, full screen, large font
-- `.loop/pending-prompt.md` in the editor
-- The agent's diff in `targets/atlas/index.html`
-- Terminal again for the green re-run
-- Browser for the verdict page
-- `scripts/kane-gate.sh` and `.agents/hooks.json` in the editor
+- Browser — the atlas page, then the verdict page
+- Terminal — full screen, large font
+- Editor — `targets/atlas/index.html` mid-edit, then `.agents/hooks.json`
+- Nothing else. No face, no slides, no logo.
 
 ## Rules
 
-- Unlisted, not Private. Test the link in an incognito window.
-- No face, no name, no balances.
+- Upload as **Unlisted**, not Private. Test the link in an incognito window.
+- No face, no name, no account balances.
 - Do not blur the terminal. The terminal is the evidence.
+- Keep waiting on camera but narrated. Silence is what made yesterday's
+  footage unusable.
+- If a take goes wrong, do not restart the whole thing. The pieces are
+  independent: red round, fix, green round, verdict. Re-record one piece.
+
+## If something breaks mid-take
+
+Do not panic and do not delete the footage. Say it out loud:
+
+> "That just failed. Let me show you what it says."
+
+Then run:
+
+```
+bash scripts/diagnose-round.sh atlas 2
+```
+
+Showing a real failure and how you diagnose it is the most convincing thing
+in the entire video. A video where nothing ever breaks is a video nobody
+believes.
